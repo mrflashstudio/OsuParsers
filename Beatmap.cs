@@ -16,7 +16,6 @@ namespace OsuBeatmapParser
         public MetadataSection MetadataSection { get; private set; }
         public DifficultySection DifficultySection { get; private set; }
 
-        //TODO: make this not "settable"
         public List<Color> Colours { get; private set; } = new List<Color>();
         public List<TimingPoint> TimingPoints { get; private set; } = new List<TimingPoint>();
         public List<HitObject> HitObjects { get; private set; } = new List<HitObject>();

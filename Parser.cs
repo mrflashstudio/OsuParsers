@@ -99,13 +99,13 @@ namespace OsuBeatmapParser
                     Beatmap.GeneralSection.Countdown = ParseHelper.ToBool(tokens[1].Trim());
                     break;
                 case "SampleSet":
-                    Beatmap.GeneralSection.SampleSet = (SampleSet)Enum.Parse(typeof(SampleSet), tokens[1].Trim()); //TODO: owo what's this?
+                    Beatmap.GeneralSection.SampleSet = (SampleSet)Enum.Parse(typeof(SampleSet), tokens[1].Trim());
                     break;
                 case "StackLeniency":
                     Beatmap.GeneralSection.StackLeniency = ParseHelper.ToFloat(tokens[1].Trim());
                     break;
                 case "Mode":
-                    Beatmap.GeneralSection.Mode = (Ruleset)Enum.Parse(typeof(Ruleset), tokens[1].Trim()); //TODO: owo what's this?
+                    Beatmap.GeneralSection.Mode = (Ruleset)Enum.Parse(typeof(Ruleset), tokens[1].Trim());
                     Beatmap.GeneralSection.ModeId = Convert.ToInt32(tokens[1].Trim());
                     break;
                 case "LetterboxInBreaks":
@@ -316,7 +316,7 @@ namespace OsuBeatmapParser
                     {
                         int repeats = Convert.ToInt32(tokens[6].Trim());
                         float pixelLength = ParseHelper.ToFloat(tokens[7].Trim());
-                        hitObject = new TaikoDrumroll(position, startTime, startTime, hitSound, (int)(repeats * pixelLength), isBig); //TODO: idk if that works
+                        hitObject = new TaikoDrumroll(position, startTime, startTime, hitSound, (int)(repeats * pixelLength), isBig);
                     }
                     else
                     {
