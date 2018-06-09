@@ -5,6 +5,8 @@ using OsuBeatmapParser.Objects.Mania;
 using OsuBeatmapParser.Objects.Standard;
 using OsuBeatmapParser.Objects.Taiko;
 using OsuBeatmapParser.Sections;
+using OsuBeatmapParser.Sections.Events;
+using OsuBeatmapParser.Sections.Events.Storyboard;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -209,6 +211,43 @@ namespace OsuBeatmapParser
         private void ParseEvents(string line)
         {
             //TODO: implement events parser
+
+            string[] tokens = line.Split(',');
+            switch (line.ToLower()[0])
+            {
+                case '0': //Background
+                    Beatmap.EventsSection.BackgroundImage = tokens[2].Trim('"');
+                    break;
+                case 'v': //Video
+                    Beatmap.EventsSection.Video = tokens[2].Trim('"');
+                    Beatmap.EventsSection.VideoOffset = Convert.ToInt32(tokens[1]);
+                    break;
+                case '2': //Break
+                    Beatmap.EventsSection.Breaks.Add(new BreakEvent(Convert.ToInt32(tokens[1]), Convert.ToInt32(tokens[2])));
+                    break;
+                case 's': //Sprite
+                    if (line.ToLower()[1] != 'a') //check if this is a sprite, not a sample
+                    {
+                        Beatmap.EventsSection.Storyboard.Objects.Add(new StoryboardSprite(
+                            (StoryboardLayer)Enum.Parse(typeof(StoryboardLayer), tokens[1]), 
+                            (StoryboardOrigin)Enum.Parse(typeof(StoryboardOrigin), tokens[2]),
+                            tokens[3].Trim('"'), new Point(Convert.ToInt32(tokens[4]), Convert.ToInt32(tokens[5]))));
+                    }
+                    else //Sample
+                    {
+                        Beatmap.EventsSection.Storyboard.Objects.Add(new StoryboardSample(Convert.ToInt32(tokens[1]),
+                            Convert.ToInt32(tokens[2]), tokens[3].Trim('"'), 
+                            tokens.Count() > 4 ? Convert.ToInt32(tokens[4]) : 100)); //check if we have a volume value here, if not, then we use the standard value (100)
+                    }
+                    break;
+                case 'a': //Animation
+                    Beatmap.EventsSection.Storyboard.Objects.Add(new StoryboardAnimation(
+                        (StoryboardLayer)Enum.Parse(typeof(StoryboardLayer), tokens[1]),
+                        (StoryboardOrigin)Enum.Parse(typeof(StoryboardOrigin), tokens[2]),
+                        tokens[3].Trim('"'), new Point(Convert.ToInt32(tokens[4]), Convert.ToInt32(tokens[5])),
+                        Convert.ToInt32(tokens[6]), Convert.ToInt32(tokens[7]), (LoopType)Enum.Parse(typeof(LoopType), tokens[8])));
+                    break;
+            }
         }
 
         private void ParseTimingPoints(string line)
@@ -276,7 +315,6 @@ namespace OsuBeatmapParser
 
                         //TODO: Parse additions
 
-                        //setting slider's endtime
                         //TODO: cleanup
                         var timingPoint = GetTimingPointFromOffset(startTime);
                         var parentTimingPoint = timingPoint;
