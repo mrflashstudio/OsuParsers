@@ -1,6 +1,7 @@
 using OsuBeatmapParser.Enums;
 using OsuBeatmapParser.Helpers;
 using OsuBeatmapParser.Objects;
+using OsuBeatmapParser.Objects.Catch;
 using OsuBeatmapParser.Objects.Mania;
 using OsuBeatmapParser.Objects.Standard;
 using OsuBeatmapParser.Objects.Taiko;
@@ -44,6 +45,18 @@ namespace OsuBeatmapParser
                         ParseLine(line);
                 }
             }
+
+            foreach (HitObject h in Beatmap.HitObjects)
+            {
+                if ((h is StandardHitCircle) || (h is TaikoHitCircle) || (h is ManiaSingle) || (h is CatchHitCircle))
+                    Beatmap.GeneralSection.CirclesCount++;
+                else if ((h is StandardSlider) || (h is TaikoDrumroll) || (h is ManiaHold) || (h is CatchSlider))
+                    Beatmap.GeneralSection.SlidersCount++;
+                else if ((h is StandardSpinner) || (h is TaikoSpinner) || (h is CatchSpinner))
+                    Beatmap.GeneralSection.SpinnersCount++;
+            }
+
+            Beatmap.GeneralSection.Length = Beatmap.HitObjects.Last().EndTime / 1000;
         }
 
         private void ParseLine(string line)
