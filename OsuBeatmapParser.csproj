@@ -29,6 +29,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>
+    </StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Beatmap.cs" />
     <Compile Include="Enums\CurveType.cs" />
+    <Compile Include="Enums\Easing.cs" />
     <Compile Include="Enums\HitSoundType.cs" />
     <Compile Include="Enums\LoopType.cs" />
     <Compile Include="Enums\Ruleset.cs" />
@@ -51,10 +56,10 @@
     <Compile Include="Enums\TaikoColor.cs" />
     <Compile Include="Helpers\MathHelper.cs" />
     <Compile Include="Helpers\ParseHelper.cs" />
-    <Compile Include="Objects\Fruits\Fruit.cs" />
-    <Compile Include="Objects\Fruits\FruitsBananas.cs" />
-    <Compile Include="Objects\Fruits\FruitsHitObject.cs" />
-    <Compile Include="Objects\Fruits\FruitsSlider.cs" />
+    <Compile Include="Objects\Catch\CatchHitCircle.cs" />
+    <Compile Include="Objects\Catch\CatchSpinner.cs" />
+    <Compile Include="Objects\Catch\CatchHitObject.cs" />
+    <Compile Include="Objects\Catch\CatchSlider.cs" />
     <Compile Include="Objects\HitObject.cs" />
     <Compile Include="Objects\Mania\ManiaHitObject.cs" />
     <Compile Include="Objects\Mania\ManiaHold.cs" />
