@@ -1,5 +1,4 @@
 using OsuBeatmapParser.Enums;
-using OsuBeatmapParser.Objects;
 using System;
 using System.Globalization;
 

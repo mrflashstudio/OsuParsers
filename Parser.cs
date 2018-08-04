@@ -6,14 +6,11 @@ using OsuBeatmapParser.Objects.Mania;
 using OsuBeatmapParser.Objects.Standard;
 using OsuBeatmapParser.Objects.Taiko;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OsuBeatmapParser
 {

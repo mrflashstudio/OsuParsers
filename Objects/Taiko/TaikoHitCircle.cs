@@ -1,6 +1,4 @@
 using OsuBeatmapParser.Enums;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 
 namespace OsuBeatmapParser.Objects.Taiko
