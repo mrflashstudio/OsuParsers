@@ -43,7 +43,6 @@
   <ItemGroup>
     <Compile Include="Beatmap.cs" />
     <Compile Include="Enums\CurveType.cs" />
-    <Compile Include="Enums\Easing.cs" />
     <Compile Include="Enums\HitSoundType.cs" />
     <Compile Include="Enums\LoopType.cs" />
     <Compile Include="Enums\Ruleset.cs" />
