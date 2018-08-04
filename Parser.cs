@@ -345,7 +345,11 @@ namespace OsuBeatmapParser
             if (Beatmap.TimingPoints.Count == 0)
                 return null;
 
-            for (int i = Beatmap.TimingPoints.Count; i-- > 0;)
+            //TODO: actually i don't know what to do when this shit happens so let's just use first timing point
+            if (offset < Beatmap.TimingPoints.First().Offset)
+                return Beatmap.TimingPoints.First();
+
+            for (int i = Beatmap.TimingPoints.Count - 1; i >= 0; i--)
             {
                 if (Beatmap.TimingPoints[i].Offset <= offset)
                     return Beatmap.TimingPoints[i];
