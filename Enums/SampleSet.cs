@@ -4,6 +4,7 @@ namespace OsuBeatmapParser.Enums
     {
         None,
         Normal,
-        Soft
+        Soft,
+        Drum
     }
 }

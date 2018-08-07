@@ -55,6 +55,7 @@
     <Compile Include="Enums\SampleSet.cs" />
     <Compile Include="Enums\Sections.cs" />
     <Compile Include="Enums\TaikoColor.cs" />
+    <Compile Include="Enums\TimeSignature.cs" />
     <Compile Include="Helpers\MathHelper.cs" />
     <Compile Include="Helpers\ParseHelper.cs" />
     <Compile Include="Objects\Catch\CatchHitCircle.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Objects\Taiko\TaikoSpinner.cs" />
     <Compile Include="Objects\TimingPoint.cs" />
     <Compile Include="Parser.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sections\DifficultySection.cs" />
     <Compile Include="Sections\EditorSection.cs" />

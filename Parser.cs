@@ -224,19 +224,44 @@ namespace OsuBeatmapParser
         {
             string[] tokens = line.Split(',');
 
-            TimingPoint timingPoint = new TimingPoint
-            {
-                Offset = Convert.ToInt32(ParseHelper.ToFloat(tokens[0])),
-                BeatLength = ParseHelper.ToFloat(tokens[1]),
-                Meter = Convert.ToInt32(tokens[2]),
-                SampleType = Convert.ToInt32(tokens[3]),
-                SampleSet = Convert.ToInt32(tokens[4]),
-                Volume = Convert.ToInt32(tokens[5]),
-                Inherited = ParseHelper.ToBool(tokens[6]),
-                KiaiMode = ParseHelper.ToBool(tokens[7]),
-            };
+            int offset = (int)ParseHelper.ToFloat(tokens[0]);
+            float beatLength = ParseHelper.ToFloat(tokens[1]);
+            TimeSignature timeSignature = TimeSignature.SimpleQuadruple;
+            SampleSet sampleSet = SampleSet.None;
+            int customSampleSet = 0;
+            int volume = 100;
+            bool inherited = true;
+            bool kiaiMode = false;
 
-            Beatmap.TimingPoints.Add(timingPoint);
+            if (tokens.Length >= 3)
+                timeSignature = (TimeSignature)Convert.ToInt32(tokens[2]);
+
+            if (tokens.Length >= 4)
+                sampleSet = (SampleSet)Convert.ToInt32(tokens[3]);
+
+            if (tokens.Length >= 5)
+                customSampleSet = Convert.ToInt32(tokens[4]);
+
+            if (tokens.Length >= 6)
+                volume = Convert.ToInt32(tokens[5]);
+
+            if (tokens.Length >= 7)
+                inherited = ParseHelper.ToBool(tokens[6]);
+
+            if (tokens.Length >= 8)
+                kiaiMode = ParseHelper.ToBool(tokens[7]);
+
+            Beatmap.TimingPoints.Add(new TimingPoint
+            {
+                Offset = offset,
+                BeatLength = beatLength,
+                TimeSignature = timeSignature,
+                SampleSet = sampleSet,
+                CustomSampleSet = customSampleSet,
+                Volume = volume,
+                Inherited = inherited,
+                KiaiMode = kiaiMode,
+            });
         }
 
         private void ParseColours(string line)
