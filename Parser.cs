@@ -21,9 +21,8 @@ namespace OsuBeatmapParser
         /// </summary>
         public Beatmap Beatmap { get; private set; }
         private Enums.Sections currentSection = Enums.Sections.None;
-
+        
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="path">Path to the .osu file.</param>
         public Parser(string path)
@@ -43,15 +42,9 @@ namespace OsuBeatmapParser
                 }
             }
 
-            foreach (HitObject h in Beatmap.HitObjects)
-            {
-                if ((h is StandardHitCircle) || (h is TaikoHitCircle) || (h is ManiaSingle) || (h is CatchHitCircle))
-                    Beatmap.GeneralSection.CirclesCount++;
-                else if ((h is StandardSlider) || (h is TaikoDrumroll) || (h is ManiaHold) || (h is CatchSlider))
-                    Beatmap.GeneralSection.SlidersCount++;
-                else if ((h is StandardSpinner) || (h is TaikoSpinner) || (h is CatchSpinner))
-                    Beatmap.GeneralSection.SpinnersCount++;
-            }
+            Beatmap.GeneralSection.CirclesCount = Beatmap.HitObjects.Count(c => c is StandardHitCircle || c is TaikoHitCircle || c is ManiaSingle || c is CatchHitCircle);
+            Beatmap.GeneralSection.SlidersCount = Beatmap.HitObjects.Count(c => c is StandardSlider || c is TaikoDrumroll || c is ManiaHold || c is CatchSlider);
+            Beatmap.GeneralSection.SpinnersCount = Beatmap.HitObjects.Count(c => c is StandardSpinner || c is TaikoSpinner || c is CatchSpinner);
 
             Beatmap.GeneralSection.Length = Beatmap.HitObjects.Last().EndTime / 1000;
         }
