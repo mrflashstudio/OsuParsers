@@ -2,9 +2,9 @@ namespace OsuBeatmapParser.Enums
 {
     public enum SampleSet
     {
-        None,
-        Normal,
-        Soft,
-        Drum
+        None = 0,
+        Normal = 1,
+        Soft = 2,
+        Drum = 3
     }
 }

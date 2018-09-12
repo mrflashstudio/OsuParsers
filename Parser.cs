@@ -270,20 +270,21 @@ namespace OsuBeatmapParser
 
             HitObject hitObject = null;
 
-            int objectType = Convert.ToInt32(tokens[3]);
+            HitObjectType type = (HitObjectType)int.Parse(tokens[3]) & ~HitObjectType.ColourHax;
+            bool isNewCombo = type.HasFlag(HitObjectType.NewCombo);
+            type &= ~HitObjectType.NewCombo;
             Point position = new Point(Convert.ToInt32(tokens[0]), Convert.ToInt32(tokens[1]));
             int startTime = Convert.ToInt32(tokens[2]);
-            int hitSound = Convert.ToInt32(tokens[4]);
-            bool isNewCombo = (objectType & 4) > 4;
+            HitSoundType hitSound = (HitSoundType)Convert.ToInt32(tokens[4]);
 
             switch (Beatmap.GeneralSection.Mode)
             {
                 case Ruleset.Standard:
-                    if ((objectType & 1) > 0)
+                    if (type.HasFlag(HitObjectType.Circle))
                     {
                         hitObject = new StandardHitCircle(position, startTime, startTime, hitSound, isNewCombo);
                     }
-                    else if ((objectType & 2) > 0)
+                    else if (type.HasFlag(HitObjectType.Slider))
                     {
                         CurveType curveType = ParseHelper.GetCurveType(tokens[5].Split('|')[0][0]);
 
@@ -318,10 +319,6 @@ namespace OsuBeatmapParser
                         int duration = (int)Math.Ceiling(beats * parentTimingPoint.BeatLength);
                         int endTime = startTime + duration;
 
-                        int maxCombo = (int)Math.Ceiling((beats - 0.01) / repeats * Beatmap.DifficultySection.SliderTickRate) - 1;
-                        maxCombo *= repeats;
-                        maxCombo += repeats + 1;
-
                         hitObject = new StandardSlider(position, startTime, endTime, hitSound, isNewCombo, curveType, sliderPoints, repeats, pixelLength);
                     }
                     else
@@ -331,13 +328,13 @@ namespace OsuBeatmapParser
                     }
                     break;
                 case Ruleset.Taiko:
-                    bool isBlue = (hitSound & 2) > 0 || (hitSound & 8) > 0;
+                    bool isBlue = hitSound.HasFlag(HitSoundType.Whistle) || hitSound.HasFlag(HitSoundType.Clap);
                     TaikoColor color = isBlue ? TaikoColor.Blue : TaikoColor.Red;
-                    bool isBig = (hitSound & 4) > 0;
+                    bool isBig = hitSound.HasFlag(HitSoundType.Finish);
 
-                    if ((objectType & 1) > 0)
+                    if (type.HasFlag(HitObjectType.Circle))
                         hitObject = new TaikoHitCircle(position, startTime, startTime, hitSound, color, isBig);
-                    else if ((objectType & 2) > 0)
+                    else if (type.HasFlag(HitObjectType.Slider))
                     {
                         int repeats = Convert.ToInt32(tokens[6].Trim());
                         float pixelLength = ParseHelper.ToFloat(tokens[7].Trim());
@@ -350,11 +347,54 @@ namespace OsuBeatmapParser
                     }
                     break;
                 case Ruleset.Fruits:
-                    //TODO: implement
+                    if (type.HasFlag(HitObjectType.Circle))
+                        hitObject = new CatchHitCircle(position, startTime, startTime, hitSound, isNewCombo);
+                    else if (type.HasFlag(HitObjectType.Slider))
+                    {
+                        CurveType curveType = ParseHelper.GetCurveType(tokens[5].Split('|')[0][0]);
+
+                        string[] hitSliderSegments = tokens[5].Split('|');
+                        List<Point> sliderPoints = new List<Point>();
+                        foreach (string hitSliderSegmentPosition in hitSliderSegments.Skip(1))
+                        {
+                            string[] positionTokens = hitSliderSegmentPosition.Split(':');
+                            if (positionTokens.Length == 2)
+                            {
+                                sliderPoints.Add(new Point((int)Convert.ToDouble(positionTokens[0], CultureInfo.InvariantCulture), (int)Convert.ToDouble(positionTokens[1], CultureInfo.InvariantCulture)));
+                            }
+                        }
+
+                        int repeats = Convert.ToInt32(tokens[6]);
+                        float pixelLength = ParseHelper.ToFloat(tokens[7]);
+
+                        var timingPoint = GetTimingPointFromOffset(startTime);
+                        var parentTimingPoint = timingPoint;
+                        double velocity = 1;
+
+                        if (timingPoint.BeatLength < 0)
+                        {
+                            velocity = Math.Abs(100 / timingPoint.BeatLength);
+                            parentTimingPoint = GetParentTimingPoint(timingPoint);
+                        }
+
+                        double pixelsPerBeat = Beatmap.DifficultySection.SliderMultiplier * 100 * velocity;
+                        double beats = pixelLength * repeats / pixelsPerBeat;
+                        int duration = (int)Math.Ceiling(beats * parentTimingPoint.BeatLength);
+                        int endTime = startTime + duration;
+
+                        //let's just hope that the endTime algorithm is same as osu!standard
+                        //TODO: test the endTime algorithm
+                        hitObject = new CatchSlider(position, startTime, endTime, hitSound, isNewCombo, curveType, sliderPoints, repeats, pixelLength);
+                    }
+                    else
+                    {
+                        int endTime = Convert.ToInt32(tokens[5].Trim());
+                        hitObject = new CatchSpinner(position, startTime, endTime, hitSound);
+                    }
                     break;
                 case Ruleset.Mania:
                     int collumn = MathHelper.CalculateCollumn(position.X, (int)Beatmap.DifficultySection.CircleSize);
-                    if ((objectType & 1) > 0)
+                    if (type.HasFlag(HitObjectType.Circle))
                         hitObject = new ManiaSingle(position, startTime, startTime, hitSound, collumn);
                     else
                     {

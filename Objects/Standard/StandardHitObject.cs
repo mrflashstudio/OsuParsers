@@ -1,3 +1,4 @@
+using OsuBeatmapParser.Enums;
 using System.Drawing;
 
 namespace OsuBeatmapParser.Objects.Standard
@@ -6,7 +7,7 @@ namespace OsuBeatmapParser.Objects.Standard
     {
         public bool IsNewCombo { get; }
 
-        public StandardHitObject(Point position, int startTime, int endTime, int hitSound, bool isNewCombo)
+        public StandardHitObject(Point position, int startTime, int endTime, HitSoundType hitSound, bool isNewCombo)
             : base(position, startTime, endTime, hitSound)
         {
             IsNewCombo = isNewCombo;

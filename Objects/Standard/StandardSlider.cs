@@ -14,7 +14,7 @@ namespace OsuBeatmapParser.Objects.Standard
         //public int EdgeHitSound { get; set; }
         //public List<int> EdgeAddition { get; set; }
 
-        public StandardSlider(Point position, int startTime, int endTime, int hitSound, bool isNewCombo, CurveType type,
+        public StandardSlider(Point position, int startTime, int endTime, HitSoundType hitSound, bool isNewCombo, CurveType type,
             List<Point> points, int repeats, float pixelLength) : base(position, startTime, endTime, hitSound, isNewCombo)
         {
             CurveType = type;

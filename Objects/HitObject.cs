@@ -1,3 +1,4 @@
+using OsuBeatmapParser.Enums;
 using System.Drawing;
 
 namespace OsuBeatmapParser.Objects
@@ -7,11 +8,11 @@ namespace OsuBeatmapParser.Objects
         public Point Position { get; }
         public int StartTime { get; }
         public int EndTime { get; }
-        public int HitSound { get; }
+        public HitSoundType HitSound { get; }
         //public List<int> Addition { get; set; } = new List<int>();
         public int MaxCombo { get; } = 1;
 
-        public HitObject(Point position, int startTime, int endTime, int hitSound)
+        public HitObject(Point position, int startTime, int endTime, HitSoundType hitSound)
         {
             Position = position;
             StartTime = startTime;
