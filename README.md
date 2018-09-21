@@ -88,8 +88,12 @@ namespace SomeNamespace
 | ManiaHitObject                             | Collumn     | int           | Collumn index of this HitObject.                 |
 
 # TODO list
+### High priority
+- TODOs cleanup in code.
+- Improvements and fixes.
 - Implement Additions parser.
 - Implement Events section parser.
+### Low priority
 - Implement .osb file format parser.
 - Implement .osr file format parser.
 - Implement .osu/.osb/.osr writer. (idk if that will be useful)
