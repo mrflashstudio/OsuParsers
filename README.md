@@ -20,7 +20,7 @@ NuGet package and releases are coming soon!™
 # Building and Requirements
 - You need a desktop platform that can compile .NET 4.5
 - Clone the repository `git clone https://github.com/mrflashstudio/OsuBeatmapParser`
-- And now you can build the project in your IDE.
+- And then you can build the project in your IDE.
 
 # Usage
 ```
