@@ -12,6 +12,7 @@ Cuz, you know, i might have broke something in the last few commits ;)
     - [TimingPoint properties](#timingpoint-properties)  
     - [HitObject properties](#hitobject-properties)  
         - [HitObject specific properties](#hitobject-specific-properties)  
+- [TODO list](#todo-list)
 
 # Installation
 NuGet package and releases are coming soon!™
@@ -83,3 +84,10 @@ namespace SomeNamespace
 | TaikoHitCircle                             | Color       | TaikoColor    | Color of taiko hitcircle. (e.g. Red)             |
 | TaikoHitCircle, TaikoDrumroll              | IsBig       | bool          | Is this HitObject big?                           |
 | ManiaHitObject                             | Collumn     | int           | Collumn index of this HitObject.                 |
+
+# TODO list
+- Implement Additions parser.
+- Implement Events section parser.
+- Implement .osb file format parser.
+- Implement .osr file format parser.
+- Implement .osu/.osb/.osr writer. (idk if that will be useful)
