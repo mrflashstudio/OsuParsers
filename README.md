@@ -1,9 +1,16 @@
 # OsuBeatmapParser
-.osu file format parser library written in C#
 
-Feel free to use it and report any issues you might run into.
+.osu file format parser library written in C#  
+Feel free to use it and report any issues you might run into.  
+Cuz, you know, i might have broke something in the last few commits ;)  
 
-Cuz, you know, i might have broke something in the last few commits ;)
+- [Installation](#installation)  
+- [Building and Requirements](#building-and-requirements)  
+- [Usage](#usage)  
+- [Beatmap properties](#beatmap-properties)  
+    - [TimingPoint properties](#timingpoint-properties)  
+    - [HitObject properties](#hitobject-properties)  
+        - [HitObject specific properties](#hitobject-specific-properties)  
 
 # Installation
 NuGet package and releases are coming soon!™
