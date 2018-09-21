@@ -1,6 +1,7 @@
 # OsuBeatmapParser
 
-.osu file format parser library written in C#  
+.osu file format parser library written in C#
+
 Feel free to use it and report any issues you might run into.  
 Cuz, you know, i might have broke something in the last few commits ;)  
 
