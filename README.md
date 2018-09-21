@@ -89,6 +89,7 @@ namespace SomeNamespace
 
 # TODO list
 ### High priority
+- Move everything from Parser's ctor into `parser.Parse(string path)` method.
 - TODOs cleanup in code.
 - Improvements and fixes.
 - Implement Additions parser.
