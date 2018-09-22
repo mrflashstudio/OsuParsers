@@ -2,9 +2,9 @@ namespace OsuBeatmapParser.Enums
 {
     public enum Ruleset
     {
-        Standard,
-        Taiko,
-        Fruits,
-        Mania
+        Standard = 0,
+        Taiko = 1,
+        Fruits = 2,
+        Mania = 3
     }
 }
