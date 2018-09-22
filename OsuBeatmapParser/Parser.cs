@@ -16,18 +16,18 @@ namespace OsuBeatmapParser
 {
     public class Parser
     {
-        /// <summary>
-        /// Parsed beatmap.
-        /// </summary>
-        public Beatmap Beatmap { get; private set; }
+        private Beatmap Beatmap { get; set; }
         private Enums.Sections currentSection = Enums.Sections.None;
-        
+
         /// <summary>
+        /// Parses .osu file.
         /// </summary>
         /// <param name="path">Path to the .osu file.</param>
-        public Parser(string path)
+        /// <returns>A usable beatmap.</returns>
+        public Beatmap Parse(string path)
         {
             Beatmap = new Beatmap();
+
             currentSection = Enums.Sections.Format;
             string[] lines = File.ReadAllLines(path);
 
@@ -47,6 +47,8 @@ namespace OsuBeatmapParser
             Beatmap.GeneralSection.SpinnersCount = Beatmap.HitObjects.Count(c => c is StandardSpinner || c is TaikoSpinner || c is CatchSpinner);
 
             Beatmap.GeneralSection.Length = Beatmap.HitObjects.Last().EndTime / 1000;
+
+            return Beatmap;
         }
 
         private void ParseLine(string line)
