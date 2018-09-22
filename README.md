@@ -8,6 +8,8 @@ Cuz, you know, i might have broke something in the last few commits ;)
 - [Installation](#installation)  
 - [Building and Requirements](#building-and-requirements)  
 - [Usage](#usage)  
+- [Methods](#methods)  
+    - [Parse(path)](#parsepath)
 - [Beatmap properties](#beatmap-properties)  
     - [TimingPoint properties](#timingpoint-properties)  
     - [HitObject properties](#hitobject-properties)  
@@ -47,6 +49,14 @@ namespace SomeNamespace
         }
     }
 }
+```
+
+# Methods
+### Parse(path)
+Parses the given .osu file, then returns parsed Beatmap.
+```
+Parser parser = new Parser();
+Beatmap beatmap = parser.Parse("beatmapPath.osu");
 ```
 
 # Beatmap properties
