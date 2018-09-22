@@ -306,20 +306,7 @@ namespace OsuBeatmapParser
 
                         //TODO: Parse additions
 
-                        var timingPoint = GetTimingPointFromOffset(startTime);
-                        var parentTimingPoint = timingPoint;
-                        double velocity = 1;
-
-                        if (timingPoint.BeatLength < 0)
-                        {
-                            velocity = Math.Abs(100 / timingPoint.BeatLength);
-                            parentTimingPoint = GetParentTimingPoint(timingPoint);
-                        }
-
-                        double pixelsPerBeat = Beatmap.DifficultySection.SliderMultiplier * 100 * velocity;
-                        double beats = pixelLength * repeats / pixelsPerBeat;
-                        int duration = (int)Math.Ceiling(beats * parentTimingPoint.BeatLength);
-                        int endTime = startTime + duration;
+                        int endTime = CalculateEndTime(startTime, repeats, pixelLength);
 
                         hitObject = new StandardSlider(position, startTime, endTime, hitSound, isNewCombo, curveType, sliderPoints, repeats, pixelLength);
                     }
@@ -355,37 +342,14 @@ namespace OsuBeatmapParser
                     {
                         CurveType curveType = ParseHelper.GetCurveType(tokens[5].Split('|')[0][0]);
 
-                        string[] hitSliderSegments = tokens[5].Split('|');
-                        List<Point> sliderPoints = new List<Point>();
-                        foreach (string hitSliderSegmentPosition in hitSliderSegments.Skip(1))
-                        {
-                            string[] positionTokens = hitSliderSegmentPosition.Split(':');
-                            if (positionTokens.Length == 2)
-                            {
-                                sliderPoints.Add(new Point((int)Convert.ToDouble(positionTokens[0], CultureInfo.InvariantCulture), (int)Convert.ToDouble(positionTokens[1], CultureInfo.InvariantCulture)));
-                            }
-                        }
+                        List<Point> sliderPoints = ParseHelper.GetSliderPoints(tokens[5].Split('|'));
 
                         int repeats = Convert.ToInt32(tokens[6]);
                         float pixelLength = ParseHelper.ToFloat(tokens[7]);
 
-                        var timingPoint = GetTimingPointFromOffset(startTime);
-                        var parentTimingPoint = timingPoint;
-                        double velocity = 1;
-
-                        if (timingPoint.BeatLength < 0)
-                        {
-                            velocity = Math.Abs(100 / timingPoint.BeatLength);
-                            parentTimingPoint = GetParentTimingPoint(timingPoint);
-                        }
-
-                        double pixelsPerBeat = Beatmap.DifficultySection.SliderMultiplier * 100 * velocity;
-                        double beats = pixelLength * repeats / pixelsPerBeat;
-                        int duration = (int)Math.Ceiling(beats * parentTimingPoint.BeatLength);
-                        int endTime = startTime + duration;
+                        int endTime = CalculateEndTime(startTime, repeats, pixelLength);
 
                         //let's just hope that the endTime algorithm is same as osu!standard
-                        //TODO: test the endTime algorithm
                         hitObject = new CatchSlider(position, startTime, endTime, hitSound, isNewCombo, curveType, sliderPoints, repeats, pixelLength);
                     }
                     else
@@ -408,6 +372,25 @@ namespace OsuBeatmapParser
             }
 
             Beatmap.HitObjects.Add(hitObject);
+        }
+
+        private int CalculateEndTime(int startTime, int repeats, float pixelLength)
+        {
+            var timingPoint = GetTimingPointFromOffset(startTime);
+            var parentTimingPoint = timingPoint;
+            double velocity = 1;
+
+            if (timingPoint.BeatLength < 0)
+            {
+                velocity = Math.Abs(100 / timingPoint.BeatLength);
+                parentTimingPoint = GetParentTimingPoint(timingPoint);
+            }
+
+            double pixelsPerBeat = Beatmap.DifficultySection.SliderMultiplier * 100 * velocity;
+            double beats = pixelLength * repeats / pixelsPerBeat;
+            int duration = (int)Math.Ceiling(beats * parentTimingPoint.BeatLength);
+
+            return startTime + duration;
         }
 
         private TimingPoint GetTimingPointFromOffset(int offset)
