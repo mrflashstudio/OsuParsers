@@ -89,11 +89,9 @@ namespace SomeNamespace
 
 # TODO list
 ### High priority
-- Move everything from Parser's ctor into `parser.Parse(string path)` method.
-- TODOs cleanup in code.
-- Improvements and fixes.
-- Implement Additions parser.
-- Implement Events section parser.
+- Documentation
+- Cleanup
+- Implement Storyboard parser.
 ### Low priority
 - Implement .osb file format parser.
 - Implement .osr file format parser.
