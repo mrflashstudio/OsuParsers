@@ -9,7 +9,7 @@ namespace OsuBeatmapParser.Objects.Mania
     {
         public int Collumn { get; }
 
-        public ManiaHitObject(Point position, int startTime, int endTime, HitSoundType hitSound, int collumn) //TODO: make all calculations inside hitobject's class
+        public ManiaHitObject(Point position, int startTime, int endTime, HitSoundType hitSound, int collumn)
             : base(position, startTime, endTime, hitSound)
         {
             Collumn = collumn;

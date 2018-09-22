@@ -13,23 +13,6 @@ namespace OsuBeatmapParser.Helpers
             return parsedSection;
         }
 
-        public static Ruleset GetRulesetFromId(int id)
-        {
-            switch (id)
-            {
-                case 0:
-                    return Ruleset.Standard;
-                case 1:
-                    return Ruleset.Taiko;
-                case 2:
-                    return Ruleset.Fruits;
-                case 3:
-                    return Ruleset.Mania;
-                default:
-                    throw new Exception("Unknown ruleset id!");
-            }
-        }
-
         public static CurveType GetCurveType(char c)
         {
             switch (c)
@@ -44,23 +27,6 @@ namespace OsuBeatmapParser.Helpers
                     return CurveType.PerfectCurve;
                 default:
                     return CurveType.PerfectCurve;
-            }
-        }
-
-        public static HitSoundType GetHitSoundTypeFromId(int id)
-        {
-            switch (id)
-            {
-                case 0:
-                    return HitSoundType.Normal;
-                case 2:
-                    return HitSoundType.Whistle;
-                case 4:
-                    return HitSoundType.Finish;
-                case 8:
-                    return HitSoundType.Clap;
-                default:
-                    throw new Exception("Unknown hitsound id!");
             }
         }
 
