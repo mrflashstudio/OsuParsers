@@ -5,6 +5,7 @@ using OsuBeatmapParser.Objects.Catch;
 using OsuBeatmapParser.Objects.Mania;
 using OsuBeatmapParser.Objects.Standard;
 using OsuBeatmapParser.Objects.Taiko;
+using OsuBeatmapParser.Sections.Events;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -212,7 +213,25 @@ namespace OsuBeatmapParser
 
         private void ParseEvents(string line)
         {
-            //TODO: implement events parser
+            string[] tokens = line.Split(',');
+
+            EventType eventType = (EventType)Enum.Parse(typeof(EventType), tokens[0]);
+
+            switch (eventType)
+            {
+                case EventType.Background:
+                    Beatmap.EventsSection.BackgroundImage = tokens[2].Trim('"');
+                    break;
+                case EventType.Video:
+                    Beatmap.EventsSection.Video = tokens[2].Trim('"');
+                    Beatmap.EventsSection.VideoOffset = Convert.ToInt32(tokens[1]);
+                    break;
+                case EventType.Break:
+                    Beatmap.EventsSection.Breaks.Add(new BreakEvent(Convert.ToInt32(tokens[1]), Convert.ToInt32(tokens[2])));
+                    break;
+
+                //TODO: storyboard parser
+            }
         }
 
         private void ParseTimingPoints(string line)
