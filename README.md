@@ -32,10 +32,11 @@ namespace SomeNamespace
     {
         public static void Main(string[] args)
         {
-            Parser parser = new Parser(@"beatmapPath.osu");
+            Parser parser = new Parser();
+            Beatmap beatmap = parser.Parse(@"beatmapPath.osu");
             
             //for example, if we want to print beatmap's title
-            System.Console.WriteLine(parser.Beatmap.MetadataSection.TitleUnicode);
+            System.Console.WriteLine(beatmap.MetadataSection.TitleUnicode);
         }
     }
 }
@@ -68,8 +69,8 @@ namespace SomeNamespace
 ### HitObject properties
 | Name       | Type                    | Description                                                                         |
 |------------|-------------------------|-------------------------------------------------------------------------------------|
-| Additions  | List\<object\> probably | Will be added soon!                                                                 |
 | EndTime    | int                     | End time offset of this object.                                                     |
+| Extras     | HitObjectExtras         | Class which contains Extras properties.                                             |
 | HitSound   | HitSoundType            | HitSound of this object (e.g. Normal, Whistle)                                      |
 | MaxCombo   | int                     | Never used in code. Should be maximum combo that can be achieved by this hitobject. |
 | IsNewCombo | bool                    | Is it a new combo? (Present in all rulesets, except osu!mania)                      |
@@ -77,15 +78,17 @@ namespace SomeNamespace
 | StartTime  | int                     | Start time offset of this object.                                                   |
 
 ### HitObject specific properties
-| HitObject                                  | Name        | Type          | Description                                      |
-|--------------------------------------------|-------------|---------------|--------------------------------------------------|
-| StandardSlider, CatchSlider                | CurveType   | CurveType     | Curve type of this slider. (e.g. Bezier, Linear) |
-| StandardSlider, CatchSlider                | Points      | List\<Point\> | List of all slider points.                       |
-| StandardSlider, CatchSlider                | Repeats     | int           | Number of slider repeats.                        |
-| StandardSlider, TaikoDrumroll, CatchSlider | PixelLength | int           | Slider length in osu! pixels.                    |
-| TaikoHitCircle                             | Color       | TaikoColor    | Color of taiko hitcircle. (e.g. Red)             |
-| TaikoHitCircle, TaikoDrumroll              | IsBig       | bool          | Is this HitObject big?                           |
-| ManiaHitObject                             | Collumn     | int           | Collumn index of this HitObject.                 |
+| HitObject                                  | Name          | Type                          | Description                                      |
+|--------------------------------------------|---------------|-------------------------------|--------------------------------------------------|
+| StandardSlider, CatchSlider                | CurveType     | CurveType                     | Curve type of this slider. (e.g. Bezier, Linear) |
+| StandardSlider, CatchSlider                | Points        | List\<Point\>                 | List of all slider points.                       |
+| StandardSlider, CatchSlider                | Repeats       | int                           | Number of slider repeats.                        |
+| StandardSlider, TaikoDrumroll, CatchSlider | PixelLength   | int                           | Slider length in osu! pixels.                    |
+| StandardSlider, TaikoDrumroll, CatchSlider | EdgeHitSounds | HitSoundType[]                | Slider edge HitSound additions.                  |
+| StandardSlider, TaikoDrumroll, CatchSlider | EdgeAdditions | Tuple<SampleSet, SampleSet>[] | Slider edge SampleSet additions.                 |
+| TaikoHitCircle                             | Color         | TaikoColor                    | Color of taiko hitcircle. (e.g. Red)             |
+| TaikoHitCircle, TaikoDrumroll              | IsBig         | bool                          | Is this HitObject big?                           |
+| ManiaHitObject                             | Collumn       | int                           | Collumn index of this HitObject.                 |
 
 # TODO list
 ### High priority
