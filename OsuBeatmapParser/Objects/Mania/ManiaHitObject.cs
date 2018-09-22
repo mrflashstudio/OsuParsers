@@ -9,8 +9,8 @@ namespace OsuBeatmapParser.Objects.Mania
     {
         public int Collumn { get; }
 
-        public ManiaHitObject(Point position, int startTime, int endTime, HitSoundType hitSound, int collumn)
-            : base(position, startTime, endTime, hitSound)
+        public ManiaHitObject(Point position, int startTime, int endTime, HitSoundType hitSound, int collumn, HitObjectExtras extras)
+            : base(position, startTime, endTime, hitSound, extras)
         {
             Collumn = collumn;
         }

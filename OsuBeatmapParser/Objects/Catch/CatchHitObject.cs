@@ -7,8 +7,8 @@ namespace OsuBeatmapParser.Objects.Catch
     {
         public bool IsNewCombo { get; }
 
-        public CatchHitObject(Point position, int startTime, int endTime, HitSoundType hitSound, bool isNewCombo)
-            : base(position, startTime, endTime, hitSound)
+        public CatchHitObject(Point position, int startTime, int endTime, HitSoundType hitSound, bool isNewCombo, HitObjectExtras extras)
+            : base(position, startTime, endTime, hitSound, extras)
         {
             IsNewCombo = isNewCombo;
         }

@@ -8,8 +8,8 @@ namespace OsuBeatmapParser.Objects.Taiko
         public TaikoColor Color { get; }
         public bool IsBig { get; }
 
-        public TaikoHitCircle(Point position, int startTime, int endTime, HitSoundType hitSound, TaikoColor color, bool isBig)
-            : base(position, startTime, endTime, hitSound)
+        public TaikoHitCircle(Point position, int startTime, int endTime, HitSoundType hitSound, TaikoColor color, bool isBig, HitObjectExtras extras)
+            : base(position, startTime, endTime, hitSound, extras)
         {
             Color = color;
             IsBig = isBig;

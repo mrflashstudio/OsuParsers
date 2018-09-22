@@ -9,15 +9,25 @@ namespace OsuBeatmapParser.Objects
         public int StartTime { get; }
         public int EndTime { get; }
         public HitSoundType HitSound { get; }
-        //public List<int> Addition { get; set; } = new List<int>();
+        public HitObjectExtras Extras { get; }
         public int MaxCombo { get; } = 1;
 
-        public HitObject(Point position, int startTime, int endTime, HitSoundType hitSound)
+        public HitObject(Point position, int startTime, int endTime, HitSoundType hitSound, HitObjectExtras extras)
         {
             Position = position;
             StartTime = startTime;
             EndTime = endTime;
             HitSound = hitSound;
+            Extras = extras;
         }
+    }
+
+    public class HitObjectExtras
+    {
+        public SampleSet SampleSet { get; set; }
+        public SampleSet AdditionSet { get; set; }
+        public int CustomIndex { get; set; }
+        public int Volume { get; set; }
+        public string SampleFileName { get; set; }
     }
 }
