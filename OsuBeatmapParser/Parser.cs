@@ -215,6 +215,9 @@ namespace OsuBeatmapParser
         {
             string[] tokens = line.Split(',');
 
+            if (!Enum.TryParse(tokens[0], out EventType e))
+                return;
+
             EventType eventType = (EventType)Enum.Parse(typeof(EventType), tokens[0]);
 
             switch (eventType)
@@ -299,14 +302,14 @@ namespace OsuBeatmapParser
             HitSoundType hitSound = (HitSoundType)Convert.ToInt32(tokens[4]);
 
             string[] extrasSplit = tokens.Last().Split(':');
-            HitObjectExtras extras = new HitObjectExtras
+            HitObjectExtras extras = tokens.Last().Contains(":") ? new HitObjectExtras
             {
                 SampleSet = (SampleSet)Convert.ToInt32(extrasSplit[0]),
                 AdditionSet = (SampleSet)Convert.ToInt32(extrasSplit[1]),
                 CustomIndex = Convert.ToInt32(extrasSplit[2]),
                 Volume = Convert.ToInt32(extrasSplit[3]),
                 SampleFileName = extrasSplit[4]
-            };
+            } : new HitObjectExtras();
 
             switch (Beatmap.GeneralSection.Mode)
             {
@@ -323,13 +326,16 @@ namespace OsuBeatmapParser
                         int repeats = Convert.ToInt32(tokens[6]);
                         float pixelLength = ParseHelper.ToFloat(tokens[7]);
 
-                        HitSoundType[] edgeHitsounds = Array.ConvertAll(tokens[8].Split('|'), s => (HitSoundType)Convert.ToInt32(s));
+                        HitSoundType[] edgeHitsounds = tokens.Length > 8 ? Array.ConvertAll(tokens[8].Split('|'), s => (HitSoundType)Convert.ToInt32(s)) : new HitSoundType[] { HitSoundType.None, HitSoundType.None };
                         List<Tuple<SampleSet, SampleSet>> tempEdgeAdditions = new List<Tuple<SampleSet, SampleSet>>();
-                        foreach (var s in tokens[9].Split('|'))
+                        if (tokens.Length > 9)
                         {
-                            tempEdgeAdditions.Add(new Tuple<SampleSet, SampleSet>((SampleSet)Convert.ToInt32(s.Split(':').First()), (SampleSet)Convert.ToInt32(s.Split(':').Last())));
+                            foreach (var s in tokens[9].Split('|'))
+                            {
+                                tempEdgeAdditions.Add(new Tuple<SampleSet, SampleSet>((SampleSet)Convert.ToInt32(s.Split(':').First()), (SampleSet)Convert.ToInt32(s.Split(':').Last())));
+                            }
                         }
-                        Tuple<SampleSet, SampleSet>[] edgeAdditions = tempEdgeAdditions.ToArray();
+                        Tuple<SampleSet, SampleSet>[] edgeAdditions = tokens.Length > 9 ? tempEdgeAdditions.ToArray() : new Tuple<SampleSet, SampleSet>[] { new Tuple<SampleSet, SampleSet>(SampleSet.None, SampleSet.None), new Tuple<SampleSet, SampleSet>(SampleSet.None, SampleSet.None) };
 
                         int endTime = CalculateEndTime(startTime, repeats, pixelLength);
 
@@ -353,13 +359,16 @@ namespace OsuBeatmapParser
                         int repeats = Convert.ToInt32(tokens[6].Trim());
                         float pixelLength = ParseHelper.ToFloat(tokens[7].Trim());
 
-                        HitSoundType[] edgeHitsounds = Array.ConvertAll(tokens[8].Split('|'), s => (HitSoundType)Convert.ToInt32(s));
+                        HitSoundType[] edgeHitsounds = tokens.Length > 8 ? Array.ConvertAll(tokens[8].Split('|'), s => (HitSoundType)Convert.ToInt32(s)) : new HitSoundType[] { HitSoundType.None, HitSoundType.None };
                         List<Tuple<SampleSet, SampleSet>> tempEdgeAdditions = new List<Tuple<SampleSet, SampleSet>>();
-                        foreach (var s in tokens[9].Split('|'))
+                        if (tokens.Length > 9)
                         {
-                            tempEdgeAdditions.Add(new Tuple<SampleSet, SampleSet>((SampleSet)Convert.ToInt32(s.Split(':').First()), (SampleSet)Convert.ToInt32(s.Split(':').Last())));
+                            foreach (var s in tokens[9].Split('|'))
+                            {
+                                tempEdgeAdditions.Add(new Tuple<SampleSet, SampleSet>((SampleSet)Convert.ToInt32(s.Split(':').First()), (SampleSet)Convert.ToInt32(s.Split(':').Last())));
+                            }
                         }
-                        Tuple<SampleSet, SampleSet>[] edgeAdditions = tempEdgeAdditions.ToArray();
+                        Tuple<SampleSet, SampleSet>[] edgeAdditions = tokens.Length > 9 ? tempEdgeAdditions.ToArray() : new Tuple<SampleSet, SampleSet>[] { new Tuple<SampleSet, SampleSet>(SampleSet.None, SampleSet.None), new Tuple<SampleSet, SampleSet>(SampleSet.None, SampleSet.None) };
                         hitObject = new TaikoDrumroll(position, startTime, startTime, hitSound, (int)(repeats * pixelLength), isBig, edgeHitsounds, edgeAdditions, extras);
                     }
                     else
@@ -379,13 +388,16 @@ namespace OsuBeatmapParser
                         int repeats = Convert.ToInt32(tokens[6]);
                         float pixelLength = ParseHelper.ToFloat(tokens[7]);
 
-                        HitSoundType[] edgeHitsounds = Array.ConvertAll(tokens[8].Split('|'), s => (HitSoundType)Convert.ToInt32(s));
+                        HitSoundType[] edgeHitsounds = tokens.Length > 8 ? Array.ConvertAll(tokens[8].Split('|'), s => (HitSoundType)Convert.ToInt32(s)) : new HitSoundType[] { HitSoundType.None, HitSoundType.None };
                         List<Tuple<SampleSet, SampleSet>> tempEdgeAdditions = new List<Tuple<SampleSet, SampleSet>>();
-                        foreach (var s in tokens[9].Split('|'))
+                        if (tokens.Length > 9)
                         {
-                            tempEdgeAdditions.Add(new Tuple<SampleSet, SampleSet>((SampleSet)Convert.ToInt32(s.Split(':').First()), (SampleSet)Convert.ToInt32(s.Split(':').Last())));
+                            foreach (var s in tokens[9].Split('|'))
+                            {
+                                tempEdgeAdditions.Add(new Tuple<SampleSet, SampleSet>((SampleSet)Convert.ToInt32(s.Split(':').First()), (SampleSet)Convert.ToInt32(s.Split(':').Last())));
+                            }
                         }
-                        Tuple<SampleSet, SampleSet>[] edgeAdditions = tempEdgeAdditions.ToArray();
+                        Tuple<SampleSet, SampleSet>[] edgeAdditions = tokens.Length > 9 ? tempEdgeAdditions.ToArray() : new Tuple<SampleSet, SampleSet>[] { new Tuple<SampleSet, SampleSet>(SampleSet.None, SampleSet.None), new Tuple<SampleSet, SampleSet>(SampleSet.None, SampleSet.None) };
 
                         int endTime = CalculateEndTime(startTime, repeats, pixelLength);
 
