@@ -1,4 +1,4 @@
-# OsuBeatmapParser [![nuget](https://img.shields.io/nuget/v/OsuBeatmapParser.svg)](https://www.nuget.org/packages/OsuBeatmapParser/1.0.0)
+# OsuBeatmapParser [![nuget](https://img.shields.io/nuget/v/OsuBeatmapParser.svg)](https://www.nuget.org/packages/OsuBeatmapParser)
 
 .osu file format parser library written in C#
 
@@ -25,7 +25,7 @@ Cuz, you know, i might have broke something in the last few commits ;)
 
 # Installation
 Download latest version of parser from [releases](https://github.com/mrflashstudio/OsuBeatmapParser/releases), then add the dll into your project references.  
-Or you can just install [NuGet package](https://www.nuget.org/packages/OsuBeatmapParser). (`Install-Package OsuBeatmapParser -Version 1.0.0`)
+Or you can just install [NuGet package](https://www.nuget.org/packages/OsuBeatmapParser). (`Install-Package OsuBeatmapParser -Version 1.0.1`)
 
 # Building and Requirements
 - You need a desktop platform that can compile .NET 4.5
@@ -188,6 +188,8 @@ Beatmap beatmap = parser.Parse("beatmapPath.osu");
 ### High priority
 - Documentation
 - Cleanup
+- Rewrite HitObjects parser.
+- Rewrite Extras & Additions parser.
 - Add SpecialStyle, EpilepsyWarning, UseSkinSprites in GeneralSection
 - Implement Storyboard parser.
 ### Low priority
