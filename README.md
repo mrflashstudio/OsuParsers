@@ -130,6 +130,9 @@ Beatmap beatmap = parser.Parse("beatmapPath.osu");
 | ModeId               | int       | Id of the game mode. (0=osu!, 1=Taiko, 2=Catch the Beat, 3=osu!mania)                      |
 | LetterboxInBreaks    | bool      | Specifies whether the letterbox appears during breaks.                                     |
 | WidescreenStoryboard | bool      | Specifies whether or not the storyboard should be widescreen.                              |
+| SpecialStyle         | bool      | Specifies whether or not use the special N+1 style for osu!mania.                          |
+| EpilepsyWarning      | bool      | Specifies whether or not show a epilepsy warning at the beginning of the beatmap.          |
+| UseSkinSprites       | bool      | Specifies whether or not the storyboard can use user's skin resources.                     |
 | CirclesCount         | int       | Total amount of HitCircles in the beatmap.                                                 |
 | SlidersCount         | int       | Total amount of Sliders in the beatmap.                                                    |
 | SpinnerCount         | int       | Total amount of Spinners in the beatmap.                                                   |
@@ -187,10 +190,6 @@ Beatmap beatmap = parser.Parse("beatmapPath.osu");
 # TODO list
 ### High priority
 - Documentation
-- Cleanup
-- Rewrite HitObjects parser.
-- Rewrite Extras & Additions parser.
-- Add SpecialStyle, EpilepsyWarning, UseSkinSprites in GeneralSection
 - Implement Storyboard parser.
 ### Low priority
 - Implement .osb file format parser.
