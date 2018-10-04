@@ -14,6 +14,9 @@ namespace OsuBeatmapParser.Sections
         public int ModeId { get; set; }
         public bool LetterboxInBreaks { get; set; }
         public bool WidescreenStoryboard { get; set; }
+        public bool SpecialStyle { get; set; }
+        public bool EpilepsyWarning { get; set; }
+        public bool UseSkinSprites { get; set; }
         public int CirclesCount { get; set; }
         public int SlidersCount { get; set; }
         public int SpinnersCount { get; set; }

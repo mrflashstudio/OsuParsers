@@ -119,6 +119,15 @@ namespace OsuBeatmapParser
                 case "WidescreenStoryboard":
                     Beatmap.GeneralSection.WidescreenStoryboard = ParseHelper.ToBool(tokens[1].Trim());
                     break;
+                case "SpecialStyle":
+                    Beatmap.GeneralSection.SpecialStyle = ParseHelper.ToBool(tokens[1].Trim());
+                    break;
+                case "EpilepsyWarning":
+                    Beatmap.GeneralSection.EpilepsyWarning = ParseHelper.ToBool(tokens[1].Trim());
+                    break;
+                case "UseSkinSprites":
+                    Beatmap.GeneralSection.UseSkinSprites = ParseHelper.ToBool(tokens[1].Trim());
+                    break;
             }
         }
 
