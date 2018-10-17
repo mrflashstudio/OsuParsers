@@ -293,8 +293,8 @@ namespace OsuBeatmapParser
         private void ParseColours(string line)
         {
             string[] tokens = line.Split(':');
-            int[] rgb = tokens[1].Trim().Select(c => Convert.ToInt32(c)).ToArray();
-            Beatmap.Colours.Add(Color.FromArgb(rgb[0], rgb[1], rgb[2]));
+            int[] rgb = tokens[1].Trim().Split(',').Select(c => Convert.ToInt32(c)).ToArray();
+            Beatmap.Colours.Add(Color.FromArgb(rgb.Length == 4 ? rgb[3] : 255, rgb[0], rgb[1], rgb[2]));
         }
 
         private void ParseHitObjects(string line)
@@ -345,7 +345,7 @@ namespace OsuBeatmapParser
                             }
                         }
                         Tuple<SampleSet, SampleSet>[] edgeAdditions = tokens.Length > 9 ? tempEdgeAdditions.ToArray() : new Tuple<SampleSet, SampleSet>[] { new Tuple<SampleSet, SampleSet>(SampleSet.None, SampleSet.None), new Tuple<SampleSet, SampleSet>(SampleSet.None, SampleSet.None) };
-
+                        
                         int endTime = CalculateEndTime(startTime, repeats, pixelLength);
 
                         hitObject = new StandardSlider(position, startTime, endTime, hitSound, isNewCombo, curveType, sliderPoints, repeats, pixelLength, edgeHitsounds, edgeAdditions, extras);
