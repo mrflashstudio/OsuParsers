@@ -1,6 +1,6 @@
 namespace OsuBeatmapParser.Helpers
 {
-    public class MathHelper
+    internal class MathHelper
     {
         public static int CalculateCollumn(int posX, int collumnCount)
         {

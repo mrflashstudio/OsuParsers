@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace OsuBeatmapParser.Helpers
 {
-    public class ParseHelper
+    internal class ParseHelper
     {
         public static Enums.Sections GetCurrentSection(string line)
         {

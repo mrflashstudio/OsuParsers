@@ -47,15 +47,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Beatmap.cs" />
+    <Compile Include="Decoders\BeatmapDecoder.cs" />
+    <Compile Include="Decoders\StoryboardDecoder.cs" />
+    <Compile Include="Enums\BlendingMode.cs" />
     <Compile Include="Enums\CurveType.cs" />
     <Compile Include="Enums\Easing.cs" />
     <Compile Include="Enums\EventType.cs" />
     <Compile Include="Enums\HitObjectType.cs" />
     <Compile Include="Enums\HitSoundType.cs" />
     <Compile Include="Enums\LoopType.cs" />
+    <Compile Include="Enums\Origins.cs" />
     <Compile Include="Enums\Ruleset.cs" />
     <Compile Include="Enums\SampleSet.cs" />
     <Compile Include="Enums\Sections.cs" />
+    <Compile Include="Enums\StoryboardLayer.cs" />
     <Compile Include="Enums\TaikoColor.cs" />
     <Compile Include="Enums\TimeSignature.cs" />
     <Compile Include="Helpers\MathHelper.cs" />
@@ -86,6 +91,18 @@
     <Compile Include="Sections\Events\BreakEvent.cs" />
     <Compile Include="Sections\GeneralSection.cs" />
     <Compile Include="Sections\MetadataSection.cs" />
+    <Compile Include="Storyboards\Commands\Command.cs" />
+    <Compile Include="Storyboards\Commands\CommandGroup.cs" />
+    <Compile Include="Storyboards\Commands\LoopCommand.cs" />
+    <Compile Include="Storyboards\Commands\TriggerCommand.cs" />
+    <Compile Include="Storyboards\Interfaces\ICommand.cs" />
+    <Compile Include="Storyboards\Interfaces\IHasCommands.cs" />
+    <Compile Include="Storyboards\Interfaces\IStoryboardObject.cs" />
+    <Compile Include="Storyboards\Objects\StoryboardAnimation.cs" />
+    <Compile Include="Storyboards\Objects\StoryboardSample.cs" />
+    <Compile Include="Storyboards\Objects\StoryboardSprite.cs" />
+    <Compile Include="Storyboards\Storyboard.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

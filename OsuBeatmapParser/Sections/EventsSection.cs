@@ -1,4 +1,5 @@
 ﻿using OsuBeatmapParser.Sections.Events;
+using OsuBeatmapParser.Storyboards;
 using System.Collections.Generic;
 
 namespace OsuBeatmapParser.Sections
@@ -9,5 +10,6 @@ namespace OsuBeatmapParser.Sections
         public string Video { get; set; }
         public int VideoOffset { get; set; }
         public List<BreakEvent> Breaks { get; private set; } = new List<BreakEvent>();
+        public Storyboard Storyboard { get; set; }
     }
 }
