@@ -53,11 +53,18 @@ namespace SomeNamespace
 ```
 
 # Methods
-### Parse(path)
+### ParseBeatmap(path)
 Parses the given .osu file, then returns parsed Beatmap.
 ```
 Parser parser = new Parser();
-Beatmap beatmap = parser.Parse("beatmapPath.osu");
+Beatmap beatmap = parser.ParseBeatmap(@"pathToBeatmap.osu");
+```
+
+### ParseStoryboard(path)
+Parses the given .osb file, then returns parsed Storyboard.
+```
+Parser parser = new Parser();
+Storyboard storyboard = parser.ParseStoryboard(@"pathToStoryboard.osb");
 ```
 
 # Beatmap properties
@@ -188,10 +195,6 @@ Beatmap beatmap = parser.Parse("beatmapPath.osu");
 | EndTime   | int  | Number of milliseconds from the beginning of the song defining the end point of the break period.   |
 
 # TODO list
-### High priority
-- Documentation
-- Implement Storyboard parser.
 ### Low priority
-- Implement .osb file format parser.
 - Implement .osr file format parser.
 - Implement .osu/.osb/.osr writer. (idk if that will be useful)
