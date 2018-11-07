@@ -1,7 +1,7 @@
 using OsuBeatmapParser.Enums;
 using System.Drawing;
 
-namespace OsuBeatmapParser.Objects.Taiko
+namespace OsuBeatmapParser.Beatmaps.Objects.Taiko
 {
     public class TaikoHitCircle : TaikoHitObject
     {

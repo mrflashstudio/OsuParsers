@@ -1,6 +1,6 @@
 using OsuBeatmapParser.Enums;
 
-namespace OsuBeatmapParser.Objects
+namespace OsuBeatmapParser.Beatmaps.Objects
 {
     public class TimingPoint
     {

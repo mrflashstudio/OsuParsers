@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace OsuBeatmapParser.Objects.Catch
+namespace OsuBeatmapParser.Beatmaps.Objects.Catch
 {
     public class CatchSlider : CatchHitObject
     {

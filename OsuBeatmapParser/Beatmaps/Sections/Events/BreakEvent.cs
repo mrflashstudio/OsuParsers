@@ -1,4 +1,4 @@
-﻿namespace OsuBeatmapParser.Sections.Events
+﻿namespace OsuBeatmapParser.Beatmaps.Sections.Events
 {
     public class BreakEvent
     {

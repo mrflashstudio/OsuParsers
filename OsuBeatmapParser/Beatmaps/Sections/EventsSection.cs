@@ -1,8 +1,8 @@
-﻿using OsuBeatmapParser.Sections.Events;
+﻿using OsuBeatmapParser.Beatmaps.Sections.Events;
 using OsuBeatmapParser.Storyboards;
 using System.Collections.Generic;
 
-namespace OsuBeatmapParser.Sections
+namespace OsuBeatmapParser.Beatmaps.Sections
 {
     public class EventsSection
     {

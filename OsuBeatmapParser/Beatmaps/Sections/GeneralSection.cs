@@ -1,6 +1,6 @@
 using OsuBeatmapParser.Enums;
 
-namespace OsuBeatmapParser.Sections
+namespace OsuBeatmapParser.Beatmaps.Sections
 {
     public class GeneralSection
     {

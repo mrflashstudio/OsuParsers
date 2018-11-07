@@ -1,7 +1,7 @@
 using OsuBeatmapParser.Enums;
 using System.Drawing;
 
-namespace OsuBeatmapParser.Objects.Mania
+namespace OsuBeatmapParser.Beatmaps.Objects.Mania
 {
     public class ManiaSingle : ManiaHitObject
     {

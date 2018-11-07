@@ -1,7 +1,7 @@
 using OsuBeatmapParser.Enums;
 using System.Drawing;
 
-namespace OsuBeatmapParser.Objects.Catch
+namespace OsuBeatmapParser.Beatmaps.Objects.Catch
 {
     public class CatchSpinner : CatchHitObject
     {

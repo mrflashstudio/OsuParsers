@@ -1,9 +1,9 @@
-using OsuBeatmapParser.Objects;
-using OsuBeatmapParser.Sections;
+using OsuBeatmapParser.Beatmaps.Objects;
+using OsuBeatmapParser.Beatmaps.Sections;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace OsuBeatmapParser
+namespace OsuBeatmapParser.Beatmaps
 {
     public class Beatmap
     {

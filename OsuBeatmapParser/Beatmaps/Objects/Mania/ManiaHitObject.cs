@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace OsuBeatmapParser.Objects.Mania
+namespace OsuBeatmapParser.Beatmaps.Objects.Mania
 {
     public abstract class ManiaHitObject : HitObject
     {

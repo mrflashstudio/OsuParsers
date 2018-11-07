@@ -1,4 +1,4 @@
-namespace OsuBeatmapParser.Sections
+namespace OsuBeatmapParser.Beatmaps.Sections
 {
     public class DifficultySection
     {

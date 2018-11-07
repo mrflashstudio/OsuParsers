@@ -1,3 +1,4 @@
+using OsuBeatmapParser.Beatmaps;
 using OsuBeatmapParser.Decoders;
 using OsuBeatmapParser.Storyboards;
 using System.IO;

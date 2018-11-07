@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace OsuBeatmapParser.Objects.Standard
+namespace OsuBeatmapParser.Beatmaps.Objects.Standard
 {
     public class StandardSlider : StandardHitObject
     {

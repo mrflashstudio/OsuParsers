@@ -1,7 +1,7 @@
 using OsuBeatmapParser.Enums;
 using System.Drawing;
 
-namespace OsuBeatmapParser.Objects
+namespace OsuBeatmapParser.Beatmaps.Objects
 {
     public abstract class HitObject
     {

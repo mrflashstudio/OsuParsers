@@ -1,11 +1,12 @@
-﻿using OsuBeatmapParser.Enums;
+﻿using OsuBeatmapParser.Beatmaps;
+using OsuBeatmapParser.Beatmaps.Objects;
+using OsuBeatmapParser.Beatmaps.Objects.Catch;
+using OsuBeatmapParser.Beatmaps.Objects.Mania;
+using OsuBeatmapParser.Beatmaps.Objects.Standard;
+using OsuBeatmapParser.Beatmaps.Objects.Taiko;
+using OsuBeatmapParser.Beatmaps.Sections.Events;
+using OsuBeatmapParser.Enums;
 using OsuBeatmapParser.Helpers;
-using OsuBeatmapParser.Objects;
-using OsuBeatmapParser.Objects.Catch;
-using OsuBeatmapParser.Objects.Mania;
-using OsuBeatmapParser.Objects.Standard;
-using OsuBeatmapParser.Objects.Taiko;
-using OsuBeatmapParser.Sections.Events;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,20 +17,20 @@ namespace OsuBeatmapParser.Decoders
     internal class BeatmapDecoder
     {
         private Beatmap Beatmap;
-        private Enums.Sections currentSection = Enums.Sections.None;
+        private Sections currentSection = Sections.None;
         private List<string> sbLines = new List<string>();
 
         public Beatmap Decode(string[] lines)
         {
             Beatmap = new Beatmap();
-            currentSection = Enums.Sections.Format;
+            currentSection = Sections.Format;
             sbLines.Clear();
 
             foreach (var line in lines)
             {
                 if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("//"))
                 {
-                    if (ParseHelper.GetCurrentSection(line) != Enums.Sections.None)
+                    if (ParseHelper.GetCurrentSection(line) != Sections.None)
                         currentSection = ParseHelper.GetCurrentSection(line);
                     else
                         ParseLine(line, lines);

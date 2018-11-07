@@ -1,7 +1,7 @@
 using OsuBeatmapParser.Enums;
 using System.Drawing;
 
-namespace OsuBeatmapParser.Objects.Standard
+namespace OsuBeatmapParser.Beatmaps.Objects.Standard
 {
     public class StandardSpinner : StandardHitObject
     {
