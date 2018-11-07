@@ -9,7 +9,8 @@ Cuz, you know, i might have broke something in the last few commits ;)
 - [Building and Requirements](#building-and-requirements)  
 - [Usage](#usage)  
 - [Methods](#methods)  
-    - [Parse(path)](#parsepath)
+    - [ParseBeatmap(path)](#parsebeatmappath)
+    - [ParseStoryboard(path)](#parsestoryboardpath)
 - [Beatmap properties](#beatmap-properties)  
     - [TimingPoint properties](#timingpoint-properties)  
     - [HitObject properties](#hitobject-properties)  
@@ -25,7 +26,7 @@ Cuz, you know, i might have broke something in the last few commits ;)
 
 # Installation
 Download latest version of parser from [releases](https://github.com/mrflashstudio/OsuBeatmapParser/releases), then add the dll into your project references.  
-Or you can just install [NuGet package](https://www.nuget.org/packages/OsuBeatmapParser). (`Install-Package OsuBeatmapParser -Version 1.0.1`)
+Or you can just install [NuGet package](https://www.nuget.org/packages/OsuBeatmapParser). (`Install-Package OsuBeatmapParser -Version 1.1.0`)
 
 # Building and Requirements
 - You need a desktop platform that can compile .NET 4.5
@@ -53,11 +54,18 @@ namespace SomeNamespace
 ```
 
 # Methods
-### Parse(path)
+### ParseBeatmap(path)
 Parses the given .osu file, then returns parsed Beatmap.
 ```
 Parser parser = new Parser();
-Beatmap beatmap = parser.Parse("beatmapPath.osu");
+Beatmap beatmap = parser.ParseBeatmap(@"pathToBeatmap.osu");
+```
+
+### ParseStoryboard(path)
+Parses the given .osb file, then returns parsed Storyboard.
+```
+Parser parser = new Parser();
+Storyboard storyboard = parser.ParseStoryboard(@"pathToStoryboard.osb");
 ```
 
 # Beatmap properties
@@ -188,10 +196,6 @@ Beatmap beatmap = parser.Parse("beatmapPath.osu");
 | EndTime   | int  | Number of milliseconds from the beginning of the song defining the end point of the break period.   |
 
 # TODO list
-### High priority
-- Documentation
-- Implement Storyboard parser.
 ### Low priority
-- Implement .osb file format parser.
 - Implement .osr file format parser.
 - Implement .osu/.osb/.osr writer. (idk if that will be useful)
