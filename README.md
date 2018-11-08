@@ -26,7 +26,7 @@ Cuz, you know, i might have broke something in the last few commits ;)
 
 # Installation
 Download latest version of parser from [releases](https://github.com/mrflashstudio/OsuBeatmapParser/releases), then add the dll into your project references.  
-Or you can just install [NuGet package](https://www.nuget.org/packages/OsuBeatmapParser). (`Install-Package OsuBeatmapParser -Version 1.1.0`)
+Or you can just install [NuGet package](https://www.nuget.org/packages/OsuBeatmapParser). (`Install-Package OsuBeatmapParser -Version 1.2.0`)
 
 # Building and Requirements
 - You need a desktop platform that can compile .NET 4.5
