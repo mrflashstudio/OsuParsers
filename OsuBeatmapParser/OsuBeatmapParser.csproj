@@ -47,16 +47,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Beatmaps\Beatmap.cs" />
+    <Compile Include="Database\CollectionDatabase.cs" />
+    <Compile Include="Database\Objects\Collection.cs" />
+    <Compile Include="Database\Objects\DbBeatmap.cs" />
+    <Compile Include="Database\Objects\DbTimingPoint.cs" />
+    <Compile Include="Database\Objects\Player.cs" />
+    <Compile Include="Database\Objects\Score.cs" />
+    <Compile Include="Database\OsuDatabase.cs" />
+    <Compile Include="Database\PresenceDatabase.cs" />
+    <Compile Include="Database\ScoresDatabase.cs" />
+    <Compile Include="Database\Serialization\ObjType.cs" />
+    <Compile Include="Database\Serialization\SerializationReader.cs" />
     <Compile Include="Decoders\BeatmapDecoder.cs" />
+    <Compile Include="Decoders\DatabaseDecoder.cs" />
     <Compile Include="Decoders\StoryboardDecoder.cs" />
     <Compile Include="Enums\BlendingMode.cs" />
     <Compile Include="Enums\CurveType.cs" />
     <Compile Include="Enums\Easing.cs" />
     <Compile Include="Enums\EventType.cs" />
+    <Compile Include="Enums\Grade.cs" />
     <Compile Include="Enums\HitObjectType.cs" />
     <Compile Include="Enums\HitSoundType.cs" />
     <Compile Include="Enums\LoopType.cs" />
+    <Compile Include="Enums\Mods.cs" />
     <Compile Include="Enums\Origins.cs" />
+    <Compile Include="Enums\Permissions.cs" />
+    <Compile Include="Enums\RankedStatus.cs" />
     <Compile Include="Enums\Ruleset.cs" />
     <Compile Include="Enums\SampleSet.cs" />
     <Compile Include="Enums\Sections.cs" />
