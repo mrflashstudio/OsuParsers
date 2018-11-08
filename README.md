@@ -1,6 +1,6 @@
 # OsuBeatmapParser [![nuget](https://img.shields.io/nuget/v/OsuBeatmapParser.svg)](https://www.nuget.org/packages/OsuBeatmapParser)
 
-.osu file format parser library written in C#
+Library for parsing files associated with osu! written in C# (.osr parser isn't implemented yet, sorry!)
 
 Feel free to use it and report any issues you might run into.  
 Cuz, you know, i might have broke something in the last few commits ;)  
