@@ -55,7 +55,7 @@ namespace SomeNamespace
 # Methods
 ### ParseBeatmap(path)
 Parses the given .osu file, then returns parsed Beatmap.
-``
+```
 Beatmap beatmap = Parser.ParseBeatmap(@"pathToBeatmap.osu");
 ```
 
