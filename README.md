@@ -43,8 +43,7 @@ namespace SomeNamespace
     {
         public static void Main(string[] args)
         {
-            Parser parser = new Parser();
-            Beatmap beatmap = parser.Parse(@"beatmapPath.osu");
+            Beatmap beatmap = Parser.Parse(@"beatmapPath.osu");
             
             //for example, if we want to print beatmap's title
             System.Console.WriteLine(beatmap.MetadataSection.TitleUnicode);
@@ -56,16 +55,14 @@ namespace SomeNamespace
 # Methods
 ### ParseBeatmap(path)
 Parses the given .osu file, then returns parsed Beatmap.
-```
-Parser parser = new Parser();
-Beatmap beatmap = parser.ParseBeatmap(@"pathToBeatmap.osu");
+``
+Beatmap beatmap = Parser.ParseBeatmap(@"pathToBeatmap.osu");
 ```
 
 ### ParseStoryboard(path)
 Parses the given .osb file, then returns parsed Storyboard.
 ```
-Parser parser = new Parser();
-Storyboard storyboard = parser.ParseStoryboard(@"pathToStoryboard.osb");
+Storyboard storyboard = Parser.ParseStoryboard(@"pathToStoryboard.osb");
 ```
 
 # Beatmap properties
