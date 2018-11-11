@@ -99,7 +99,6 @@
     <Compile Include="Beatmaps\Objects\Taiko\TaikoSpinner.cs" />
     <Compile Include="Beatmaps\Objects\TimingPoint.cs" />
     <Compile Include="Parser.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Beatmaps\Sections\DifficultySection.cs" />
     <Compile Include="Beatmaps\Sections\EditorSection.cs" />
