@@ -1,6 +1,7 @@
 using OsuBeatmapParser.Beatmaps;
 using OsuBeatmapParser.Database;
 using OsuBeatmapParser.Decoders;
+using OsuBeatmapParser.Replays;
 using OsuBeatmapParser.Storyboards;
 using System.IO;
 
@@ -11,6 +12,7 @@ namespace OsuBeatmapParser
         private static StoryboardDecoder storyboardDecoder = new StoryboardDecoder();
         private static BeatmapDecoder beatmapDecoder = new BeatmapDecoder();
         private static DatabaseDecoder databaseDecoder = new DatabaseDecoder();
+        private static ReplayDecoder replayDecoder = new ReplayDecoder();
 
         /// <summary>
         /// Parses .osu file.
@@ -53,5 +55,12 @@ namespace OsuBeatmapParser
         /// <param name="pathToPresenceDb">Path to the presence.db file.</param>
         /// <returns>A usable <see cref="PresenceDatabase"/>.</returns>
         public static PresenceDatabase ParsePresenceDatabase(string pathToPresenceDb) => databaseDecoder.DecodePresence(File.OpenRead(pathToPresenceDb));
+
+        /// <summary>
+        /// Parses .osr file.
+        /// </summary>
+        /// <param name="pathToReplay">Path to the .osr file.</param>
+        /// <returns>A usable <see cref="Replay"/>.</returns>
+        public static Replay ParseReplay(string pathToReplay) => replayDecoder.Decode(File.OpenRead(pathToReplay));
     }
 }
