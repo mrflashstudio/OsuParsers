@@ -65,6 +65,30 @@ Parses the given .osb file, then returns parsed Storyboard.
 Storyboard storyboard = Parser.ParseStoryboard(@"pathToStoryboard.osb");
 ```
 
+### ParseOsuDatabase(path)
+Parses the given osu!.db file, then returns parsed OsuDatabase.
+```
+OsuDatabase osuDatabase = Parser.ParseOsuDatabase(@"pathToOsuDatabase.osb");
+```
+
+### ParseCollectionDatabase(path)
+Parses the given collection.db file, then returns parsed CollectionDatabase.
+```
+CollectionDatabase collectionDatabase = Parser.ParseCollectionDatabase(@"pathToCollectionDb.db");
+```
+
+### ParseScoresDatabase(path)
+Parses the given scores.db file, then returns parsed ScoresDatabase.
+```
+ScoresDatabase scoresDatabase = Parser.ParseCollectionDatabase(@"pathToScoresDb.db");
+```
+
+### ParsePresenceDatabase(path)
+Parses the given presence.db file, then returns the parsed PresenceDatabase.
+```
+PresenceDatabase presenceDatabase = Parser.ParsePresenceDatabase(@"pathToPresenceDb.db");
+```
+
 # Beatmap properties
 | Name              | Type                 | Description                           |
 |-------------------|----------------------|---------------------------------------|
