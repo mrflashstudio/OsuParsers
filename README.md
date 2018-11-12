@@ -1,6 +1,6 @@
 # OsuBeatmapParser [![nuget](https://img.shields.io/nuget/v/OsuBeatmapParser.svg)](https://www.nuget.org/packages/OsuBeatmapParser)
 
-Library for parsing files associated with osu! written in C# (.osr parser isn't implemented yet, sorry!)
+Library for parsing files associated with osu! written in C#
 
 Feel free to use it and report any issues you might run into.  
 Cuz, you know, i might have broke something in the last few commits ;)  
@@ -15,6 +15,7 @@ Cuz, you know, i might have broke something in the last few commits ;)
     - [ParseCollectionDatabase(path)](#parsecollectiondatabasepath)
     - [ParseScoresDatabase(path)](#parsescoresdatabasepath)
     - [ParsePresenceDatabase(path)](#parsepresencedatabasepath)
+    - [ParseReplay(path)](#parsereplaypath)
 - [Beatmap properties](#beatmap-properties)  
     - [TimingPoint properties](#timingpoint-properties)  
     - [HitObject properties](#hitobject-properties)  
@@ -91,6 +92,12 @@ ScoresDatabase scoresDatabase = Parser.ParseCollectionDatabase(@"pathToScoresDb.
 Parses the given presence.db file, then returns the parsed PresenceDatabase.
 ```
 PresenceDatabase presenceDatabase = Parser.ParsePresenceDatabase(@"pathToPresenceDb.db");
+```
+
+### ParseReplay(path)
+Parses the given .osr file, then returns the parsed Replay.
+```
+Replay replay = Parser.ParseReplay(@"pathToReplay.osr");
 ```
 
 # Beatmap properties
