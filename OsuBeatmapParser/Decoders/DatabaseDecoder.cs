@@ -1,7 +1,7 @@
 ﻿using OsuBeatmapParser.Database;
 using OsuBeatmapParser.Database.Objects;
-using OsuBeatmapParser.Database.Serialization;
 using OsuBeatmapParser.Enums;
+using OsuBeatmapParser.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;

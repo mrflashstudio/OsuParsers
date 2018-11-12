@@ -56,8 +56,8 @@
     <Compile Include="Database\OsuDatabase.cs" />
     <Compile Include="Database\PresenceDatabase.cs" />
     <Compile Include="Database\ScoresDatabase.cs" />
-    <Compile Include="Database\Serialization\ObjType.cs" />
-    <Compile Include="Database\Serialization\SerializationReader.cs" />
+    <Compile Include="Serialization\ObjType.cs" />
+    <Compile Include="Serialization\SerializationReader.cs" />
     <Compile Include="Decoders\BeatmapDecoder.cs" />
     <Compile Include="Decoders\DatabaseDecoder.cs" />
     <Compile Include="Decoders\StoryboardDecoder.cs" />

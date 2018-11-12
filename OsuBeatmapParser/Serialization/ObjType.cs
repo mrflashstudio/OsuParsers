@@ -1,4 +1,4 @@
-﻿namespace OsuBeatmapParser.Database.Serialization
+﻿namespace OsuBeatmapParser.Serialization
 {
     internal enum ObjType : byte
     {

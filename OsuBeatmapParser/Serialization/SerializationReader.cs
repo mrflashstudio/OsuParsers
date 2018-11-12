@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace OsuBeatmapParser.Database.Serialization
+namespace OsuBeatmapParser.Serialization
 {
     internal class SerializationReader : BinaryReader
     {
