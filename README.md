@@ -226,8 +226,3 @@ Replay replay = Parser.ParseReplay(@"pathToReplay.osr");
 |-----------|------|-----------------------------------------------------------------------------------------------------|
 | StartTime | int  | Number of milliseconds from the beginning of the song defining the start point of the break period. |
 | EndTime   | int  | Number of milliseconds from the beginning of the song defining the end point of the break period.   |
-
-# TODO list
-### Low priority
-- Implement .osr file format parser.
-- Implement .osu/.osb/.osr writer. (idk if that will be useful)
