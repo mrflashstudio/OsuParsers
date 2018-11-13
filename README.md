@@ -16,7 +16,7 @@ Cuz, you know, i might have broke something in the last few commits ;)
     - [ParseScoresDatabase(path)](#parsescoresdatabasepath)
     - [ParsePresenceDatabase(path)](#parsepresencedatabasepath)
     - [ParseReplay(path)](#parsereplaypath)
-- [Documentation](#documentation)
+- [Documentation](#documentation)  
     -[Beatmap documentation](docs/BeatmapDocumentation.md)
 
 # Installation
