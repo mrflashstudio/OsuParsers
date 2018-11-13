@@ -1,18 +1,18 @@
 # Navigation
 - [Storyboard properties](#storyboard-properties)
 - [Interfaces](#interfaces)
-    - [IStoryboardObject](#istoryboardobject)
-    - [IHasCommands](#ihascommands)
-    - [ICommand](#icommand)
+    - [IStoryboardObject properties](#istoryboardobject-properties)
+    - [IHasCommands properties](#ihascommands-properties)
+    - [ICommand properties](#icommand-properties)
 - [Objects](#objects)
-    - [StoryboardSprite](#storyboardsprite)
-    - [StoryboardAnimation](#storyboardanimation)
-    - [StoryboardSample](#storyboardsample)
+    - [StoryboardSprite properties](#storyboardsprite-properties)
+    - [StoryboardAnimation properties](#storyboardanimation-properties)
+    - [StoryboardSample properties](#storyboardsample-properties)
 - [Commands](#commands)
-    - [CommandGroup](#commandgroup)
-    - [Command](#command)
-    - [TriggerCommand](#triggercommand)
-    - [LoopCommand](#loopcommand)  
+    - [CommandGroup properties](#commandgroup-properties)
+    - [Command properties](#command-properties)
+    - [TriggerCommand properties](#triggercommand-properties)
+    - [LoopCommand properties](#loopcommand-properties)  
     
 Also, see an [official documentation](https://osu.ppy.sh/help/wiki/Storyboard_Scripting).
 
@@ -26,21 +26,21 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/Storyboard_Sc
 | GetLayer(StoryboardLayer layer) | List\<IStoryboardObject\> | Returns one of the four lists specified above.                   |
 
 # Interfaces
-### IStoryboardObject
+### IStoryboardObject properties
 Indicates that object is a storyboard object. (StoryboardSprite, StoryboardAnimation or StoryboardSample)  
 
 | Name     | Type   | Description               |
 |----------|--------|---------------------------|
 | FilePath | string | Path to sprite or sample. |
 
-### IHasCommands
+### IHasCommands properties
 Indicates that object has CommandGroup.  
 
 | Name     | Type         | Description                                  |
 |----------|--------------|----------------------------------------------|
 | Commands | CommandGroup | Contains all commands that some object uses. |
 
-### ICommand
+### ICommand properties
 Indicates that this object is storyboard command.  
 
 | Name      | Type   | Description                                                                                 |
@@ -50,7 +50,7 @@ Indicates that this object is storyboard command.
 | EndTime   | int    | Ending time of this command in ms.                                                          |
 
 # Objects
-### StoryboardSprite
+### StoryboardSprite properties
 | Name     | Type         | Description                                  |
 |----------|--------------|----------------------------------------------|
 | Commands | CommandGroup | Contains all commands that this object uses. |
@@ -59,7 +59,7 @@ Indicates that this object is storyboard command.
 | X        | float        | X coordinate of where the object should be.  |
 | Y        | float        | Y coordinate of where the object should be.  |
 
-### StoryboardAnimation
+### StoryboardAnimation properties
 | Name       | Type         | Description                                            |
 |------------|--------------|--------------------------------------------------------|
 | Commands   | CommandGroup | Contains all commands that this object uses.           |
@@ -71,7 +71,7 @@ Indicates that this object is storyboard command.
 | FrameDelay | int          | Indicates how many ms should be in between each frame. |
 | LoopType   | LoopType     | Indicates if the animation should loop or not.         |
 
-### StoryboardSample
+### StoryboardSample properties
 | Name     | Type   | Description                         |
 |----------|--------|-------------------------------------|
 | Time     | int    | Starting time of this sample in ms. |
@@ -79,7 +79,7 @@ Indicates that this object is storyboard command.
 | Volume   | int    | Volume of this sample.              |
 
 # Commands
-### CommandGroup
+### CommandGroup properties
 | Name         | Type                               | Description                                        |
 |--------------|------------------------------------|----------------------------------------------------|
 | X            | List<Command\<float\>>               | Contains commads that change X coordinate.         |
@@ -95,8 +95,7 @@ Indicates that this object is storyboard command.
 | Triggers     | List\<TriggerCommand\>               | Contains all trigger commands of this object.      |
 | Loops        | List\<LoopCommand\>                  | Contains all loop commands of this object.         |
 
-### Command
-
+### Command properties
 | Name       | Type   | Description                                                                                 |
 |------------|--------|---------------------------------------------------------------------------------------------|
 | Easing     | Easing | Indicates if the command should "accelerate". See [http://easings.net](http://easings.net). |
@@ -105,7 +104,7 @@ Indicates that this object is storyboard command.
 | StartValue | T      | Start value of this command.                                                                |
 | EndValue   | T      | End value of this command.                                                                  |
 
-### TriggerCommand
+### TriggerCommand properties
 | Name             | Type         | Description                                                                                                             |
 |------------------|--------------|-------------------------------------------------------------------------------------------------------------------------|
 | TriggerName      | string       | Indicates the trigger condition.                                                                                        |
@@ -114,7 +113,7 @@ Indicates that this object is storyboard command.
 | GroupNumber      | int          | Allows triggers on the same sprite to be grouped so that all triggers of the group are stopped when one trigger starts. |
 | Commands         | CommandGroup | Commands of this trigger.                                                                                               |
 
-### LoopCommand
+### LoopCommand properties
 | Name          | Type         | Description                                        |
 |---------------|--------------|----------------------------------------------------|
 | LoopStartTime | int          | Timestamp at which the loop begins.                |
