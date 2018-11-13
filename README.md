@@ -39,8 +39,10 @@ Or you can just install [NuGet package](https://www.nuget.org/packages/OsuBeatma
 - And then you can build the project in your IDE.
 
 # Usage
-```
+### Beatmap parser
+```cs
 using OsuBeatmapParser;
+using OsuBeatmapParser.Beatmaps;
 
 namespace SomeNamespace
 {
@@ -48,10 +50,80 @@ namespace SomeNamespace
     {
         public static void Main(string[] args)
         {
-            Beatmap beatmap = Parser.Parse(@"beatmapPath.osu");
+            Beatmap beatmap = Parser.ParseBeatmap(@"beatmapPath.osu");
             
-            //for example, if we want to print beatmap's title
+            //printing beatmap's title
             System.Console.WriteLine(beatmap.MetadataSection.TitleUnicode);
+        }
+    }
+}
+```
+
+### Storyboard parser
+```cs
+using OsuBeatmapParser;
+using OsuBeatmapParser.Storyboards;
+
+namespace SomeNamespace
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Storyboard storyboard = Parser.ParseStoryboard(@"storyboardPath.osb");
+            
+            //getting first object of foreground layer
+            IStoryboardObject object = storyboard.ForegroundLayer[0];
+        }
+    }
+}
+```
+
+### Replay parser
+```cs
+using OsuBeatmapParser;
+using OsuBeatmapParser.Replays;
+
+namespace SomeNamespace
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            Replay replay = Parser.ParseReplay(@"replayPath.osr");
+            
+            //printing player's nickname
+            System.Console.WriteLine(replay.PlayerName);
+        }
+    }
+}
+```
+
+### Database parser
+```cs
+using OsuBeatmapParser;
+using OsuBeatmapParser.Database;
+
+namespace SomeNamespace
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            //parsing all available databases
+            OsuDatabase osuDb = Parser.ParseOsuDatabase(@"osuDbPath.db");
+            CollectionDatabase collectionDb = Parser.ParseCollectionDatabase(@"collectionDbPath.db");
+            ScoresDatabase scoresDb = Parser.ParseScoresDatabase(@"scoresDbPath.db");
+            PresenceDatabase presenceDb = Parser.ParsePresenceDatabase(@"presenceDbPath.db");
+            
+            //printing player's nickname
+            System.Console.WriteLine(osuDb.PlayerName);
+            //printing collection count
+            System.Console.WriteLine(collectionDb.CollectionCount);
+            //printing beatmap's md5 hash of first score
+            System.Console.WriteLine(scoresDb.Scores[0].Item1);
+            //printing first player's nickname
+            System.Console.WriteLine(presenceDb.Players[0].Username);
         }
     }
 }
