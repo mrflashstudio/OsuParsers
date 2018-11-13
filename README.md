@@ -17,7 +17,7 @@ Cuz, you know, i might have broke something in the last few commits ;)
     - [ParsePresenceDatabase(path)](#parsepresencedatabasepath)
     - [ParseReplay(path)](#parsereplaypath)
 - [Documentation](#documentation)  
-    -[Beatmap documentation](docs/BeatmapDocumentation.md)
+    - [Beatmap documentation](docs/BeatmapDocumentation.md)
 
 # Installation
 Download latest version of parser from [releases](https://github.com/mrflashstudio/OsuBeatmapParser/releases), then add the dll into your project references.  
