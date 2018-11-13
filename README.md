@@ -23,6 +23,9 @@ Cuz, you know, i might have broke something in the last few commits ;)
     - [Database parser](#database-parser)
 - [Documentation](#documentation)  
     - [Beatmap documentation](docs/BeatmapDocumentation.md)
+    - [Storyboard documentation](docs/StoryboardDocumentation.md)
+    - [Replay documentation](docs/ReplayDocumentation.md)
+    - [Database documentation](docs/DatabaseDocumentation.md)
 
 # Installation
 Download latest version of parser from [releases](https://github.com/mrflashstudio/OsuBeatmapParser/releases), then add the dll into your project references.  
@@ -44,6 +47,12 @@ Beatmap beatmap = Parser.ParseBeatmap(@"pathToBeatmap.osu");
 Parses the given .osb file, then returns parsed Storyboard.
 ```cs
 Storyboard storyboard = Parser.ParseStoryboard(@"pathToStoryboard.osb");
+```
+
+### ParseReplay(path)
+Parses the given .osr file, then returns the parsed Replay.
+```cs
+Replay replay = Parser.ParseReplay(@"pathToReplay.osr");
 ```
 
 ### ParseOsuDatabase(path)
@@ -68,12 +77,6 @@ ScoresDatabase scoresDatabase = Parser.ParseCollectionDatabase(@"pathToScoresDb.
 Parses the given presence.db file, then returns the parsed PresenceDatabase.
 ```cs
 PresenceDatabase presenceDatabase = Parser.ParsePresenceDatabase(@"pathToPresenceDb.db");
-```
-
-### ParseReplay(path)
-Parses the given .osr file, then returns the parsed Replay.
-```cs
-Replay replay = Parser.ParseReplay(@"pathToReplay.osr");
 ```
 
 # Usage
