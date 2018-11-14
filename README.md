@@ -82,8 +82,8 @@ PresenceDatabase presenceDatabase = Parser.ParsePresenceDatabase(@"pathToPresenc
 # Usage
 ### Beatmap parser
 ```cs
-using OsuBeatmapParser;
-using OsuBeatmapParser.Beatmaps;
+using OsuParsers;
+using OsuParsers.Beatmaps;
 
 namespace SomeNamespace
 {
@@ -102,8 +102,8 @@ namespace SomeNamespace
 
 ### Storyboard parser
 ```cs
-using OsuBeatmapParser;
-using OsuBeatmapParser.Storyboards;
+using OsuParsers;
+using OsuParsers.Storyboards;
 
 namespace SomeNamespace
 {
@@ -122,8 +122,8 @@ namespace SomeNamespace
 
 ### Replay parser
 ```cs
-using OsuBeatmapParser;
-using OsuBeatmapParser.Replays;
+using OsuParsers;
+using OsuParsers.Replays;
 
 namespace SomeNamespace
 {
@@ -142,8 +142,8 @@ namespace SomeNamespace
 
 ### Database parser
 ```cs
-using OsuBeatmapParser;
-using OsuBeatmapParser.Database;
+using OsuParsers;
+using OsuParsers.Database;
 
 namespace SomeNamespace
 {
