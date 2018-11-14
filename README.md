@@ -1,4 +1,4 @@
-# OsuBeatmapParser [![nuget](https://img.shields.io/nuget/v/OsuBeatmapParser.svg)](https://www.nuget.org/packages/OsuBeatmapParser)
+# OsuParsers [![nuget](https://img.shields.io/nuget/v/OsuParsers.svg)](https://www.nuget.org/packages/OsuParsers)
 
 Library for parsing files associated with osu! written in C#
 
@@ -28,12 +28,12 @@ Cuz, you know, i might have broke something in the last few commits ;)
     - [Database documentation](docs/DatabaseDocumentation.md)
 
 # Installation
-Download latest version of parser from [releases](https://github.com/mrflashstudio/OsuBeatmapParser/releases), then add the dll into your project references.  
-Or you can just install [NuGet package](https://www.nuget.org/packages/OsuBeatmapParser). (`Install-Package OsuBeatmapParser -Version 1.3.0`)
+Download latest version of parser from [releases](https://github.com/mrflashstudio/OsuParsers/releases), then add the dll into your project references.  
+Or you can just install [NuGet package](https://www.nuget.org/packages/OsuParsers). (`Install-Package OsuParsers -Version 1.3.1`)
 
 # Building and Requirements
 - You need a desktop platform that can compile .NET 4.5
-- Clone the repository `git clone https://github.com/mrflashstudio/OsuBeatmapParser`
+- Clone the repository `git clone https://github.com/mrflashstudio/OsuParsers`
 - And then you can build the project in your IDE.
 
 # Methods
