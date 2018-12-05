@@ -11,6 +11,8 @@
     - [Events Section properties](#events-section-properties)  
         - [Break Event properties](#break-event-properties)
         
+Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_Formats/Osu_(file_format)).
+        
 ### Beatmap properties
 | Name              | Type                 | Description                           |
 |-------------------|----------------------|---------------------------------------|
@@ -81,6 +83,7 @@
 | ModeId               | int       | Id of the game mode. (0=osu!, 1=Taiko, 2=Catch the Beat, 3=osu!mania)                      |
 | LetterboxInBreaks    | bool      | Specifies whether the letterbox appears during breaks.                                     |
 | WidescreenStoryboard | bool      | Specifies whether or not the storyboard should be widescreen.                              |
+| StoryFireInFront     | bool      | Specifies whether or not display the storyboard in front of combo fire.                    |
 | SpecialStyle         | bool      | Specifies whether or not use the special N+1 style for osu!mania.                          |
 | EpilepsyWarning      | bool      | Specifies whether or not show a epilepsy warning at the beginning of the beatmap.          |
 | UseSkinSprites       | bool      | Specifies whether or not the storyboard can use user's skin resources.                     |
