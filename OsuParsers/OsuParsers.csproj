@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Beatmaps\Beatmap.cs" />
+    <Compile Include="Beatmaps\Objects\HitObjectExtras.cs" />
     <Compile Include="Database\CollectionDatabase.cs" />
     <Compile Include="Database\Objects\Collection.cs" />
     <Compile Include="Database\Objects\DbBeatmap.cs" />

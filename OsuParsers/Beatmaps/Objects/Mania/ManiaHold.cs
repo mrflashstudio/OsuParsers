@@ -8,7 +8,6 @@ namespace OsuParsers.Beatmaps.Objects.Mania
         public ManiaHold(Point position, int startTime, int endTime, HitSoundType hitSound, int collumn, HitObjectExtras extras)
             : base(position, startTime, endTime, hitSound, collumn, extras)
         {
-
         }
     }
 }

@@ -8,7 +8,6 @@ namespace OsuParsers.Beatmaps.Objects.Taiko
         public TaikoSpinner(Point position, int startTime, int endTime, HitSoundType hitSound, HitObjectExtras extras)
             : base(position, startTime, endTime, hitSound, extras)
         {
-
         }
     }
 }
