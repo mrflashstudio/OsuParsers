@@ -70,7 +70,7 @@ CollectionDatabase collectionDatabase = Parser.ParseCollectionDatabase(@"pathToC
 ### ParseScoresDatabase(path)
 Parses the given scores.db file, then returns parsed ScoresDatabase.
 ```cs
-ScoresDatabase scoresDatabase = Parser.ParseCollectionDatabase(@"pathToScoresDb.db");
+ScoresDatabase scoresDatabase = Parser.ParseScoresDatabase(@"pathToScoresDb.db");
 ```
 
 ### ParsePresenceDatabase(path)

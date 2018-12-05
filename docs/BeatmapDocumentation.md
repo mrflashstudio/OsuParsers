@@ -131,6 +131,7 @@
 | Video           | string           | The filename specifies the location of the video relative to the beatmap directory.            |
 | VideoOffset     | int              | Video offset in ms.                                                                            |
 | Breaks          | List<BreakEvent> | List of break periods.                                                                         |
+| Storyboard      | Storyboard       | Storyboard of this beatmap.                                                                    |
 
 ### Break Event properties
 | Name      | Type | Description                                                                                         |
