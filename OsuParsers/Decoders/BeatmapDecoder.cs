@@ -115,6 +115,9 @@ namespace OsuParsers.Decoders
                 case "WidescreenStoryboard":
                     Beatmap.GeneralSection.WidescreenStoryboard = ParseHelper.ToBool(tokens[1].Trim());
                     break;
+                case "StoryFireInFront":
+                    Beatmap.GeneralSection.StoryFireInFront = ParseHelper.ToBool(tokens[1].Trim());
+                    break;
                 case "SpecialStyle":
                     Beatmap.GeneralSection.SpecialStyle = ParseHelper.ToBool(tokens[1].Trim());
                     break;
