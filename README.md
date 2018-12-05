@@ -1,4 +1,4 @@
-# OsuParsers [![nuget](https://img.shields.io/nuget/v/OsuParsers.svg)](https://www.nuget.org/packages/OsuParsers)
+# OsuParsers [![CodeFactor](https://www.codefactor.io/repository/github/mrflashstudio/osuparsers/badge)](https://www.codefactor.io/repository/github/mrflashstudio/osuparsers) [![nuget](https://img.shields.io/nuget/v/OsuParsers.svg)](https://www.nuget.org/packages/OsuParsers)
 
 Library for parsing files associated with osu! written in C#
 
