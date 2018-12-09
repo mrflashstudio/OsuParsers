@@ -170,5 +170,31 @@ namespace SomeNamespace
 }
 ```
 
+### Beatmap writer
+```cs
+using OsuParsers;
+using OsuParsers.Beatmaps;
+
+namespace SomeNamespace
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            //getting console output text as the song's new title
+            string newTitle = System.Console.ReadLine();
+            //parsing beatmap
+            using (Beatmap beatmap = Parser.ParseBeatmap(@"pathToBeatmap.osu"))
+            {
+                //changing song title
+                beatmap.MetadataSection.Title = newTitle;
+                //writing beatmap to file
+                beatmap.Write(@"pathToNewBeatmap.osu");
+            }
+        }
+    }
+}
+```
+
 # Documentation
 For detailed description of available methods and fields, see [documentation](docs).
