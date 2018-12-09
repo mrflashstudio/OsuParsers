@@ -142,6 +142,7 @@
     <Compile Include="Storyboards\Objects\StoryboardSample.cs" />
     <Compile Include="Storyboards\Objects\StoryboardSprite.cs" />
     <Compile Include="Storyboards\Storyboard.cs" />
+    <Compile Include="Writers\BeatmapWriter.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
