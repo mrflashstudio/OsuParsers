@@ -182,7 +182,6 @@ namespace OsuParsers.Decoders
                     break;
                 case "Tags":
                     Beatmap.MetadataSection.Tags = tokens[1].Trim().Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    Beatmap.MetadataSection.TagsString = tokens[1].Trim();
                     break;
                 case "BeatmapID":
                     Beatmap.MetadataSection.BeatmapID = Convert.ToInt32(tokens[1].Trim());
