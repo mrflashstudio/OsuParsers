@@ -74,7 +74,7 @@ namespace OsuParsers.Helpers
             }
             if (hitObject is StandardSpinner standardSpinner)
             {
-                type = (Bool(standardSpinner.IsNewCombo) * 4) + 4;
+                type = (Bool(standardSpinner.IsNewCombo) * 4) + 8;
                 return $"{x},{y},{time},{type},{hitsound},{standardSpinner.EndTime},{extras}";
             }
             throw new NotImplementedException();
