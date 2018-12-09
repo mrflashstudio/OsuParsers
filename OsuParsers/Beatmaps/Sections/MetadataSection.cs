@@ -10,7 +10,11 @@ namespace OsuParsers.Beatmaps.Sections
         public string Version { get; set; }
         public string Source { get; set; }
         public string[] Tags { get; set; }
-        public string TagsString { get; set; }
+        public string TagsString
+        {
+            get => Helpers.FormatHelper.Join(Tags);
+            set => Tags = value.Split(' ');
+        }
         public int BeatmapID { get; set; }
         public int BeatmapSetID { get; set; }
     }

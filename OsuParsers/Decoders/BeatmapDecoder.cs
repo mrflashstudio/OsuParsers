@@ -137,7 +137,6 @@ namespace OsuParsers.Decoders
             {
                 case "Bookmarks":
                     Beatmap.EditorSection.Bookmarks = tokens[1].Trim().Split(',').Select(b => Convert.ToInt32(b)).ToArray();
-                    Beatmap.EditorSection.BookmarksString = tokens[1].Trim();
                     break;
                 case "DistanceSpacing":
                     Beatmap.EditorSection.DistanceSpacing = ParseHelper.ToFloat(tokens[1].Trim());
@@ -182,7 +181,6 @@ namespace OsuParsers.Decoders
                     break;
                 case "Tags":
                     Beatmap.MetadataSection.Tags = tokens[1].Trim().Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                    Beatmap.MetadataSection.TagsString = tokens[1].Trim();
                     break;
                 case "BeatmapID":
                     Beatmap.MetadataSection.BeatmapID = Convert.ToInt32(tokens[1].Trim());
