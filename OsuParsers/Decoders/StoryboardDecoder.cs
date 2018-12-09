@@ -127,7 +127,7 @@ namespace OsuParsers.Decoders
                         {
                             float startValue = ParseHelper.ToFloat(tokens[4]);
                             float endValue = tokens.Length > 5 ? ParseHelper.ToFloat(tokens[5]) : startValue;
-                            commandGroup.Alpha.Add(new Command<float>(easing, startTime, endTime, startValue, endValue));
+                            commandGroup.Commands.Add(new Command(CommandType.Fade, easing, startTime, endTime, startValue, endValue));
                         }
                             break;
                         case "M":
@@ -136,29 +136,28 @@ namespace OsuParsers.Decoders
                             float startY = ParseHelper.ToFloat(tokens[5]);
                             float endX = tokens.Length > 6 ? ParseHelper.ToFloat(tokens[6]) : startX;
                             float endY = tokens.Length > 7 ? ParseHelper.ToFloat(tokens[7]) : startY;
-                            commandGroup.X.Add(new Command<float>(easing, startTime, endTime, startX, endX));
-                            commandGroup.Y.Add(new Command<float>(easing, startTime, endTime, startY, endY));
+                            commandGroup.Commands.Add(new Command(CommandType.Movement, easing, startTime, endTime, new Tuple<float, float>(startX, startY), new Tuple<float, float>(endX, endY)));
                          }
                             break;
                         case "MX":
                         {
                             float startValue = ParseHelper.ToFloat(tokens[4]);
                             float endValue = tokens.Length > 5 ? ParseHelper.ToFloat(tokens[5]) : startValue;
-                            commandGroup.X.Add(new Command<float>(easing, startTime, endTime, startValue, endValue));
+                            commandGroup.Commands.Add(new Command(CommandType.MovementX, easing, startTime, endTime, startValue, endValue));
                         }
                             break;
                         case "MY":
                         {
                             float startValue = ParseHelper.ToFloat(tokens[4]);
                             float endValue = tokens.Length > 5 ? ParseHelper.ToFloat(tokens[5]) : startValue;
-                            commandGroup.Y.Add(new Command<float>(easing, startTime, endTime, startValue, endValue));
+                            commandGroup.Commands.Add(new Command(CommandType.MovementY, easing, startTime, endTime, startValue, endValue));
                         }
                             break;
                         case "S":
                         {
                             float startValue = ParseHelper.ToFloat(tokens[4]);
                             float endValue = tokens.Length > 5 ? ParseHelper.ToFloat(tokens[5]) : startValue;
-                            commandGroup.Scale.Add(new Command<float>(easing, startTime, endTime, startValue, endValue));
+                            commandGroup.Commands.Add(new Command(CommandType.Scale, easing, startTime, endTime, startValue, endValue));
                         }
                             break;
                         case "V":
@@ -167,7 +166,7 @@ namespace OsuParsers.Decoders
                             float startY = ParseHelper.ToFloat(tokens[5]);
                             float endX = tokens.Length > 6 ? ParseHelper.ToFloat(tokens[6]) : startX;
                             float endY = tokens.Length > 7 ? ParseHelper.ToFloat(tokens[7]) : startY;
-                            commandGroup.VectorScale.Add(new Command<Tuple<float, float>>(easing, startTime, endTime,
+                            commandGroup.Commands.Add(new Command(CommandType.VectorScale, easing, startTime, endTime,
                                 new Tuple<float, float>(startX, startY), new Tuple<float, float>(endX, endY)));
                         }
                             break;
@@ -175,7 +174,7 @@ namespace OsuParsers.Decoders
                         {
                             float startValue = ParseHelper.ToFloat(tokens[4]);
                             float endValue = tokens.Length > 5 ? ParseHelper.ToFloat(tokens[5]) : startValue;
-                            commandGroup.Rotation.Add(new Command<float>(easing, startTime, endTime, startValue, endValue));
+                            commandGroup.Commands.Add(new Command(CommandType.Rotation, easing, startTime, endTime, startValue, endValue));
                         }
                             break;
                         case "C":
@@ -186,7 +185,7 @@ namespace OsuParsers.Decoders
                             float endRed = tokens.Length > 7 ? ParseHelper.ToFloat(tokens[7]) : startRed;
                             float endGreen = tokens.Length > 8 ? ParseHelper.ToFloat(tokens[8]) : startGreen;
                             float endBlue = tokens.Length > 9 ? ParseHelper.ToFloat(tokens[9]) : startBlue;
-                            commandGroup.Colour.Add(new Command<Color>(easing, startTime, endTime,
+                            commandGroup.Commands.Add(new Command(easing, startTime, endTime,
                                 Color.FromArgb(255, (int)startRed, (int)startGreen, (int)startGreen),
                                 Color.FromArgb(255, (int)endRed, (int)endGreen, (int)endGreen)));
                         }
@@ -198,13 +197,13 @@ namespace OsuParsers.Decoders
                             switch (parameter)
                             {
                                 case "H":
-                                    commandGroup.FlipH.Add(new Command<bool>(easing, startTime, endTime, true, startTime == endTime));
+                                    commandGroup.Commands.Add(new Command(CommandType.FlipHorizontal, easing, startTime, endTime));
                                     break;
                                 case "V":
-                                    commandGroup.FlipV.Add(new Command<bool>(easing, startTime, endTime, true, startTime == endTime));
+                                    commandGroup.Commands.Add(new Command(CommandType.FlipVertical, easing, startTime, endTime));
                                     break;
                                 case "A":
-                                    commandGroup.BlendingMode.Add(new Command<BlendingMode>(easing, startTime, endTime, BlendingMode.AdditiveBlending, startTime == endTime ? BlendingMode.AdditiveBlending : BlendingMode.AlphaBlending));
+                                    commandGroup.Commands.Add(new Command(CommandType.BlendingMode, easing, startTime, endTime));
                                     break;
                             }
                         }

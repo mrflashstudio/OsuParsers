@@ -59,6 +59,7 @@
     <Compile Include="Database\ScoresDatabase.cs" />
     <Compile Include="Decoders\ReplayDecoder.cs" />
     <Compile Include="Enums\CatchKeys.cs" />
+    <Compile Include="Enums\CommandType.cs" />
     <Compile Include="Enums\ManiaKeys.cs" />
     <Compile Include="Enums\StandardKeys.cs" />
     <Compile Include="Enums\TaikoKeys.cs" />
