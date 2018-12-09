@@ -1,5 +1,8 @@
 ﻿using OsuParsers.Beatmaps.Objects;
 using OsuParsers.Beatmaps.Objects.Standard;
+using OsuParsers.Beatmaps.Objects.Taiko;
+using OsuParsers.Beatmaps.Objects.Catch;
+using OsuParsers.Beatmaps.Objects.Mania;
 using OsuParsers.Enums;
 using System;
 using System.Collections.Generic;
@@ -57,24 +60,21 @@ namespace OsuParsers.Helpers
             var time = hitObject.StartTime;
             var hitsound = (int)hitObject.HitSound;
             var extras = HitObjectExtras(hitObject.Extras);
-            int type;
-            
+            int type = TypeByte(hitObject);
+
             //TODO: add proper type implementation
             //TODO: add all object types
 
             if (hitObject is StandardHitCircle standardHitCircle)
             {
-                type = (Bool(standardHitCircle.IsNewCombo) * 4) + 1;
                 return $"{x},{y},{time},{type},{hitsound},{extras}";
             }
             if (hitObject is StandardSlider standardSlider)
             {
-                type = (Bool(standardSlider.IsNewCombo) * 4) + 2;
                 return $"{x},{y},{time},{type},{hitsound},{SliderProperties(standardSlider)},{extras}";
             }
             if (hitObject is StandardSpinner standardSpinner)
             {
-                type = (Bool(standardSpinner.IsNewCombo) * 4) + 8;
                 return $"{x},{y},{time},{type},{hitsound},{standardSpinner.EndTime},{extras}";
             }
             throw new NotImplementedException();
@@ -116,6 +116,22 @@ namespace OsuParsers.Helpers
             }
         }
 
+        public static int TypeByte(HitObject hitObject)
+        {
+            int i = 0;
+            if (hitObject is StandardHitCircle || hitObject is TaikoHitCircle || hitObject is CatchHitCircle || hitObject is ManiaSingle)
+                i += 1;
+            if (hitObject is StandardSlider || hitObject is TaikoDrumroll || hitObject is CatchSlider)
+                i += 2;
+            if (hitObject is StandardSpinner || hitObject is TaikoSpinner || hitObject is CatchSpinner)
+                i += 8;
+            if ((hitObject as StandardHitObject)?.IsNewCombo ?? (hitObject as CatchHitObject)?.IsNewCombo ?? false)
+                i += 4;
+            if (hitObject is ManiaHold)
+                i += 128;
+            // Lack of color skip
+            return i;
+        }
 
         public static string HitObjectExtras(HitObjectExtras extras)
         {
