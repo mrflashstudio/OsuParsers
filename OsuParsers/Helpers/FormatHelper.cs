@@ -14,5 +14,11 @@ namespace OsuParsers.Helpers
             vs.ToList().ForEach(e => owo += e + splitter);
             return owo;
         }
+
+        public static string Join(IEnumerable<int> vs, string splitter = " ")
+        {
+            List<string> x = vs.ToList().ConvertAll(e => e.ToString());
+            return Join(x, splitter);
+        }
     }
 }
