@@ -6,7 +6,7 @@
         Slider = 1 << 1,
         NewCombo = 1 << 2,
         Spinner = 1 << 3,
-        ColourHax = 112, //TODO: combo offset
+        ComboOffset = 112,
         Hold = 1 << 7
     }
 }

@@ -5,8 +5,8 @@ namespace OsuParsers.Beatmaps.Objects.Standard
 {
     public class StandardSpinner : StandardHitObject
     {
-        public StandardSpinner(Point position, int startTime, int endTime, HitSoundType hitSound, bool isNewCombo, HitObjectExtras extras)
-            : base(position, startTime, endTime, hitSound, isNewCombo, extras)
+        public StandardSpinner(Point position, int startTime, int endTime, HitSoundType hitSound, bool isNewCombo, int comboOffset, HitObjectExtras extras)
+            : base(position, startTime, endTime, hitSound, isNewCombo, comboOffset, extras)
         {
         }
     }

@@ -311,7 +311,9 @@ namespace OsuParsers.Decoders
 
             HitObject hitObject = null;
 
-            HitObjectType type = (HitObjectType)int.Parse(tokens[3]) & ~HitObjectType.ColourHax;
+            HitObjectType type = (HitObjectType)int.Parse(tokens[3]);
+            int comboOffset = (int)(type & HitObjectType.ComboOffset) >> 4;
+            type &= ~HitObjectType.ComboOffset;
             bool isNewCombo = type.HasFlag(HitObjectType.NewCombo);
             type &= ~HitObjectType.NewCombo;
             Point position = new Point(Convert.ToInt32(tokens[0]), Convert.ToInt32(tokens[1]));
@@ -333,7 +335,7 @@ namespace OsuParsers.Decoders
                 case Ruleset.Standard:
                     if (type.HasFlag(HitObjectType.Circle))
                     {
-                        hitObject = new StandardHitCircle(position, startTime, startTime, hitSound, isNewCombo, extras);
+                        hitObject = new StandardHitCircle(position, startTime, startTime, hitSound, isNewCombo, comboOffset, extras);
                     }
                     else if (type.HasFlag(HitObjectType.Slider))
                     {
@@ -356,12 +358,12 @@ namespace OsuParsers.Decoders
 
                         int endTime = CalculateEndTime(startTime, repeats, pixelLength);
 
-                        hitObject = new StandardSlider(position, startTime, endTime, hitSound, isNewCombo, curveType, sliderPoints, repeats, pixelLength, edgeHitsounds, edgeAdditions, extras);
+                        hitObject = new StandardSlider(position, startTime, endTime, hitSound, isNewCombo, comboOffset, curveType, sliderPoints, repeats, pixelLength, edgeHitsounds, edgeAdditions, extras);
                     }
                     else
                     {
                         int endTime = Convert.ToInt32(tokens[5]);
-                        hitObject = new StandardSpinner(position, startTime, endTime, hitSound, isNewCombo, extras);
+                        hitObject = new StandardSpinner(position, startTime, endTime, hitSound, isNewCombo, comboOffset, extras);
                     }
                     break;
                 case Ruleset.Taiko:
@@ -396,7 +398,7 @@ namespace OsuParsers.Decoders
                     break;
                 case Ruleset.Fruits:
                     if (type.HasFlag(HitObjectType.Circle))
-                        hitObject = new CatchHitCircle(position, startTime, startTime, hitSound, isNewCombo, extras);
+                        hitObject = new CatchHitCircle(position, startTime, startTime, hitSound, isNewCombo, comboOffset, extras);
                     else if (type.HasFlag(HitObjectType.Slider))
                     {
                         CurveType curveType = ParseHelper.GetCurveType(tokens[5].Split('|')[0][0]);
@@ -419,7 +421,7 @@ namespace OsuParsers.Decoders
                         int endTime = CalculateEndTime(startTime, repeats, pixelLength);
 
                         //let's just hope that the endTime algorithm is same as osu!standard
-                        hitObject = new CatchSlider(position, startTime, endTime, hitSound, isNewCombo, curveType, sliderPoints, repeats, pixelLength, edgeHitsounds, edgeAdditions, extras);
+                        hitObject = new CatchSlider(position, startTime, endTime, hitSound, isNewCombo, comboOffset, curveType, sliderPoints, repeats, pixelLength, edgeHitsounds, edgeAdditions, extras);
                     }
                     else
                     {
@@ -443,6 +445,7 @@ namespace OsuParsers.Decoders
             Beatmap.HitObjects.Add(hitObject);
         }
 
+        //TODO: this seems to be broken
         private int CalculateEndTime(int startTime, int repeats, float pixelLength)
         {
             var timingPoint = GetTimingPointFromOffset(startTime);
