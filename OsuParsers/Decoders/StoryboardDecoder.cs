@@ -73,7 +73,7 @@ namespace OsuParsers.Decoders
                         int time = Convert.ToInt32(tokens[1]);
                         string filePath = tokens[3].Trim('"');
                         int volume = tokens.Length > 4 ? Convert.ToInt32(tokens[4]) : 100;
-                        storyboard.GetLayer(layer).Add(new StoryboardSample(time, filePath, volume));
+                        storyboard.SamplesLayer.Add(new StoryboardSample(layer, time, filePath, volume));
                     }
                     break;
             }
