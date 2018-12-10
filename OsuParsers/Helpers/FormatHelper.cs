@@ -10,24 +10,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Globalization;
 
 namespace OsuParsers.Helpers
 {
     public class FormatHelper
     {
-        public static string Join(IEnumerable<string> vs, string splitter = " ")
+        public static string Join(IEnumerable<string> vs, char splitter = ' ')
         {
             if (vs != null)
             {
                 string owo = string.Empty;
                 vs.ToList().ForEach(e => owo += e + splitter);
-                return owo.TrimEnd();
+                return owo.TrimEnd(splitter);
             }
             else
                 return string.Empty;
         }
 
-        public static string Join(IEnumerable<int> vs, string splitter = " ")
+        public static string Join(IEnumerable<int> vs, char splitter = ' ')
         {
             if (vs != null)
             {
@@ -43,7 +44,7 @@ namespace OsuParsers.Helpers
         public static string TimingPoint(TimingPoint timingPoint)
         {
             var offset = timingPoint.Offset;
-            var msPerBeat = timingPoint.BeatLength;
+            var msPerBeat = timingPoint.BeatLength.ToString(new CultureInfo(@"en-US", false).NumberFormat);
             var meter = (int)timingPoint.TimeSignature;
             var sampleSet = (int)timingPoint.SampleSet;
             var sampleIndex = timingPoint.CustomSampleSet;
