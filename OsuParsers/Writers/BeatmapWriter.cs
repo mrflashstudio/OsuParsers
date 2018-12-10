@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OsuParsers.Beatmaps;
 using OsuParsers.Beatmaps.Sections;
 using OsuParsers.Beatmaps.Objects;
@@ -93,21 +90,27 @@ namespace OsuParsers.Writers
 
         public static List<string> EventsSection(EventsSection section)
         {
-            return new List<string>
+            var list = BaseListFormat("Events");
+            list.Add(@"//Background and Video events");
+            list.Add($"0,0,\"{section.BackgroundImage}\",0,0");
+            if (section.Video != string.Empty)
+                list.Add($"1,{section.VideoOffset},{section.Video}");
+
+            list.Add(@"//Break Periods");
+            if (section.Breaks.Count > 0)
+                list.AddRange(section.Breaks.ConvertAll(b => $"2,{b.StartTime},{b.EndTime}"));
+
+            //TODO: add storyboard layers
+            list.AddRange(new List<string>
             {
-                string.Empty,
-                "[Events]",
-                @"//Background and Video events",
-                $"0,0,\"{section.BackgroundImage}\",0,0",
-                @"//Break Periods",
-                //TODO: add break periods
-                //TODO: add storyboard layers
                 @"//Storyboard Layer 0 (Background)",
                 @"//Storyboard Layer 1 (Fail)",
                 @"//Storyboard Layer 2 (Pass)",
                 @"//Storyboard Layer 3 (Foreground)",
-                @"//Storyboard Sound Samples",
-            };
+                @"//Storyboard Sound Samples"
+            });
+
+            return list;
         }
 
         public static List<string> TimingPoints(List<TimingPoint> timingPoints)
