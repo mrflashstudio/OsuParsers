@@ -129,7 +129,10 @@ namespace OsuParsers.Helpers
                 i += 4;
             if (hitObject is ManiaHold)
                 i += 128;
-            // Lack of color skip
+            if (hitObject is StandardHitObject standardHitObject)
+                i += standardHitObject.ComboOffset << 4;
+            if (hitObject is CatchHitObject catchHitObject)
+                i += catchHitObject.ComboOffset << 4;
             return i;
         }
 
