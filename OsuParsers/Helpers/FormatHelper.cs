@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace OsuParsers.Helpers
 {
@@ -51,6 +52,16 @@ namespace OsuParsers.Helpers
             var kiaiMode = Bool(timingPoint.KiaiMode);
 
             return $"{offset},{msPerBeat},{meter},{sampleSet},{sampleIndex},{volume},{inherited},{kiaiMode}";
+        }
+
+        public static string Colour(Color colour, int index)
+        {
+            var combo = $"Combo{index}";
+            var r = colour.R;
+            var g = colour.G;
+            var b = colour.B;
+
+            return $"{combo} : {r},{g},{b}";
         }
 
         public static string HitObject(HitObject hitObject)

@@ -4,6 +4,7 @@ using System.Globalization;
 using OsuParsers.Beatmaps;
 using OsuParsers.Beatmaps.Sections;
 using OsuParsers.Beatmaps.Objects;
+using System.Drawing;
 
 namespace OsuParsers.Writers
 {
@@ -18,6 +19,7 @@ namespace OsuParsers.Writers
                 MetadataSection(beatmap.MetadataSection),
                 EventsSection(beatmap.EventsSection),
                 TimingPoints(beatmap.TimingPoints),
+                Colours(beatmap.Colours),
                 HitObjects(beatmap.HitObjects),
             };
 
@@ -93,7 +95,7 @@ namespace OsuParsers.Writers
             var list = BaseListFormat("Events");
             list.Add(@"//Background and Video events");
             list.Add($"0,0,\"{section.BackgroundImage}\",0,0");
-            if (section.Video != string.Empty)
+            if (section.Video != null)
                 list.Add($"1,{section.VideoOffset},{section.Video}");
 
             list.Add(@"//Break Periods");
@@ -118,6 +120,15 @@ namespace OsuParsers.Writers
             var list = BaseListFormat("TimingPoints");
             if (timingPoints != null)
                 list.AddRange(timingPoints.ConvertAll(point => Helpers.FormatHelper.TimingPoint(point)));
+            return list;
+        }
+
+        public static List<string> Colours(List<Color> colours)
+        {
+            var list = BaseListFormat("Colours");
+            if (colours != null)
+                for (int i = 0; i < colours.Count; i++)
+                    list.Add(Helpers.FormatHelper.Colour(colours[i], i + 1));
             return list;
         }
 
