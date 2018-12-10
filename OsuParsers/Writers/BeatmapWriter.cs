@@ -17,6 +17,7 @@ namespace OsuParsers.Writers
                 GeneralSection(beatmap.GeneralSection),
                 EditorSection(beatmap.EditorSection),
                 MetadataSection(beatmap.MetadataSection),
+                DifficultySection(beatmap.DifficultySection),
                 EventsSection(beatmap.EventsSection),
                 TimingPoints(beatmap.TimingPoints),
                 Colours(beatmap.Colours),
@@ -87,6 +88,21 @@ namespace OsuParsers.Writers
                 "Tags:" + section.TagsString,
                 "BeatmapID:" + section.BeatmapID,
                 "BeatmapSetID:" + section.BeatmapSetID,
+            };
+        }
+
+        public static List<string> DifficultySection(DifficultySection section)
+        {
+            return new List<string>
+            {
+                string.Empty,
+                "[Difficulty]",
+                "HPDrainRate:" + section.HPDrainRate.ToString(NumFormat),
+                "CircleSize:" + section.CircleSize.ToString(NumFormat),
+                "OverallDifficulty:" + section.OverallDifficulty.ToString(NumFormat),
+                "ApproachRate:" + section.ApproachRate.ToString(NumFormat),
+                "SliderMultiplier:" + section.SliderMultiplier.ToString(NumFormat),
+                "SliderTickRate:" + section.SliderTickRate.ToString(NumFormat)
             };
         }
 
