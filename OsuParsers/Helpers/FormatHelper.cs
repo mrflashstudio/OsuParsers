@@ -16,6 +16,8 @@ namespace OsuParsers.Helpers
 {
     public class FormatHelper
     {
+        private static NumberFormatInfo NumFormat = new CultureInfo(@"en-US", false).NumberFormat;
+
         public static string Join(IEnumerable<string> vs, char splitter = ' ')
         {
             if (vs != null)
@@ -44,7 +46,7 @@ namespace OsuParsers.Helpers
         public static string TimingPoint(TimingPoint timingPoint)
         {
             var offset = timingPoint.Offset;
-            var msPerBeat = timingPoint.BeatLength.ToString(new CultureInfo(@"en-US", false).NumberFormat);
+            var msPerBeat = timingPoint.BeatLength.ToString(NumFormat);
             var meter = (int)timingPoint.TimeSignature;
             var sampleSet = (int)timingPoint.SampleSet;
             var sampleIndex = timingPoint.CustomSampleSet;
@@ -100,15 +102,17 @@ namespace OsuParsers.Helpers
             slider.SliderPoints.ForEach(pt => sliderPoints += $"|{pt.X}:{pt.Y}");
 
             var repeats = slider.Repeats;
-            var pixelLength = slider.PixelLength;
+            var pixelLength = slider.PixelLength.ToString(NumFormat);
 
             string edgeHitsounds = string.Empty;
             slider.EdgeHitSounds.ForEach(sound => edgeHitsounds += $"{(int)sound}|");
+            edgeHitsounds = edgeHitsounds.TrimEnd('|');
 
             string edgeAdditions = string.Empty;
-            slider.EdgeAdditions.ToList().ForEach(e => edgeAdditions += $"{(int)e.Item1}:{(int)e.Item2}");
+            slider.EdgeAdditions.ToList().ForEach(e => edgeAdditions += $"{(int)e.Item1}:{(int)e.Item2}|");
+            edgeAdditions = edgeAdditions.Trim('|');
 
-            return $"{sliderType},{sliderPoints},{repeats},{pixelLength},{edgeHitsounds},{edgeAdditions}";
+            return $"{sliderType}{sliderPoints},{repeats},{pixelLength},{edgeHitsounds},{edgeAdditions}";
         }
 
         public static char CurveType(CurveType value)
