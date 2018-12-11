@@ -175,8 +175,8 @@ namespace OsuParsers.Writers
         private static NumberFormatInfo NumFormat = new CultureInfo(@"en-US", false).NumberFormat;
 
         public static int Format(this bool value) => Helpers.FormatHelper.Bool(value);
-        public static string Format(this float value) => value.Format();
-        public static string Format(this int value) => value.Format();
+        public static string Format(this float value) => value.ToString(NumFormat);
+        public static string Format(this int value) => value.ToString(NumFormat);
 
     }
 }
