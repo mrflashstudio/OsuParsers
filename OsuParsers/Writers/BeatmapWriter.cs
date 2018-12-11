@@ -45,7 +45,7 @@ namespace OsuParsers.Writers
                 "PreviewTime: " + section.PreviewTime,
                 "Countdown: " + section.Countdown.Format(),
                 "SampleSet: " + section.SampleSet,
-                "StackLeniency: " + section.StackLeniency.ToString(NumFormat),
+                "StackLeniency: " + section.StackLeniency.Format(),
                 "Mode: " + (int)section.Mode,
                 "LetterboxInBreaks: " + section.LetterboxInBreaks.Format(),
                 "WidescreenStoryboard: " + section.WidescreenStoryboard.Format(),
@@ -63,10 +63,10 @@ namespace OsuParsers.Writers
                 string.Empty,
                 "[Editor]",
                 "Bookmarks: " + section.BookmarksString,
-                "DistanceSpacing: " + section.DistanceSpacing.ToString(NumFormat),
-                "BeatDivisor: " + section.BeatDivisor.ToString(NumFormat),
-                "GridSize: " + section.GridSize.ToString(NumFormat),
-                "TimelineZoom: " + section.TimelineZoom.ToString(NumFormat),
+                "DistanceSpacing: " + section.DistanceSpacing.Format(),
+                "BeatDivisor: " + section.BeatDivisor.Format(),
+                "GridSize: " + section.GridSize.Format(),
+                "TimelineZoom: " + section.TimelineZoom.Format(),
             };
         }
 
@@ -95,12 +95,12 @@ namespace OsuParsers.Writers
             {
                 string.Empty,
                 "[Difficulty]",
-                "HPDrainRate:" + section.HPDrainRate.ToString(NumFormat),
-                "CircleSize:" + section.CircleSize.ToString(NumFormat),
-                "OverallDifficulty:" + section.OverallDifficulty.ToString(NumFormat),
-                "ApproachRate:" + section.ApproachRate.ToString(NumFormat),
-                "SliderMultiplier:" + section.SliderMultiplier.ToString(NumFormat),
-                "SliderTickRate:" + section.SliderTickRate.ToString(NumFormat)
+                "HPDrainRate:" + section.HPDrainRate.Format(),
+                "CircleSize:" + section.CircleSize.Format(),
+                "OverallDifficulty:" + section.OverallDifficulty.Format(),
+                "ApproachRate:" + section.ApproachRate.Format(),
+                "SliderMultiplier:" + section.SliderMultiplier.Format(),
+                "SliderTickRate:" + section.SliderTickRate.Format()
             };
         }
 
@@ -175,8 +175,8 @@ namespace OsuParsers.Writers
         private static NumberFormatInfo NumFormat = new CultureInfo(@"en-US", false).NumberFormat;
 
         public static int Format(this bool value) => Helpers.FormatHelper.Bool(value);
-        public static string Format(this float value) => value.ToString(NumFormat);
-        public static string Format(this int value) => value.ToString(NumFormat);
+        public static string Format(this float value) => value.Format();
+        public static string Format(this int value) => value.Format();
 
     }
 }
