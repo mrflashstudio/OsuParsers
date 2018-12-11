@@ -32,8 +32,6 @@ namespace OsuParsers.Writers
             return contents;
         }
 
-        private static NumberFormatInfo NumFormat = new CultureInfo(@"en-US", false).NumberFormat;
-
         #region Sections
 
         public static List<string> GeneralSection(GeneralSection section)
@@ -45,16 +43,16 @@ namespace OsuParsers.Writers
                 "AudioFilename: " + section.AudioFilename,
                 "AudioLeadIn: " + section.AudioLeadIn,
                 "PreviewTime: " + section.PreviewTime,
-                "Countdown: " + Helpers.FormatHelper.Bool(section.Countdown),
+                "Countdown: " + section.Countdown.Format(),
                 "SampleSet: " + section.SampleSet,
                 "StackLeniency: " + section.StackLeniency.ToString(NumFormat),
                 "Mode: " + (int)section.Mode,
-                "LetterboxInBreaks: " + Helpers.FormatHelper.Bool(section.LetterboxInBreaks),
-                "WidescreenStoryboard: " + Helpers.FormatHelper.Bool(section.WidescreenStoryboard),
-                "StoryFireInFront: " + Helpers.FormatHelper.Bool(section.StoryFireInFront),
-                "SpecialStyle: " + Helpers.FormatHelper.Bool(section.SpecialStyle),
-                "EpilepsyWarning: " + Helpers.FormatHelper.Bool(section.EpilepsyWarning),
-                "UseSkinSprites: " + Helpers.FormatHelper.Bool(section.UseSkinSprites),
+                "LetterboxInBreaks: " + section.LetterboxInBreaks.Format(),
+                "WidescreenStoryboard: " + section.WidescreenStoryboard.Format(),
+                "StoryFireInFront: " + section.StoryFireInFront.Format(),
+                "SpecialStyle: " + section.SpecialStyle.Format(),
+                "EpilepsyWarning: " + section.EpilepsyWarning.Format(),
+                "UseSkinSprites: " + section.UseSkinSprites.Format(),
             };
         }
 
@@ -109,8 +107,12 @@ namespace OsuParsers.Writers
         public static List<string> EventsSection(EventsSection section)
         {
             var list = BaseListFormat("Events");
-            list.Add(@"//Background and Video events");
-            list.Add($"0,0,\"{section.BackgroundImage}\",0,0");
+            list.AddRange(new List<string>
+            {
+                @"//Background and Video events",
+                $"0,0,\"{section.BackgroundImage}\",0,0",
+            });
+
             if (section.Video != null)
                 list.Add($"1,{section.VideoOffset},{section.Video}");
 
@@ -166,5 +168,15 @@ namespace OsuParsers.Writers
                 $"[{SectionName}]",
             };
         }
+    }
+
+    static class Extensions
+    {
+        private static NumberFormatInfo NumFormat = new CultureInfo(@"en-US", false).NumberFormat;
+
+        public static int Format(this bool value) => Helpers.FormatHelper.Bool(value);
+        public static string Format(this float value) => value.ToString(NumFormat);
+        public static string Format(this int value) => value.ToString(NumFormat);
+
     }
 }
