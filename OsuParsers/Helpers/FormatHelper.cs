@@ -11,6 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Globalization;
+using OsuParsers.Storyboards.Interfaces;
+using OsuParsers.Storyboards.Objects;
+using OsuParsers.Storyboards.Commands;
 
 namespace OsuParsers.Helpers
 {
@@ -160,6 +163,100 @@ namespace OsuParsers.Helpers
             var sampleVolume = extras.Volume;
             var filename = extras.SampleFileName ?? string.Empty;
             return $"{sampleSet}:{additionSet}:{customIndex}:{sampleVolume}:{filename}";
+        }
+
+        public static List<string> StoryboardObject(IStoryboardObject storyboardObject, StoryboardLayer layer)
+        {
+            List<string> list = new List<string>();
+
+            if (storyboardObject is StoryboardSprite sprite)
+                list.Add($"Sprite,{layer},{sprite.Origin},\"{sprite.FilePath}\",{sprite.X.ToString(NumFormat)},{sprite.Y.ToString(NumFormat)}");
+            else if (storyboardObject is StoryboardAnimation animation)
+                list.Add($"Animation,{layer},{animation.Origin},\"{animation.FilePath}\",{animation.X.ToString(NumFormat)},{animation.Y.ToString(NumFormat)},{animation.FrameCount},{animation.FrameDelay},{animation.LoopType}");
+            else if(storyboardObject is StoryboardSample sample)
+                list.Add($"Sample,{sample.Time},{layer},\"{sample.FilePath}\",{sample.Volume}");
+
+            if (storyboardObject is IHasCommands obj)
+            {
+                foreach (var loop in obj.Commands.Loops)
+                {
+                    list.Add($" L,{loop.LoopStartTime},{loop.LoopCount}");
+                    foreach (var command in loop.Commands.Commands)
+                    {
+                        if (command.StartTime == command.EndTime)
+                            list.Add($"  {command.GetAcronym()},{(int)command.Easing},{command.StartTime},,{GetCommandArguments(command)}");
+                        else
+                            list.Add($"  {command.GetAcronym()},{(int)command.Easing},{command.StartTime},{command.EndTime},{GetCommandArguments(command)}");
+                    }
+                }
+
+                foreach (var command in obj.Commands.Commands)
+                {
+                    if (command.StartTime == command.EndTime)
+                        list.Add($"  {command.GetAcronym()},{(int)command.Easing},{command.StartTime},,{GetCommandArguments(command)}");
+                    else
+                        list.Add($"  {command.GetAcronym()},{(int)command.Easing},{command.StartTime},{command.EndTime},{GetCommandArguments(command)}");
+                }
+
+                foreach (var trigger in obj.Commands.Triggers)
+                {
+                    if (trigger.TriggerEndTime == 0)
+                        list.Add($" T,{trigger.TriggerName}{(trigger.GroupNumber != 0 ? $",{-trigger.GroupNumber}" : string.Empty)}");
+                    else
+                        list.Add($" T,{trigger.TriggerName},{trigger.TriggerStartTime},{trigger.TriggerEndTime}{(trigger.GroupNumber != 0 ? $",{-trigger.GroupNumber}" : string.Empty)}");
+
+                    foreach (var command in trigger.Commands.Commands)
+                    {
+                        if (command.StartTime == command.EndTime)
+                            list.Add($"  {command.GetAcronym()},{(int)command.Easing},{command.StartTime},,{GetCommandArguments(command)}");
+                        else
+                            list.Add($"  {command.GetAcronym()},{(int)command.Easing},{command.StartTime},{command.EndTime},{GetCommandArguments(command)}");
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        private static string GetCommandArguments(Command command)
+        {
+            string arguments = string.Empty;
+            switch (command.Type)
+            {
+                case CommandType.Movement:
+                case CommandType.VectorScale:
+                    if (command.StartVector == command.EndVector)
+                        arguments = $"{command.StartVector.Item1.ToString(NumFormat)},{command.StartVector.Item2.ToString(NumFormat)}";
+                    else
+                        arguments = $"{command.StartVector.Item1.ToString(NumFormat)},{command.StartVector.Item2.ToString(NumFormat)},{command.EndVector.Item1.ToString(NumFormat)},{command.EndVector.Item1.ToString(NumFormat)}";
+                    break;
+                case CommandType.Fade:
+                case CommandType.Rotation:
+                case CommandType.Scale:
+                case CommandType.MovementX:
+                case CommandType.MovementY:
+                    if (command.StartFloat == command.EndFloat)
+                        arguments = $"{command.StartFloat.ToString(NumFormat)}";
+                    else
+                        arguments = $"{command.StartFloat.ToString(NumFormat)},{command.EndFloat.ToString(NumFormat)}";
+                    break;
+                case CommandType.Colour:
+                    if (command.StartColour == command.EndColour)
+                        arguments = $"{command.StartColour.R},{command.StartColour.G},{command.StartColour.B}";
+                    else
+                        arguments = $"{command.StartColour.R},{command.StartColour.G},{command.StartColour.B},{command.EndColour.R},{command.EndColour.G},{command.EndColour.B}";
+                    break;
+                case CommandType.FlipHorizontal:
+                    arguments = @"H";
+                    break;
+                case CommandType.FlipVertical:
+                    arguments = @"V";
+                    break;
+                case CommandType.BlendingMode:
+                    arguments = @"A";
+                    break;
+            }
+            return arguments;
         }
     }
 }

@@ -68,11 +68,9 @@ namespace OsuParsers.Storyboards.Commands
                 case CommandType.MovementY:
                     return @"MY";
                 case CommandType.BlendingMode:
-                    return @"A";
                 case CommandType.FlipHorizontal:
-                    return @"H";
                 case CommandType.FlipVertical:
-                    return @"V";
+                    return @"P";
                 default:
                     return Type.ToString().Substring(0, 1);
             }

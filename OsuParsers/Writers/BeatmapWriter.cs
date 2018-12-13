@@ -120,15 +120,16 @@ namespace OsuParsers.Writers
             if (section.Breaks.Count > 0)
                 list.AddRange(section.Breaks.ConvertAll(b => $"2,{b.StartTime},{b.EndTime}"));
 
-            //TODO: add storyboard layers
-            list.AddRange(new List<string>
-            {
-                @"//Storyboard Layer 0 (Background)",
-                @"//Storyboard Layer 1 (Fail)",
-                @"//Storyboard Layer 2 (Pass)",
-                @"//Storyboard Layer 3 (Foreground)",
-                @"//Storyboard Sound Samples"
-            });
+            list.Add(@"//Storyboard Layer 0 (Background)");
+            section.Storyboard.BackgroundLayer.ForEach(sbObject => list.AddRange(Helpers.FormatHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Background)));
+            list.Add(@"//Storyboard Layer 1 (Fail)");
+            section.Storyboard.FailLayer.ForEach(sbObject => list.AddRange(Helpers.FormatHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Fail)));
+            list.Add(@"//Storyboard Layer 2 (Pass)");
+            section.Storyboard.PassLayer.ForEach(sbObject => list.AddRange(Helpers.FormatHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Pass)));
+            list.Add(@"//Storyboard Layer 3 (Foreground)");
+            section.Storyboard.ForegroundLayer.ForEach(sbObject => list.AddRange(Helpers.FormatHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Foreground)));
+            list.Add(@"//Storyboard Sound Samples");
+            section.Storyboard.SamplesLayer.ForEach(sbObject => list.AddRange(Helpers.FormatHelper.StoryboardObject(sbObject, (sbObject as Storyboards.Objects.StoryboardSample).Layer)));
 
             return list;
         }
