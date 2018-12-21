@@ -228,7 +228,7 @@ namespace OsuParsers.Helpers
                     if (command.StartVector == command.EndVector)
                         arguments = $"{command.StartVector.Item1.ToString(NumFormat)},{command.StartVector.Item2.ToString(NumFormat)}";
                     else
-                        arguments = $"{command.StartVector.Item1.ToString(NumFormat)},{command.StartVector.Item2.ToString(NumFormat)},{command.EndVector.Item1.ToString(NumFormat)},{command.EndVector.Item1.ToString(NumFormat)}";
+                        arguments = $"{command.StartVector.Item1.ToString(NumFormat)},{command.StartVector.Item2.ToString(NumFormat)},{command.EndVector.Item1.ToString(NumFormat)},{command.EndVector.Item2.ToString(NumFormat)}";
                     break;
                 case CommandType.Fade:
                 case CommandType.Rotation:
