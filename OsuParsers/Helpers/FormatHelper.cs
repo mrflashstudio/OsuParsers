@@ -193,9 +193,9 @@ namespace OsuParsers.Helpers
                 foreach (var command in obj.Commands.Commands)
                 {
                     if (command.StartTime == command.EndTime)
-                        list.Add($"  {command.GetAcronym()},{(int)command.Easing},{command.StartTime},,{GetCommandArguments(command)}");
+                        list.Add($" {command.GetAcronym()},{(int)command.Easing},{command.StartTime},,{GetCommandArguments(command)}");
                     else
-                        list.Add($"  {command.GetAcronym()},{(int)command.Easing},{command.StartTime},{command.EndTime},{GetCommandArguments(command)}");
+                        list.Add($" {command.GetAcronym()},{(int)command.Easing},{command.StartTime},{command.EndTime},{GetCommandArguments(command)}");
                 }
 
                 foreach (var trigger in obj.Commands.Triggers)
@@ -225,7 +225,7 @@ namespace OsuParsers.Helpers
             {
                 case CommandType.Movement:
                 case CommandType.VectorScale:
-                    if (command.StartVector == command.EndVector)
+                    if (command.StartVector.Equals(command.EndVector))
                         arguments = $"{command.StartVector.Item1.ToString(NumFormat)},{command.StartVector.Item2.ToString(NumFormat)}";
                     else
                         arguments = $"{command.StartVector.Item1.ToString(NumFormat)},{command.StartVector.Item2.ToString(NumFormat)},{command.EndVector.Item1.ToString(NumFormat)},{command.EndVector.Item2.ToString(NumFormat)}";

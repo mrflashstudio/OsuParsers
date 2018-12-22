@@ -33,7 +33,7 @@ namespace OsuParsers.Decoders
                     if (ParseHelper.GetCurrentSection(line) != Sections.None)
                         currentSection = ParseHelper.GetCurrentSection(line);
                     else
-                        ParseLine(line, lines);
+                        ParseLine(line);
                 }
             }
 
@@ -48,7 +48,7 @@ namespace OsuParsers.Decoders
             return Beatmap;
         }
 
-        private void ParseLine(string line, string[] bmLines)
+        private void ParseLine(string line)
         {
             switch (currentSection)
             {
@@ -68,7 +68,7 @@ namespace OsuParsers.Decoders
                     ParseDifficulty(line);
                     break;
                 case Enums.Sections.Events:
-                    ParseEvents(line, bmLines);
+                    ParseEvents(line);
                     break;
                 case Enums.Sections.TimingPoints:
                     ParseTimingPoints(line);
@@ -217,14 +217,18 @@ namespace OsuParsers.Decoders
             }
         }
 
-        private void ParseEvents(string line, string[] bmLines)
+        private void ParseEvents(string line)
         {
             string[] tokens = line.Split(',');
 
-            if (!Enum.TryParse(tokens[0], out EventType e))
-                return;
+            EventType eventType = default(EventType);
 
-            EventType eventType = (EventType)Enum.Parse(typeof(EventType), tokens[0]);
+            if (Enum.TryParse(tokens[0], out EventType e))
+                eventType = (EventType)Enum.Parse(typeof(EventType), tokens[0]);
+            else if (line.StartsWith(" ") || line.StartsWith("_"))
+                eventType = EventType.StoryboardCommand;
+            else
+                return;
 
             switch (eventType)
             {
@@ -238,18 +242,11 @@ namespace OsuParsers.Decoders
                 case EventType.Break:
                     Beatmap.EventsSection.Breaks.Add(new BreakEvent(Convert.ToInt32(tokens[1]), Convert.ToInt32(tokens[2])));
                     break;
-                case EventType.Sample:
-                    sbLines.Add(line);
-                    break;
                 case EventType.Sprite:
                 case EventType.Animation:
+                case EventType.Sample:
+                case EventType.StoryboardCommand:
                     sbLines.Add(line);
-                    int i = Array.IndexOf(bmLines, line) + 1;
-                    while (bmLines[i].StartsWith(" ") || bmLines[i].StartsWith("_"))
-                    {
-                        sbLines.Add(bmLines[i]);
-                        i++;
-                    }
                     break;
             }
         }
