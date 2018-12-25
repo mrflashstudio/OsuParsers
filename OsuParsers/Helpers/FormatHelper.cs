@@ -17,8 +17,6 @@ namespace OsuParsers.Helpers
 {
     public class FormatHelper
     {
-        private static NumberFormatInfo NumFormat = new CultureInfo(@"en-US", false).NumberFormat;
-
         public static string Join(IEnumerable<string> vs, char splitter = ' ')
         {
             if (vs != null)
@@ -47,7 +45,7 @@ namespace OsuParsers.Helpers
         public static string TimingPoint(TimingPoint timingPoint)
         {
             var offset = timingPoint.Offset;
-            var msPerBeat = timingPoint.BeatLength.ToString(NumFormat);
+            var msPerBeat = timingPoint.BeatLength.Format();
             var meter = (int)timingPoint.TimeSignature;
             var sampleSet = (int)timingPoint.SampleSet;
             var sampleIndex = timingPoint.CustomSampleSet;
@@ -103,7 +101,7 @@ namespace OsuParsers.Helpers
             slider.SliderPoints.ForEach(pt => sliderPoints += $"|{pt.X}:{pt.Y}");
 
             var repeats = slider.Repeats;
-            var pixelLength = slider.PixelLength.ToString(NumFormat);
+            var pixelLength = slider.PixelLength.Format();
 
             string edgeHitsounds = string.Empty;
             slider.EdgeHitSounds.ForEach(sound => edgeHitsounds += $"{(int)sound}|");
@@ -168,9 +166,9 @@ namespace OsuParsers.Helpers
             List<string> list = new List<string>();
 
             if (storyboardObject is StoryboardSprite sprite)
-                list.Add($"Sprite,{layer},{sprite.Origin},\"{sprite.FilePath}\",{sprite.X.ToString(NumFormat)},{sprite.Y.ToString(NumFormat)}");
+                list.Add($"Sprite,{layer},{sprite.Origin},\"{sprite.FilePath}\",{sprite.X.Format()},{sprite.Y.Format()}");
             else if (storyboardObject is StoryboardAnimation animation)
-                list.Add($"Animation,{layer},{animation.Origin},\"{animation.FilePath}\",{animation.X.ToString(NumFormat)},{animation.Y.ToString(NumFormat)},{animation.FrameCount},{animation.FrameDelay},{animation.LoopType}");
+                list.Add($"Animation,{layer},{animation.Origin},\"{animation.FilePath}\",{animation.X.Format()},{animation.Y.Format()},{animation.FrameCount},{animation.FrameDelay},{animation.LoopType}");
             else if(storyboardObject is StoryboardSample sample)
                 list.Add($"Sample,{sample.Time},{layer},\"{sample.FilePath}\",{sample.Volume}");
 
@@ -224,9 +222,9 @@ namespace OsuParsers.Helpers
                 case CommandType.Movement:
                 case CommandType.VectorScale:
                     if (command.StartVector.Equals(command.EndVector))
-                        arguments = $"{command.StartVector.Item1.ToString(NumFormat)},{command.StartVector.Item2.ToString(NumFormat)}";
+                        arguments = $"{command.StartVector.Item1.Format()},{command.StartVector.Item2.Format()}";
                     else
-                        arguments = $"{command.StartVector.Item1.ToString(NumFormat)},{command.StartVector.Item2.ToString(NumFormat)},{command.EndVector.Item1.ToString(NumFormat)},{command.EndVector.Item2.ToString(NumFormat)}";
+                        arguments = $"{command.StartVector.Item1.Format()},{command.StartVector.Item2.Format()},{command.EndVector.Item1.Format()},{command.EndVector.Item2.Format()}";
                     break;
                 case CommandType.Fade:
                 case CommandType.Rotation:
@@ -234,9 +232,9 @@ namespace OsuParsers.Helpers
                 case CommandType.MovementX:
                 case CommandType.MovementY:
                     if (command.StartFloat == command.EndFloat)
-                        arguments = $"{command.StartFloat.ToString(NumFormat)}";
+                        arguments = $"{command.StartFloat.Format()}";
                     else
-                        arguments = $"{command.StartFloat.ToString(NumFormat)},{command.EndFloat.ToString(NumFormat)}";
+                        arguments = $"{command.StartFloat.Format()},{command.EndFloat.Format()}";
                     break;
                 case CommandType.Colour:
                     if (command.StartColour == command.EndColour)
