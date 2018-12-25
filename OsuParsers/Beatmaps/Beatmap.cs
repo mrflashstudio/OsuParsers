@@ -32,7 +32,7 @@ namespace OsuParsers.Beatmaps
 
         public void Write(string path)
         {
-            File.WriteAllLines(path, Writers.BeatmapWriter.Write(this), System.Text.Encoding.Unicode);
+            File.WriteAllLines(path, Writers.BeatmapWriter.Write(this));
         }
     }
 }
