@@ -14,7 +14,7 @@ namespace OsuParsers.Beatmaps.Sections
                 Bookmarks = valueArray.ConvertAll(e => System.Convert.ToInt32(e)).ToArray();
             }
         }
-        public float DistanceSpacing { get; set; }
+        public double DistanceSpacing { get; set; }
         public int BeatDivisor { get; set; }
         public int GridSize { get; set; }
         public float TimelineZoom { get; set; }

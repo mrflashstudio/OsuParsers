@@ -103,7 +103,7 @@ namespace OsuParsers.Decoders
                     Beatmap.GeneralSection.SampleSet = (SampleSet)Enum.Parse(typeof(SampleSet), tokens[1].Trim());
                     break;
                 case "StackLeniency":
-                    Beatmap.GeneralSection.StackLeniency = ParseHelper.ToFloat(tokens[1].Trim());
+                    Beatmap.GeneralSection.StackLeniency = ParseHelper.ToDouble(tokens[1].Trim());
                     break;
                 case "Mode":
                     Beatmap.GeneralSection.Mode = (Ruleset)Enum.Parse(typeof(Ruleset), tokens[1].Trim());
@@ -139,7 +139,7 @@ namespace OsuParsers.Decoders
                     Beatmap.EditorSection.Bookmarks = tokens[1].Trim().Split(',').Select(b => Convert.ToInt32(b)).ToArray();
                     break;
                 case "DistanceSpacing":
-                    Beatmap.EditorSection.DistanceSpacing = ParseHelper.ToFloat(tokens[1].Trim());
+                    Beatmap.EditorSection.DistanceSpacing = ParseHelper.ToDouble(tokens[1].Trim());
                     break;
                 case "BeatDivisor":
                     Beatmap.EditorSection.BeatDivisor = Convert.ToInt32(tokens[1].Trim());
@@ -209,10 +209,10 @@ namespace OsuParsers.Decoders
                     Beatmap.DifficultySection.ApproachRate = ParseHelper.ToFloat(tokens[1].Trim());
                     break;
                 case "SliderMultiplier":
-                    Beatmap.DifficultySection.SliderMultiplier = ParseHelper.ToFloat(tokens[1].Trim());
+                    Beatmap.DifficultySection.SliderMultiplier = ParseHelper.ToDouble(tokens[1].Trim());
                     break;
                 case "SliderTickRate":
-                    Beatmap.DifficultySection.SliderTickRate = ParseHelper.ToFloat(tokens[1].Trim());
+                    Beatmap.DifficultySection.SliderTickRate = ParseHelper.ToDouble(tokens[1].Trim());
                     break;
             }
         }
@@ -256,7 +256,7 @@ namespace OsuParsers.Decoders
             string[] tokens = line.Split(',');
 
             int offset = (int)ParseHelper.ToFloat(tokens[0]);
-            float beatLength = ParseHelper.ToFloat(tokens[1]);
+            double beatLength = ParseHelper.ToDouble(tokens[1]);
             TimeSignature timeSignature = TimeSignature.SimpleQuadruple;
             SampleSet sampleSet = SampleSet.None;
             int customSampleSet = 0;
@@ -340,7 +340,7 @@ namespace OsuParsers.Decoders
                         List<Point> sliderPoints = ParseHelper.GetSliderPoints(tokens[5].Split('|'));
 
                         int repeats = Convert.ToInt32(tokens[6]);
-                        float pixelLength = ParseHelper.ToFloat(tokens[7]);
+                        double pixelLength = ParseHelper.ToDouble(tokens[7]);
 
                         List<HitSoundType> edgeHitsounds = tokens.Length > 8 ? Array.ConvertAll(tokens[8].Split('|'), s => (HitSoundType)Convert.ToInt32(s)).ToList() : new List<HitSoundType> { HitSoundType.None, HitSoundType.None };
                         List<Tuple<SampleSet, SampleSet>> tempEdgeAdditions = new List<Tuple<SampleSet, SampleSet>>();
@@ -373,7 +373,7 @@ namespace OsuParsers.Decoders
                     else if (type.HasFlag(HitObjectType.Slider))
                     {
                         int repeats = Convert.ToInt32(tokens[6].Trim());
-                        float pixelLength = ParseHelper.ToFloat(tokens[7].Trim());
+                        double pixelLength = ParseHelper.ToDouble(tokens[7].Trim());
 
                         HitSoundType[] edgeHitsounds = tokens.Length > 8 ? Array.ConvertAll(tokens[8].Split('|'), s => (HitSoundType)Convert.ToInt32(s)) : new HitSoundType[] { HitSoundType.None, HitSoundType.None };
                         List<Tuple<SampleSet, SampleSet>> tempEdgeAdditions = new List<Tuple<SampleSet, SampleSet>>();
@@ -402,7 +402,7 @@ namespace OsuParsers.Decoders
                         List<Point> sliderPoints = ParseHelper.GetSliderPoints(tokens[5].Split('|'));
 
                         int repeats = Convert.ToInt32(tokens[6]);
-                        float pixelLength = ParseHelper.ToFloat(tokens[7]);
+                        double pixelLength = ParseHelper.ToDouble(tokens[7]);
 
                         HitSoundType[] edgeHitsounds = tokens.Length > 8 ? Array.ConvertAll(tokens[8].Split('|'), s => (HitSoundType)Convert.ToInt32(s)) : new HitSoundType[] { HitSoundType.None, HitSoundType.None };
                         List<Tuple<SampleSet, SampleSet>> tempEdgeAdditions = new List<Tuple<SampleSet, SampleSet>>();
@@ -443,7 +443,7 @@ namespace OsuParsers.Decoders
         }
 
         //TODO: this seems to be broken
-        private int CalculateEndTime(int startTime, int repeats, float pixelLength)
+        private int CalculateEndTime(int startTime, int repeats, double pixelLength)
         {
             var timingPoint = GetTimingPointFromOffset(startTime);
             var parentTimingPoint = timingPoint;

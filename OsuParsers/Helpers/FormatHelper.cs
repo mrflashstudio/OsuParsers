@@ -7,8 +7,6 @@ using OsuParsers.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Drawing;
 using System.Globalization;
 using OsuParsers.Storyboards.Interfaces;
@@ -258,5 +256,15 @@ namespace OsuParsers.Helpers
             }
             return arguments;
         }
+    }
+
+    static class Extensions
+    {
+        private static NumberFormatInfo NumFormat = new CultureInfo(@"en-US", false).NumberFormat;
+
+        public static int Format(this bool value) => FormatHelper.Bool(value);
+        public static string Format(this float value) => value.ToString(NumFormat);
+        public static string Format(this double value) => value.ToString(NumFormat);
+        public static string Format(this int value) => value.ToString(NumFormat);
     }
 }

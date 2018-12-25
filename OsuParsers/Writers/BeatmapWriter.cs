@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Collections.Generic;
 using OsuParsers.Beatmaps;
 using OsuParsers.Beatmaps.Sections;
 using OsuParsers.Beatmaps.Objects;
+using OsuParsers.Helpers;
 using System.Drawing;
 
 namespace OsuParsers.Writers
@@ -121,15 +120,15 @@ namespace OsuParsers.Writers
                 list.AddRange(section.Breaks.ConvertAll(b => $"2,{b.StartTime},{b.EndTime}"));
 
             list.Add(@"//Storyboard Layer 0 (Background)");
-            section.Storyboard.BackgroundLayer.ForEach(sbObject => list.AddRange(Helpers.FormatHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Background)));
+            section.Storyboard.BackgroundLayer.ForEach(sbObject => list.AddRange(FormatHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Background)));
             list.Add(@"//Storyboard Layer 1 (Fail)");
-            section.Storyboard.FailLayer.ForEach(sbObject => list.AddRange(Helpers.FormatHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Fail)));
+            section.Storyboard.FailLayer.ForEach(sbObject => list.AddRange(FormatHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Fail)));
             list.Add(@"//Storyboard Layer 2 (Pass)");
-            section.Storyboard.PassLayer.ForEach(sbObject => list.AddRange(Helpers.FormatHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Pass)));
+            section.Storyboard.PassLayer.ForEach(sbObject => list.AddRange(FormatHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Pass)));
             list.Add(@"//Storyboard Layer 3 (Foreground)");
-            section.Storyboard.ForegroundLayer.ForEach(sbObject => list.AddRange(Helpers.FormatHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Foreground)));
+            section.Storyboard.ForegroundLayer.ForEach(sbObject => list.AddRange(FormatHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Foreground)));
             list.Add(@"//Storyboard Sound Samples");
-            section.Storyboard.SamplesLayer.ForEach(sbObject => list.AddRange(Helpers.FormatHelper.StoryboardObject(sbObject, (sbObject as Storyboards.Objects.StoryboardSample).Layer)));
+            section.Storyboard.SamplesLayer.ForEach(sbObject => list.AddRange(FormatHelper.StoryboardObject(sbObject, (sbObject as Storyboards.Objects.StoryboardSample).Layer)));
 
             return list;
         }
@@ -138,7 +137,7 @@ namespace OsuParsers.Writers
         {
             var list = BaseListFormat("TimingPoints");
             if (timingPoints != null)
-                list.AddRange(timingPoints.ConvertAll(point => Helpers.FormatHelper.TimingPoint(point)));
+                list.AddRange(timingPoints.ConvertAll(point => FormatHelper.TimingPoint(point)));
             return list;
         }
 
@@ -147,7 +146,7 @@ namespace OsuParsers.Writers
             var list = BaseListFormat("Colours");
             if (colours != null)
                 for (int i = 0; i < colours.Count; i++)
-                    list.Add(Helpers.FormatHelper.Colour(colours[i], i + 1));
+                    list.Add(FormatHelper.Colour(colours[i], i + 1));
             return list;
         }
 
@@ -155,7 +154,7 @@ namespace OsuParsers.Writers
         {
             var list = BaseListFormat("HitObjects");
             if (hitObjects != null)
-                list.AddRange(hitObjects.ConvertAll(obj => Helpers.FormatHelper.HitObject(obj)));
+                list.AddRange(hitObjects.ConvertAll(obj => FormatHelper.HitObject(obj)));
             return list;
         }
 
@@ -169,15 +168,5 @@ namespace OsuParsers.Writers
                 $"[{SectionName}]",
             };
         }
-    }
-
-    static class Extensions
-    {
-        private static NumberFormatInfo NumFormat = new CultureInfo(@"en-US", false).NumberFormat;
-
-        public static int Format(this bool value) => Helpers.FormatHelper.Bool(value);
-        public static string Format(this float value) => value.ToString(NumFormat);
-        public static string Format(this int value) => value.ToString(NumFormat);
-
     }
 }
