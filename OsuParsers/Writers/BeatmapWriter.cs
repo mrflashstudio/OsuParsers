@@ -35,10 +35,9 @@ namespace OsuParsers.Writers
 
         public static List<string> GeneralSection(GeneralSection section)
         {
-            return new List<string>
+            var list = BaseListFormat("General");
+            list.AddRange(new List<string>
             {
-                string.Empty,
-                "[General]",
                 "AudioFilename: " + section.AudioFilename,
                 "AudioLeadIn: " + section.AudioLeadIn,
                 "PreviewTime: " + section.PreviewTime,
@@ -46,13 +45,21 @@ namespace OsuParsers.Writers
                 "SampleSet: " + section.SampleSet,
                 "StackLeniency: " + section.StackLeniency.Format(),
                 "Mode: " + (int)section.Mode,
-                "LetterboxInBreaks: " + section.LetterboxInBreaks.Format(),
-                "WidescreenStoryboard: " + section.WidescreenStoryboard.Format(),
-                "StoryFireInFront: " + section.StoryFireInFront.Format(),
-                "SpecialStyle: " + section.SpecialStyle.Format(),
-                "EpilepsyWarning: " + section.EpilepsyWarning.Format(),
-                "UseSkinSprites: " + section.UseSkinSprites.Format(),
-            };
+                "LetterboxInBreaks: " + section.LetterboxInBreaks.Format()
+            });
+
+            if (section.StoryFireInFront)
+                list.Add("StoryFireInFront: " + section.StoryFireInFront.Format());
+            if (section.UseSkinSprites)
+                list.Add("UseSkinSprites: " + section.UseSkinSprites.Format());
+            if (section.EpilepsyWarning)
+                list.Add("EpilepsyWarning: " + section.EpilepsyWarning.Format());
+            if (section.Mode == Enums.Ruleset.Mania)
+                list.Add("SpecialStyle: " + section.SpecialStyle.Format());
+
+            list.Add("WidescreenStoryboard: " + section.WidescreenStoryboard.Format());
+
+            return list;
         }
 
         public static List<string> EditorSection(EditorSection section)
@@ -138,6 +145,7 @@ namespace OsuParsers.Writers
             var list = BaseListFormat("TimingPoints");
             if (timingPoints != null)
                 list.AddRange(timingPoints.ConvertAll(point => FormatHelper.TimingPoint(point)));
+            list.Add(string.Empty); //osu!stable adds an extra blank line after timing points.
             return list;
         }
 
