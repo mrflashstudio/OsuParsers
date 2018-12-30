@@ -1,5 +1,4 @@
 ﻿using OsuParsers.Beatmaps.Objects;
-using OsuParsers.Beatmaps.Objects.Standard;
 using OsuParsers.Beatmaps.Objects.Taiko;
 using OsuParsers.Beatmaps.Objects.Catch;
 using OsuParsers.Beatmaps.Objects.Mania;
@@ -78,22 +77,22 @@ namespace OsuParsers.Helpers
             //TODO: add proper type implementation
             //TODO: add all object types
 
-            if (hitObject is StandardHitCircle standardHitCircle)
+            if (hitObject is Circle standardHitCircle)
             {
                 return $"{x},{y},{time},{type},{hitsound},{extras}";
             }
-            if (hitObject is StandardSlider standardSlider)
+            if (hitObject is Slider standardSlider)
             {
                 return $"{x},{y},{time},{type},{hitsound},{SliderProperties(standardSlider)},{extras}";
             }
-            if (hitObject is StandardSpinner standardSpinner)
+            if (hitObject is Spinner standardSpinner)
             {
                 return $"{x},{y},{time},{type},{hitsound},{standardSpinner.EndTime},{extras}";
             }
             throw new NotImplementedException();
         }
 
-        public static string SliderProperties(StandardSlider slider)
+        public static string SliderProperties(Slider slider)
         {
             var sliderType = CurveType(slider.CurveType);
 
@@ -134,24 +133,21 @@ namespace OsuParsers.Helpers
         public static int TypeByte(HitObject hitObject)
         {
             int i = 0;
-            if (hitObject is StandardHitCircle || hitObject is TaikoHitCircle || hitObject is CatchHitCircle || hitObject is ManiaSingle)
+            if (hitObject is Circle || hitObject is TaikoHit || hitObject is CatchFruit || hitObject is ManiaHit)
                 i += 1;
-            if (hitObject is StandardSlider || hitObject is TaikoDrumroll || hitObject is CatchSlider)
+            if (hitObject is Slider || hitObject is TaikoDrumroll || hitObject is CatchDroplets)
                 i += 2;
-            if (hitObject is StandardSpinner || hitObject is TaikoSpinner || hitObject is CatchSpinner)
+            if (hitObject is Spinner || hitObject is TaikoSpinner || hitObject is CatchSpinner)
                 i += 8;
-            if ((hitObject as StandardHitObject)?.IsNewCombo ?? (hitObject as CatchHitObject)?.IsNewCombo ?? false)
+            if (hitObject.IsNewCombo)
                 i += 4;
             if (hitObject is ManiaHold)
                 i += 128;
-            if (hitObject is StandardHitObject standardHitObject)
-                i += standardHitObject.ComboOffset << 4;
-            if (hitObject is CatchHitObject catchHitObject)
-                i += catchHitObject.ComboOffset << 4;
+            i += hitObject.ComboOffset << 4;
             return i;
         }
 
-        public static string HitObjectExtras(HitObjectExtras extras)
+        public static string HitObjectExtras(Extras extras)
         {
             var sampleSet = (int)extras.SampleSet;
             var additionSet = (int)extras.AdditionSet;
