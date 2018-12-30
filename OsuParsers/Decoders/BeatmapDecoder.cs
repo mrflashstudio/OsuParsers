@@ -371,20 +371,8 @@ namespace OsuParsers.Decoders
                         hitObject = new TaikoHit(position, startTime, startTime, hitSound, extras, isBig, color);
                     else if (type.HasFlag(HitObjectType.Slider))
                     {
-                        int repeats = Convert.ToInt32(tokens[6].Trim());
-                        double pixelLength = ParseHelper.ToDouble(tokens[7].Trim());
-
-                        HitSoundType[] edgeHitsounds = tokens.Length > 8 ? Array.ConvertAll(tokens[8].Split('|'), s => (HitSoundType)Convert.ToInt32(s)) : new HitSoundType[] { HitSoundType.None, HitSoundType.None };
-                        List<Tuple<SampleSet, SampleSet>> tempEdgeAdditions = new List<Tuple<SampleSet, SampleSet>>();
-                        if (tokens.Length > 9)
-                        {
-                            foreach (var s in tokens[9].Split('|'))
-                            {
-                                tempEdgeAdditions.Add(new Tuple<SampleSet, SampleSet>((SampleSet)Convert.ToInt32(s.Split(':').First()), (SampleSet)Convert.ToInt32(s.Split(':').Last())));
-                            }
-                        }
-                        Tuple<SampleSet, SampleSet>[] edgeAdditions = tokens.Length > 9 ? tempEdgeAdditions.ToArray() : new Tuple<SampleSet, SampleSet>[] { new Tuple<SampleSet, SampleSet>(SampleSet.None, SampleSet.None), new Tuple<SampleSet, SampleSet>(SampleSet.None, SampleSet.None) };
-                        hitObject = new TaikoDrumroll(position, startTime, startTime, hitSound, (int)(repeats * pixelLength), edgeHitsounds, edgeAdditions, extras, isBig);
+                        int endTime = Convert.ToInt32(tokens[5]); //turns out that the sixth token of drumroll is its endtime
+                        hitObject = new TaikoDrumroll(position, startTime, endTime, hitSound, CurveType.Linear, new List<Point>(), 0, 0, new List<HitSoundType>(), new Tuple<SampleSet, SampleSet>[] { }, extras, isBig);
                     }
                     else
                     {
