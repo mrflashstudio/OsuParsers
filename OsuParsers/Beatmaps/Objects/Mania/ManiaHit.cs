@@ -6,8 +6,8 @@ namespace OsuParsers.Beatmaps.Objects.Mania
 {
     public class ManiaHit : HitObject
     {
-        public ManiaHit(Point position, int startTime, HitSoundType hitSound, Extras extras) 
-            : base(position, startTime, hitSound, extras)
+        public ManiaHit(Point position, int startTime, int endTime, HitSoundType hitSound, Extras extras) 
+            : base(position, startTime, endTime, hitSound, extras)
         {
         }
 

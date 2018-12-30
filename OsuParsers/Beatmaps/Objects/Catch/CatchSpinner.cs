@@ -5,8 +5,8 @@ namespace OsuParsers.Beatmaps.Objects.Catch
 {
     public class CatchSpinner : Spinner
     {
-        public CatchSpinner(Point position, int startTime, HitSoundType hitSound, Extras extras, int endTime) 
-            : base(position, startTime, hitSound, extras, endTime)
+        public CatchSpinner(Point position, int startTime, int endTime, HitSoundType hitSound, Extras extras) 
+            : base(position, startTime, endTime, hitSound, extras)
         {
         }
     }

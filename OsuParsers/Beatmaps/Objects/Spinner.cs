@@ -5,12 +5,9 @@ namespace OsuParsers.Beatmaps.Objects
 {
     public class Spinner : HitObject
     {
-        public Spinner(Point position, int startTime, HitSoundType hitSound, Extras extras, int endTime) 
-            : base(position, startTime, hitSound, extras)
+        public Spinner(Point position, int startTime, int endTime, HitSoundType hitSound, Extras extras) 
+            : base(position, startTime, endTime, hitSound, extras)
         {
-            EndTime = endTime;
         }
-
-        public int EndTime { get; set; }
     }
 }

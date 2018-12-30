@@ -5,8 +5,8 @@ namespace OsuParsers.Beatmaps.Objects.Catch
 {
     public class CatchFruit : HitObject
     {
-        public CatchFruit(Point position, int startTime, HitSoundType hitSound, Extras extras) 
-            : base(position, startTime, hitSound, extras)
+        public CatchFruit(Point position, int startTime, int endTime, HitSoundType hitSound, Extras extras) 
+            : base(position, startTime, endTime, hitSound, extras)
         {
         }
     }
