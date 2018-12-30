@@ -7,10 +7,10 @@ namespace OsuParsers.Beatmaps.Objects
 {
     public class Slider : HitObject
     {
-        public Slider(Point position, int startTime, int endTime, HitSoundType hitSound, bool isNewCombo, int comboOffset, 
-            CurveType type, List<Point> points, int repeats, double pixelLength, List<HitSoundType> edgeHitSounds, 
-            Tuple<SampleSet, SampleSet>[] edgeAdditions, Extras extras) 
-            : base(position, startTime, endTime, hitSound, extras)
+        public Slider(Point position, int startTime, int endTime, HitSoundType hitSound, CurveType type, List<Point> points, 
+            int repeats, double pixelLength, List<HitSoundType> edgeHitSounds, Tuple<SampleSet, SampleSet>[] edgeAdditions, 
+            Extras extras, bool isNewCombo, int comboOffset) 
+            : base(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset)
         {
             CurveType = type;
             SliderPoints = points;

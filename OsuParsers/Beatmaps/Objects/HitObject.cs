@@ -11,15 +11,18 @@ namespace OsuParsers.Beatmaps.Objects
         public HitSoundType HitSound { get; set; }
         public Extras Extras { get; set; }
         public bool IsNewCombo { get; set; }
+        public int ComboOffset { get; set; }
         public int MaxCombo { get; } = 1;
 
-        public HitObject(Point position, int startTime, int endTime, HitSoundType hitSound, Extras extras)
+        public HitObject(Point position, int startTime, int endTime, HitSoundType hitSound, Extras extras, bool isNewCombo, int comboOffset)
         {
             Position = position;
             StartTime = startTime;
             EndTime = endTime;
             HitSound = hitSound;
             Extras = extras;
+            IsNewCombo = isNewCombo;
+            ComboOffset = comboOffset;
         }
     }
 }

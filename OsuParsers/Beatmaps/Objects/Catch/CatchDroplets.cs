@@ -7,10 +7,10 @@ namespace OsuParsers.Beatmaps.Objects.Catch
 {
     class CatchDroplets : Slider
     {
-        public CatchDroplets(Point position, int startTime, int endTime, HitSoundType hitSound, bool isNewCombo, 
-            int comboOffset, CurveType type, List<Point> points, int repeats, double pixelLength, 
-            List<HitSoundType> edgeHitSounds, Tuple<SampleSet, SampleSet>[] edgeAdditions, Extras extras) 
-            : base(position, startTime, endTime, hitSound, isNewCombo, comboOffset, type, points, repeats, pixelLength, edgeHitSounds, edgeAdditions, extras)
+        public CatchDroplets(Point position, int startTime, int endTime, HitSoundType hitSound, CurveType type, 
+            List<Point> points, int repeats, double pixelLength, List<HitSoundType> edgeHitSounds, 
+            Tuple<SampleSet, SampleSet>[] edgeAdditions, Extras extras, bool isNewCombo, int comboOffset) 
+            : base(position, startTime, endTime, hitSound, type, points, repeats, pixelLength, edgeHitSounds, edgeAdditions, extras, isNewCombo, comboOffset)
         {
         }
     }
