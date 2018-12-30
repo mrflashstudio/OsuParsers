@@ -1,12 +1,12 @@
+﻿using System.Drawing;
 using OsuParsers.Enums;
-using System.Drawing;
 
 namespace OsuParsers.Beatmaps.Objects.Taiko
 {
-    public class TaikoSpinner : TaikoHitObject
+    public class TaikoSpinner : Spinner
     {
-        public TaikoSpinner(Point position, int startTime, int endTime, HitSoundType hitSound, HitObjectExtras extras)
-            : base(position, startTime, endTime, hitSound, extras)
+        public TaikoSpinner(Point position, int startTime, HitSoundType hitSound, Extras extras, int endTime) 
+            : base(position, startTime, hitSound, extras, endTime)
         {
         }
     }

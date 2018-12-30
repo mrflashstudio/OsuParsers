@@ -1,12 +1,12 @@
+﻿using System.Drawing;
 using OsuParsers.Enums;
-using System.Drawing;
 
 namespace OsuParsers.Beatmaps.Objects.Catch
 {
-    public class CatchSpinner : CatchHitObject
+    public class CatchSpinner : Spinner
     {
-        public CatchSpinner(Point position, int startTime, int endTime, HitSoundType hitSound, HitObjectExtras extras)
-            : base(position, startTime, endTime, hitSound, false, 0, extras)
+        public CatchSpinner(Point position, int startTime, HitSoundType hitSound, Extras extras, int endTime) 
+            : base(position, startTime, hitSound, extras, endTime)
         {
         }
     }

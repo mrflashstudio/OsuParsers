@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Drawing;
 using OsuParsers.Enums;
 
-namespace OsuParsers.Beatmaps.Objects.Taiko
+namespace OsuParsers.Beatmaps.Objects.Catch
 {
-    class TaikoDrumroll : Slider
+    class CatchDroplets : Slider
     {
-        public TaikoDrumroll(Point position, int startTime, HitSoundType hitSound, bool isNewCombo, int comboOffset, CurveType type,
+        public CatchDroplets(Point position, int startTime, HitSoundType hitSound, bool isNewCombo, int comboOffset, CurveType type, 
             List<Point> points, int repeats, double pixelLength, List<HitSoundType> edgeHitSounds, Tuple<SampleSet, SampleSet>[] edgeAdditions, Extras extras) 
             : base(position, startTime, hitSound, isNewCombo, comboOffset, type, points, repeats, pixelLength, edgeHitSounds, edgeAdditions, extras)
         {
