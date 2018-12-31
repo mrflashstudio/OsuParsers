@@ -3,7 +3,7 @@ using OsuParsers.Enums;
 
 namespace OsuParsers.Beatmaps.Objects.Taiko
 {
-    public class TaikoHit : HitObject
+    public class TaikoHit : Circle
     {
         public bool IsBig { get; set; }
         public TaikoColor Color { get; set; }
