@@ -134,15 +134,15 @@ namespace OsuParsers.Helpers
         {
             int i = 0;
             if (hitObject is Circle || hitObject is TaikoHit || hitObject is CatchFruit || hitObject is ManiaHit)
-                i += 1;
+                i += 1 << 0;
             if (hitObject is Slider || hitObject is TaikoDrumroll || hitObject is CatchDroplets)
-                i += 2;
+                i += 1 << 1;
             if (hitObject is Spinner || hitObject is TaikoSpinner || hitObject is CatchSpinner)
-                i += 8;
+                i += 1 << 3; 
             if (hitObject.IsNewCombo)
-                i += 4;
+                i += 1 << 2;
             if (hitObject is ManiaHold)
-                i += 128;
+                i += 1 << 7;
             i += hitObject.ComboOffset << 4;
             return i;
         }
