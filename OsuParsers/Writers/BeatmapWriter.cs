@@ -64,16 +64,19 @@ namespace OsuParsers.Writers
 
         public static List<string> EditorSection(EditorSection section)
         {
-            return new List<string>
+            var list = BaseListFormat("Editor");
+            if (section.Bookmarks != null)
+                list.Add("Bookmarks: " + section.BookmarksString);
+
+            list.AddRange(new List<string>
             {
-                string.Empty,
-                "[Editor]",
-                "Bookmarks: " + section.BookmarksString,
                 "DistanceSpacing: " + section.DistanceSpacing.Format(),
                 "BeatDivisor: " + section.BeatDivisor.Format(),
                 "GridSize: " + section.GridSize.Format(),
                 "TimelineZoom: " + section.TimelineZoom.Format(),
-            };
+            });
+
+            return list;
         }
 
         public static List<string> MetadataSection(MetadataSection section)
@@ -142,6 +145,9 @@ namespace OsuParsers.Writers
 
         public static List<string> TimingPoints(List<TimingPoint> timingPoints)
         {
+            if (timingPoints.Count == 0)
+                return new List<string>();
+
             var list = BaseListFormat("TimingPoints");
             if (timingPoints != null)
                 list.AddRange(timingPoints.ConvertAll(point => FormatHelper.TimingPoint(point)));
@@ -151,6 +157,9 @@ namespace OsuParsers.Writers
 
         public static List<string> Colours(List<Color> colours)
         {
+            if (colours.Count == 0)
+                return new List<string>();
+
             var list = BaseListFormat("Colours");
             if (colours != null)
                 for (int i = 0; i < colours.Count; i++)
