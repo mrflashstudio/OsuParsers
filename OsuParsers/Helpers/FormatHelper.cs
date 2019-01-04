@@ -91,7 +91,7 @@ namespace OsuParsers.Helpers
             }
             if (hitObject is ManiaHold hold)
             {
-                extra += $"{hold.EndTime},{extras}";
+                extra += $"{hold.EndTime}:{extras}";
             }
 
             return hitObjectBase + extra;

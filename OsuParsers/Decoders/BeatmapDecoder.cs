@@ -317,13 +317,14 @@ namespace OsuParsers.Decoders
             HitSoundType hitSound = (HitSoundType)Convert.ToInt32(tokens[4]);
 
             string[] extrasSplit = tokens.Last().Split(':');
+            int extrasOffset = type.HasFlag(HitObjectType.Hold) ? 1 : 0;
             Extras extras = tokens.Last().Contains(":") ? new Extras
             {
-                SampleSet = (SampleSet)Convert.ToInt32(extrasSplit[0]),
-                AdditionSet = (SampleSet)Convert.ToInt32(extrasSplit[1]),
-                CustomIndex = Convert.ToInt32(extrasSplit[2]),
-                Volume = Convert.ToInt32(extrasSplit[3]),
-                SampleFileName = extrasSplit[4]
+                SampleSet = (SampleSet)Convert.ToInt32(extrasSplit[0 + extrasOffset]),
+                AdditionSet = (SampleSet)Convert.ToInt32(extrasSplit[1 + extrasOffset]),
+                CustomIndex = Convert.ToInt32(extrasSplit[2 + extrasOffset]),
+                Volume = Convert.ToInt32(extrasSplit[3 + extrasOffset]),
+                SampleFileName = extrasSplit[4 + extrasOffset]
             } : new Extras();
 
             switch (Beatmap.GeneralSection.Mode)
