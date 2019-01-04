@@ -13,13 +13,14 @@ namespace OsuParsers.Beatmaps.Objects.Taiko
             }
             set
             {
-                if (value)
+                if (value && !HitSound.HasFlag(HitSoundType.Finish))
                     HitSound += (int)HitSoundType.Finish;
                 else
                     if (HitSound.HasFlag(HitSoundType.Finish))
                         HitSound -= (int)HitSoundType.Finish;
             }
         }
+
         public TaikoColor Color
         {
             get
@@ -32,18 +33,29 @@ namespace OsuParsers.Beatmaps.Objects.Taiko
             set
             {
                 if (value == TaikoColor.Red)
-                    HitSound = HitSoundType.Normal;
+                {
+                    if (HitSound.HasFlag(HitSoundType.Whistle))
+                        HitSound -= (int)HitSoundType.Whistle;
+                    if (HitSound.HasFlag(HitSoundType.Clap))
+                        HitSound -= (int)HitSoundType.Clap;
+
+                    if (!HitSound.HasFlag(HitSoundType.Normal))
+                        HitSound += (int)HitSoundType.Normal;
+                }
                 else if (value == TaikoColor.Blue)
-                    HitSound = HitSoundType.Whistle;
+                {
+                    if (HitSound.HasFlag(HitSoundType.Normal))
+                        HitSound -= (int)HitSoundType.Normal;
+
+                    if (!HitSound.HasFlag(HitSoundType.Whistle))
+                        HitSound += (int)HitSoundType.Whistle;
+                }
             }
         }
 
-        public TaikoHit(Point position, int startTime, int endTime, HitSoundType hitSound, Extras extras, bool isBig, TaikoColor color) 
+        public TaikoHit(Point position, int startTime, int endTime, HitSoundType hitSound, Extras extras) 
             : base(position, startTime, endTime, hitSound, extras, false, 0)
         {
-            // These may be unnecessary now
-            IsBig = isBig;
-            Color = color;
         }
     }
 }
