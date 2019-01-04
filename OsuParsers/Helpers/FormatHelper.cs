@@ -77,7 +77,7 @@ namespace OsuParsers.Helpers
             string hitObjectBase = $"{x},{y},{time},{type},{hitsound}";
             string extra = ",";
 
-            if (hitObject is Circle)
+            if (hitObject is Circle && !(hitObject is ManiaHold))
             {
                 extra += extras;
             }
@@ -145,7 +145,7 @@ namespace OsuParsers.Helpers
         public static int TypeByte(HitObject hitObject)
         {
             int i = 0;
-            if (hitObject is Circle)
+            if (hitObject is Circle && !(hitObject is ManiaHold))
                 i += 1 << 0;
             if (hitObject is Slider)
                 i += 1 << 1;

@@ -368,7 +368,7 @@ namespace OsuParsers.Decoders
                     bool isBig = hitSound.HasFlag(HitSoundType.Finish);
 
                     if (type.HasFlag(HitObjectType.Circle))
-                        hitObject = new TaikoHit(position, startTime, startTime, hitSound, extras);
+                        hitObject = new TaikoHit(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset);
                     else if (type.HasFlag(HitObjectType.Slider))
                     {
                         CurveType curveType = ParseHelper.GetCurveType(tokens[5].Split('|')[0][0]);
@@ -388,12 +388,12 @@ namespace OsuParsers.Decoders
                         }
                         Tuple<SampleSet, SampleSet>[] edgeAdditions = tokens.Length > 9 ? tempEdgeAdditions.ToArray() : null;
 
-                        hitObject = new TaikoDrumroll(position, startTime, startTime, hitSound, curveType, sliderPoints, repeats, pixelLength, edgeHitsounds, edgeAdditions, extras);
+                        hitObject = new TaikoDrumroll(position, startTime, startTime, hitSound, curveType, sliderPoints, repeats, pixelLength, edgeHitsounds, edgeAdditions, extras, isNewCombo, comboOffset);
                     }
                     else
                     {
                         int endTime = Convert.ToInt32(tokens[5].Trim());
-                        hitObject = new TaikoSpinner(position, startTime, endTime, hitSound, extras);
+                        hitObject = new TaikoSpinner(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
                     }
                     break;
                 case Ruleset.Fruits:
@@ -431,12 +431,12 @@ namespace OsuParsers.Decoders
                     break;
                 case Ruleset.Mania:
                     if (type.HasFlag(HitObjectType.Circle))
-                        hitObject = new ManiaHit(position, startTime, startTime, hitSound, extras);
+                        hitObject = new ManiaHit(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset);
                     else
                     {
                         string[] additions = tokens[5].Split(':');
                         int endTime = Convert.ToInt32(additions[0].Trim());
-                        hitObject = new ManiaHold(position, startTime, endTime, hitSound, extras);
+                        hitObject = new ManiaHold(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
                     }
                     break;
             }

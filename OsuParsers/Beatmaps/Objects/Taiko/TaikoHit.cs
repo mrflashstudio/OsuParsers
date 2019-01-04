@@ -53,8 +53,8 @@ namespace OsuParsers.Beatmaps.Objects.Taiko
             }
         }
 
-        public TaikoHit(Point position, int startTime, int endTime, HitSoundType hitSound, Extras extras) 
-            : base(position, startTime, endTime, hitSound, extras, false, 0)
+        public TaikoHit(Point position, int startTime, int endTime, HitSoundType hitSound, Extras extras, bool isNewCombo, int comboOffset) 
+            : base(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset)
         {
         }
     }
