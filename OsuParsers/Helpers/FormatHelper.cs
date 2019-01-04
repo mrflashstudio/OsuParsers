@@ -74,22 +74,27 @@ namespace OsuParsers.Helpers
             var extras = HitObjectExtras(hitObject.Extras);
             int type = TypeByte(hitObject);
 
-            //TODO: add proper type implementation
-            //TODO: add all object types
+            string hitObjectBase = $"{x},{y},{time},{type},{hitsound}";
+            string extra = ",";
 
-            if (hitObject is Circle standardHitCircle)
+            if (hitObject is Circle)
             {
-                return $"{x},{y},{time},{type},{hitsound},{extras}";
+                extra += extras;
             }
-            if (hitObject is Slider standardSlider)
+            if (hitObject is Slider slider)
             {
-                return $"{x},{y},{time},{type},{hitsound},{SliderProperties(standardSlider)},{extras}";
+                extra +=  SliderProperties(slider) + (slider.EdgeHitSounds == null ? string.Empty : extras);
             }
-            if (hitObject is Spinner standardSpinner)
+            if (hitObject is Spinner spinner)
             {
-                return $"{x},{y},{time},{type},{hitsound},{standardSpinner.EndTime},{extras}";
+                extra +=  $"{spinner.EndTime},{extras}";
             }
-            throw new NotImplementedException();
+            if (hitObject is ManiaHold hold)
+            {
+                extra += $"{hold.EndTime},{extras}";
+            }
+
+            return hitObjectBase + extra;
         }
 
         public static string SliderProperties(Slider slider)
@@ -102,15 +107,22 @@ namespace OsuParsers.Helpers
             var repeats = slider.Repeats;
             var pixelLength = slider.PixelLength.Format();
 
-            string edgeHitsounds = string.Empty;
-            slider.EdgeHitSounds.ForEach(sound => edgeHitsounds += $"{(int)sound}|");
-            edgeHitsounds = edgeHitsounds.TrimEnd('|');
+            if (slider.EdgeHitSounds == null)
+            {
+                return $"{sliderType}{sliderPoints},{repeats},{pixelLength}";
+            }
+            else
+            {
+                string edgeHitsounds = string.Empty;
+                slider.EdgeHitSounds.ForEach(sound => edgeHitsounds += $"{(int)sound}|");
+                edgeHitsounds = edgeHitsounds.TrimEnd('|');
 
-            string edgeAdditions = string.Empty;
-            slider.EdgeAdditions.ToList().ForEach(e => edgeAdditions += $"{(int)e.Item1}:{(int)e.Item2}|");
-            edgeAdditions = edgeAdditions.Trim('|');
+                string edgeAdditions = string.Empty;
+                slider.EdgeAdditions.ToList().ForEach(e => edgeAdditions += $"{(int)e.Item1}:{(int)e.Item2}|");
+                edgeAdditions = edgeAdditions.Trim('|');
 
-            return $"{sliderType}{sliderPoints},{repeats},{pixelLength},{edgeHitsounds},{edgeAdditions}";
+                return $"{sliderType}{sliderPoints},{repeats},{pixelLength},{edgeHitsounds},{edgeAdditions}";
+            }
         }
 
         public static char CurveType(CurveType value)
