@@ -145,11 +145,11 @@ namespace OsuParsers.Helpers
         public static int TypeByte(HitObject hitObject)
         {
             int i = 0;
-            if (hitObject is Circle || hitObject is TaikoHit || hitObject is CatchFruit || hitObject is ManiaHit)
+            if (hitObject is Circle)
                 i += 1 << 0;
-            if (hitObject is Slider || hitObject is TaikoDrumroll || hitObject is CatchDroplets)
+            if (hitObject is Slider)
                 i += 1 << 1;
-            if (hitObject is Spinner || hitObject is TaikoSpinner || hitObject is CatchSpinner)
+            if (hitObject is Spinner)
                 i += 1 << 3; 
             if (hitObject.IsNewCombo)
                 i += 1 << 2;
