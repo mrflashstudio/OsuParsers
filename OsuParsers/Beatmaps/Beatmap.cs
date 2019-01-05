@@ -1,7 +1,10 @@
 using OsuParsers.Beatmaps.Objects;
 using OsuParsers.Beatmaps.Sections;
+using OsuParsers.Enums;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
+using System.IO;
 
 namespace OsuParsers.Beatmaps
 {
@@ -25,6 +28,11 @@ namespace OsuParsers.Beatmaps
             MetadataSection = new MetadataSection();
             DifficultySection = new DifficultySection();
             EventsSection = new EventsSection();
+        }
+
+        public void Write(string path)
+        {
+            File.WriteAllLines(path, Writers.BeatmapWriter.Write(this));
         }
     }
 }

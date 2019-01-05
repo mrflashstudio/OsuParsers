@@ -21,6 +21,7 @@ Cuz, you know, i might have broke something in the last few commits ;)
     - [Storyboard parser](#storyboard-parser)
     - [Replay parser](#replay-parser)
     - [Database parser](#database-parser)
+    - [Beatmap writer](#beatmap-writer)
 - [Documentation](#documentation)  
     - [Beatmap documentation](docs/BeatmapDocumentation.md)
     - [Storyboard documentation](docs/StoryboardDocumentation.md)
@@ -165,6 +166,32 @@ namespace SomeNamespace
             System.Console.WriteLine(scoresDb.Scores[0].Item1);
             //printing first player's nickname
             System.Console.WriteLine(presenceDb.Players[0].Username);
+        }
+    }
+}
+```
+
+### Beatmap writer
+```cs
+using OsuParsers;
+using OsuParsers.Beatmaps;
+
+namespace SomeNamespace
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            //getting console output text as the song's new title
+            string newTitle = System.Console.ReadLine();
+            //parsing beatmap
+            using (Beatmap beatmap = Parser.ParseBeatmap(@"pathToBeatmap.osu"))
+            {
+                //changing song title
+                beatmap.MetadataSection.Title = newTitle;
+                //writing beatmap to file
+                beatmap.Write(@"pathToNewBeatmap.osu");
+            }
         }
     }
 }
