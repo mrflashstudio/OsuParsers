@@ -59,5 +59,12 @@ namespace OsuParsers.Helpers
             float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out parsedFloat);
             return parsedFloat;
         }
+
+        public static double ToDouble(string value)
+        {
+            double parsedDouble = 0;
+            double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out parsedDouble);
+            return parsedDouble;
+        }
     }
 }
