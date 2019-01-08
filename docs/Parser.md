@@ -8,7 +8,7 @@
     - [ParseScoresDatabase(path)](#parsescoresdatabasepath)
     - [ParsePresenceDatabase(path)](#parsepresencedatabasepath)  
     
-Also, see use cases in the [**Usage** section of readme](README.md#usage).
+Also, see use cases in the [**Usage** section of readme](../README.md#usage).
         
 # Methods
 ### ParseBeatmap(path)
