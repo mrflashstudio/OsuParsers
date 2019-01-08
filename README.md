@@ -8,21 +8,15 @@ Cuz, you know, i might have broke something in the last few commits ;)
 # Navigation
 - [Installation](#installation)  
 - [Building and Requirements](#building-and-requirements)  
-- [Methods](#methods)  
-    - [ParseBeatmap(path)](#parsebeatmappath)
-    - [ParseStoryboard(path)](#parsestoryboardpath)
-    - [ParseReplay(path)](#parsereplaypath)
-    - [ParseOsuDatabase(path)](#parseosudatabasepath)
-    - [ParseCollectionDatabase(path)](#parsecollectiondatabasepath)
-    - [ParseScoresDatabase(path)](#parsescoresdatabasepath)
-    - [ParsePresenceDatabase(path)](#parsepresencedatabasepath)
 - [Usage](#usage)  
     - [Beatmap parser](#beatmap-parser)
     - [Storyboard parser](#storyboard-parser)
     - [Replay parser](#replay-parser)
     - [Database parser](#database-parser)
     - [Beatmap writer](#beatmap-writer)
+    - [Storyboard writer](#storyboard-writer)
 - [Documentation](#documentation)  
+    - [Parser documentation](docs/ParserDocumentation.md)
     - [Beatmap documentation](docs/BeatmapDocumentation.md)
     - [Storyboard documentation](docs/StoryboardDocumentation.md)
     - [Replay documentation](docs/ReplayDocumentation.md)
@@ -30,55 +24,12 @@ Cuz, you know, i might have broke something in the last few commits ;)
 
 # Installation
 Download latest version of parser from [releases](https://github.com/mrflashstudio/OsuParsers/releases), then add the dll into your project references.  
-Or you can just install [NuGet package](https://www.nuget.org/packages/OsuParsers). (`Install-Package OsuParsers -Version 1.3.1`)
+Or you can just install [NuGet package](https://www.nuget.org/packages/OsuParsers). (`Install-Package OsuParsers -Version 1.4.0`)
 
 # Building and Requirements
 - You need a desktop platform that can compile .NET 4.5
 - Clone the repository `git clone https://github.com/mrflashstudio/OsuParsers`
 - And then you can build the project in your IDE.
-
-# Methods
-### ParseBeatmap(path)
-Parses the given .osu file, then returns parsed Beatmap.
-```cs
-Beatmap beatmap = Parser.ParseBeatmap(@"pathToBeatmap.osu");
-```
-
-### ParseStoryboard(path)
-Parses the given .osb file, then returns parsed Storyboard.
-```cs
-Storyboard storyboard = Parser.ParseStoryboard(@"pathToStoryboard.osb");
-```
-
-### ParseReplay(path)
-Parses the given .osr file, then returns the parsed Replay.
-```cs
-Replay replay = Parser.ParseReplay(@"pathToReplay.osr");
-```
-
-### ParseOsuDatabase(path)
-Parses the given osu!.db file, then returns parsed OsuDatabase.
-```cs
-OsuDatabase osuDatabase = Parser.ParseOsuDatabase(@"pathToOsuDatabase.osb");
-```
-
-### ParseCollectionDatabase(path)
-Parses the given collection.db file, then returns parsed CollectionDatabase.
-```cs
-CollectionDatabase collectionDatabase = Parser.ParseCollectionDatabase(@"pathToCollectionDb.db");
-```
-
-### ParseScoresDatabase(path)
-Parses the given scores.db file, then returns parsed ScoresDatabase.
-```cs
-ScoresDatabase scoresDatabase = Parser.ParseScoresDatabase(@"pathToScoresDb.db");
-```
-
-### ParsePresenceDatabase(path)
-Parses the given presence.db file, then returns the parsed PresenceDatabase.
-```cs
-PresenceDatabase presenceDatabase = Parser.ParsePresenceDatabase(@"pathToPresenceDb.db");
-```
 
 # Usage
 ### Beatmap parser
@@ -191,6 +142,32 @@ namespace SomeNamespace
                 beatmap.MetadataSection.Title = newTitle;
                 //writing beatmap to file
                 beatmap.Write(@"pathToNewBeatmap.osu");
+            }
+        }
+    }
+}
+```
+
+### Beatmap writer
+```cs
+using OsuParsers;
+using OsuParsers.Storyboards;
+
+namespace SomeNamespace
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            //getting console output text as the object's new filepath
+            string newFilePath = System.Console.ReadLine();
+            //parsing storyboard
+            using (Storyboard storyboard = Parser.ParseStoryboard(@"pathToStoryboard.osb"))
+            {
+                //changing filepath of the first storyboard object in background layer
+                storyboard.BackgroundLayer[0].FilePath = newFilePath;
+                //writing storyboard to file
+                beatmap.Write(@"pathToNewStoryboard.osb");
             }
         }
     }

@@ -8,7 +8,7 @@ namespace OsuParsers.Beatmaps.Objects
     public class Slider : HitObject
     {
         public Slider(Point position, int startTime, int endTime, HitSoundType hitSound, CurveType type, List<Point> points, 
-            int repeats, double pixelLength, List<HitSoundType> edgeHitSounds, Tuple<SampleSet, SampleSet>[] edgeAdditions, 
+            int repeats, double pixelLength, List<HitSoundType> edgeHitSounds, List<Tuple<SampleSet, SampleSet>> edgeAdditions, 
             Extras extras, bool isNewCombo, int comboOffset) 
             : base(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset)
         {
@@ -25,6 +25,6 @@ namespace OsuParsers.Beatmaps.Objects
         public int Repeats { get; set; }
         public double PixelLength { get; set; }
         public List<HitSoundType> EdgeHitSounds { get; set; }
-        public Tuple<SampleSet, SampleSet>[] EdgeAdditions { get; set; }
+        public List<Tuple<SampleSet, SampleSet>> EdgeAdditions { get; set; }
     }
 }

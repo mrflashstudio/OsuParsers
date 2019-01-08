@@ -23,7 +23,8 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/Storyboard_Sc
 | FailLayer                       | List\<IStoryboardObject\> | Storyboard layer that appears only when player is in fail state. |
 | PassLayer                       | List\<IStoryboardObject\> | Storyboard layer that appears only when player is in pass state. |
 | ForegroundLayer                 | List\<IStoryboardObject\> | The "highest" layer of storyboard.                               |
-| GetLayer(StoryboardLayer layer) | List\<IStoryboardObject\> | Returns one of the four lists specified above.                   |
+| SamplesLayer                    | List\<IStoryboardObject\> | Storyboard layer that contains audio samples.                    |
+| GetLayer(StoryboardLayer layer) | List\<IStoryboardObject\> | Returns one of the five lists specified above.                   |
 
 # Interfaces
 ### IStoryboardObject properties
@@ -43,11 +44,12 @@ Indicates that object has CommandGroup.
 ### ICommand properties
 Indicates that this object is storyboard command.  
 
-| Name      | Type   | Description                                                                                 |
-|-----------|--------|---------------------------------------------------------------------------------------------|
-| Easing    | Easing | Indicates if the command should "accelerate". See [http://easings.net](http://easings.net). |
-| StartTime | int    | Starting time of this command in ms.                                                        |
-| EndTime   | int    | Ending time of this command in ms.                                                          |
+| Name      | Type           | Description                                                                                 |
+|-----------|----------------|---------------------------------------------------------------------------------------------|
+| Type      | CommandType    | Type of this command. (e.g. VectorScale)                                                    |
+| Easing    | Easing         | Indicates if the command should "accelerate". See [http://easings.net](http://easings.net). |
+| StartTime | int            | Starting time of this command in ms.                                                        |
+| EndTime   | int            | Ending time of this command in ms.                                                          |
 
 # Objects
 ### StoryboardSprite properties
@@ -72,37 +74,33 @@ Indicates that this object is storyboard command.
 | LoopType   | LoopType     | Indicates if the animation should loop or not.         |
 
 ### StoryboardSample properties
-| Name     | Type   | Description                         |
-|----------|--------|-------------------------------------|
-| Time     | int    | Starting time of this sample in ms. |
-| FilePath | string | Path to sample.                     |
-| Volume   | int    | Volume of this sample.              |
+| Name     | Type               | Description                         |
+|----------|--------------------|-------------------------------------|
+| Layer    | StoryboardLayer    | Layer of this sample.               |
+| Time     | int                | Starting time of this sample in ms. |
+| FilePath | string             | Path to sample.                     |
+| Volume   | int                | Volume of this sample.              |
 
 # Commands
 ### CommandGroup properties
-| Name         | Type                               | Description                                        |
-|--------------|------------------------------------|----------------------------------------------------|
-| X            | List<Command\<float\>>               | Contains commads that change X coordinate.         |
-| Y            | List<Command\<float\>>               | Contains commads that change Y coordinate.         |
-| Scale        | List<Command\<float\>>               | Contains commads that change scale.                |
-| VectorScale  | List<Command<Tuple<float, float>>> | Contains commads that change vector scale.         |
-| Rotation     | List<Command\<float\>>               | Contains commads that change rotation.             |
-| Colour       | List<Command\<Color\>>               | Contains commads that change X colour.             |
-| Alpha        | List<Command\<float\>>               | Contains commads that change alpha.                |
-| BlendingMode | List<Command\<BlendingMode\>>        | Contains commads that change blending mode.        |
-| FlipH        | List<Command\<bool\>>                | Contains commads that flip the image horizontally. |
-| FlipV        | List<Command\<bool\>>                | Contains commads that flip the image vertically.   |
-| Triggers     | List\<TriggerCommand\>               | Contains all trigger commands of this object.      |
-| Loops        | List\<LoopCommand\>                  | Contains all loop commands of this object.         |
+| Name         | Type                                 | Description                                                             |
+|--------------|--------------------------------------|-------------------------------------------------------------------------|
+| Triggers     | List\<Command\>                      | Contains all commands of this CommandGroup. (except Triggers and Loops) |
+| Triggers     | List\<TriggerCommand\>               | Contains all trigger commands of this object.                           |
+| Loops        | List\<LoopCommand\>                  | Contains all loop commands of this object.                              |
 
 ### Command properties
-| Name       | Type   | Description                                                                                 |
-|------------|--------|---------------------------------------------------------------------------------------------|
-| Easing     | Easing | Indicates if the command should "accelerate". See [http://easings.net](http://easings.net). |
-| StartTime  | int    | Starting time of this command in ms.                                                        |
-| EndTime    | int    | Ending time of this command in ms.                                                          |
-| StartValue | T      | Start value of this command.                                                                |
-| EndValue   | T      | End value of this command.                                                                  |
+| Name        | Type                  | Description                                                                                 |
+|-------------|-----------------------|---------------------------------------------------------------------------------------------|
+| Easing      | Easing                | Indicates if the command should "accelerate". See [http://easings.net](http://easings.net). |
+| StartTime   | int                   | Starting time of this command in ms.                                                        |
+| EndTime     | int                   | Ending time of this command in ms.                                                          |
+| StartColour | Colour                | Start color of this command.                                                                |
+| EndColour   | Colour                | End color of this command.                                                                  |
+| StartVector | Tuple\<float, float\> | Start vector of this command.                                                                |
+| EndVector   | Tuple\<float, float\> | End vector of this command.                                                                  |
+| StartFloat  | float                 | Start float of this command.                                                                |
+| EndFloat    | float                 | End float of this command.                                                                  |
 
 ### TriggerCommand properties
 | Name             | Type         | Description                                                                                                             |

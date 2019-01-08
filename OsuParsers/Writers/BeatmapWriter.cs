@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace OsuParsers.Writers
 {
-    public class BeatmapWriter
+    internal class BeatmapWriter
     {
         public static List<string> Write(Beatmap beatmap)
         {

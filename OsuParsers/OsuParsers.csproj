@@ -77,6 +77,7 @@
     <Compile Include="Enums\StandardKeys.cs" />
     <Compile Include="Enums\TaikoKeys.cs" />
     <Compile Include="Helpers\FormatHelper.cs" />
+    <Compile Include="Helpers\MathHelper.cs" />
     <Compile Include="Replays\Objects\LifeFrame.cs" />
     <Compile Include="Replays\Objects\ReplayFrame.cs" />
     <Compile Include="Replays\Replay.cs" />
@@ -138,6 +139,7 @@
     <Compile Include="Storyboards\Objects\StoryboardSprite.cs" />
     <Compile Include="Storyboards\Storyboard.cs" />
     <Compile Include="Writers\BeatmapWriter.cs" />
+    <Compile Include="Writers\StoryboardWriter.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
