@@ -22,6 +22,7 @@ Cuz, you know, i might have broke something in the last few commits ;)
     - [Replay parser](#replay-parser)
     - [Database parser](#database-parser)
     - [Beatmap writer](#beatmap-writer)
+    - [Storyboard writer](#storyboard-writer)
 - [Documentation](#documentation)  
     - [Beatmap documentation](docs/BeatmapDocumentation.md)
     - [Storyboard documentation](docs/StoryboardDocumentation.md)
@@ -191,6 +192,32 @@ namespace SomeNamespace
                 beatmap.MetadataSection.Title = newTitle;
                 //writing beatmap to file
                 beatmap.Write(@"pathToNewBeatmap.osu");
+            }
+        }
+    }
+}
+```
+
+### Beatmap writer
+```cs
+using OsuParsers;
+using OsuParsers.Storyboards;
+
+namespace SomeNamespace
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            //getting console output text as the object's new filepath
+            string newFilePath = System.Console.ReadLine();
+            //parsing storyboard
+            using (Storyboard storyboard = Parser.ParseStoryboard(@"pathToStoryboard.osb"))
+            {
+                //changing filepath of the first storyboard object in background layer
+                storyboard.BackgroundLayer[0].FilePath = newFilePath;
+                //writing storyboard to file
+                beatmap.Write(@"pathToNewStoryboard.osb");
             }
         }
     }
