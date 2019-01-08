@@ -1,6 +1,4 @@
 ﻿using OsuParsers.Beatmaps.Objects;
-using OsuParsers.Beatmaps.Objects.Taiko;
-using OsuParsers.Beatmaps.Objects.Catch;
 using OsuParsers.Beatmaps.Objects.Mania;
 using OsuParsers.Enums;
 using System;
@@ -14,7 +12,7 @@ using OsuParsers.Storyboards.Commands;
 
 namespace OsuParsers.Helpers
 {
-    public class FormatHelper
+    internal class FormatHelper
     {
         public static string Join(IEnumerable<string> vs, char splitter = ' ')
         {

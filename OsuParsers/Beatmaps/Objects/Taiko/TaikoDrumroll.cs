@@ -5,7 +5,7 @@ using OsuParsers.Enums;
 
 namespace OsuParsers.Beatmaps.Objects.Taiko
 {
-    class TaikoDrumroll : Slider
+    public class TaikoDrumroll : Slider
     {
         public bool IsBig
         {

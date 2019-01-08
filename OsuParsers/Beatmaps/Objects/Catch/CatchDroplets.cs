@@ -5,7 +5,7 @@ using OsuParsers.Enums;
 
 namespace OsuParsers.Beatmaps.Objects.Catch
 {
-    class CatchDroplets : Slider
+    public class CatchDroplets : Slider
     {
         public CatchDroplets(Point position, int startTime, int endTime, HitSoundType hitSound, CurveType type, 
             List<Point> points, int repeats, double pixelLength, List<HitSoundType> edgeHitSounds, 
