@@ -2,6 +2,9 @@
 - [Beatmap properties](#beatmap-properties)  
     - [TimingPoint properties](#timingpoint-properties)  
     - [HitObject properties](#hitobject-properties)  
+        - [Circle properties](#circle-properties)  
+        - [Slider properties](#slider-properties)  
+        - [Spinner properties](#spinner-properties)  
         - [HitObject specific properties](#hitobject-specific-properties)  
         - [HitObject Extras properties](#hitobject-extras-properties)  
     - [General Section properties](#general-section-properties)  
@@ -38,28 +41,54 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_For
 | Volume          | int           | Volume of samples from 0 to 100.                                    |
 
 ### HitObject properties
-| Name       | Type                    | Description                                                                         |
-|------------|-------------------------|-------------------------------------------------------------------------------------|
-| EndTime    | int                     | End time offset of this object.                                                     |
-| Extras     | HitObjectExtras         | Class which contains Extras properties.                                             |
-| HitSound   | HitSoundType            | HitSound of this object (e.g. Normal, Whistle)                                      |
-| MaxCombo   | int                     | Never used in code. Should be maximum combo that can be achieved by this hitobject. |
-| IsNewCombo | bool                    | Is it a new combo? (Present in all rulesets, except osu!mania)                      |
-| Position   | Point                   | HitObject's position.                                                               |
-| StartTime  | int                     | Start time offset of this object.                                                   |
+Base class for all objects.  
+
+| Name        | Type                    | Description                                                                         |
+|-------------|-------------------------|-------------------------------------------------------------------------------------|
+| EndTime     | int                     | End time offset of this object.                                                     |
+| Extras      | Extras                  | Class which contains Extras properties.                                             |
+| HitSound    | HitSoundType            | HitSound of this object (e.g. Normal, Whistle)                                      |
+| MaxCombo    | int                     | Never used in code. Should be maximum combo that can be achieved by this hitobject. |
+| IsNewCombo  | bool                    | Is it a new combo?                                                                  |
+| ComboOffset | int                     | Represents how many combo colours this object is skipping.                          |
+| Position    | Point                   | HitObject's position.                                                               |
+| StartTime   | int                     | Start time offset of this object.                                                   |
+
+### Circle properties
+Represents osu!standard HitCircle. Base class for TaikoHit, CatchFruit and ManiaHit classes.  
+Properties are the same as the HitObject's.
+
+### Slider properties
+Represents osu!standard Slider. Base class for TaikoDrumroll and CatchDroplets.  
+
+| Name            | Type                                | Description                                                                         |
+|-----------------|-------------------------------------|-------------------------------------------------------------------------------------|
+| EndTime         | int                                 | End time offset of this object.                                                                   |
+| Extras          | Extras                              | Class which contains Extras properties.                                                           |
+| HitSound        | HitSoundType                        | HitSound of this object (e.g. Normal, Whistle)                                                     |
+| MaxCombo        | int                                 | Never used in code. Should be maximum combo that can be achieved by this hitobject.          |
+| IsNewCombo      | bool                                | Is it a new combo?                                                                                 |
+| ComboOffset     | int                                 | Represents how many combo colours this object is skipping.                                         |
+| Position        | Point                               | HitObject's position.                                                                             |
+| StartTime       | int                                 | Start time offset of this object.                                                                 |
+| CurveType       | CurveType                           | Curve type of this slider. (e.g. Bezier, Linear)                                                   |
+| SliderPoints    | List\<Point\>                       | List of all slider points.                                                                         |
+| Repeats         | int                                 | Number of slider repeats.                                                                         |
+| PixelLength     | double                              | Slider length in osu! pixels.                                                                     |
+| EdgeHitSounds   | List\<HitSoundType\>                | Slider edge HitSound additions.                                                                   |
+| EdgeAdditions   | List\<Tuple<SampleSet, SampleSet>\> | Slider edge SampleSet additions.                                                                   |
+
+### Spinner properties
+Represents osu!standard Spinner. Base class for TaikoSpinner and CatchSpinner.  
+Properties are the same as the HitObject's.
 
 ### HitObject specific properties
-| HitObject                                  | Name          | Type                          | Description                                      |
-|--------------------------------------------|---------------|-------------------------------|--------------------------------------------------|
-| StandardSlider, CatchSlider                | CurveType     | CurveType                     | Curve type of this slider. (e.g. Bezier, Linear) |
-| StandardSlider, CatchSlider                | Points        | List\<Point\>                 | List of all slider points.                       |
-| StandardSlider, CatchSlider                | Repeats       | int                           | Number of slider repeats.                        |
-| StandardSlider, TaikoDrumroll, CatchSlider | PixelLength   | int                           | Slider length in osu! pixels.                    |
-| StandardSlider, TaikoDrumroll, CatchSlider | EdgeHitSounds | HitSoundType[]                | Slider edge HitSound additions.                  |
-| StandardSlider, TaikoDrumroll, CatchSlider | EdgeAdditions | Tuple<SampleSet, SampleSet>[] | Slider edge SampleSet additions.                 |
-| TaikoHitCircle                             | Color         | TaikoColor                    | Color of taiko hitcircle. (e.g. Red)             |
-| TaikoHitCircle, TaikoDrumroll              | IsBig         | bool                          | Is this HitObject big?                           |
-| ManiaHitObject                             | Collumn       | int                           | Collumn index of this HitObject.                 |
+| HitObject               | Name       | Type       | Description                          |
+|-------------------------|------------|------------|--------------------------------------|
+| TaikoHit, TaikoDrumroll | IsBig      | bool       | Is this HitObject big?               |
+| TaikoHit                | Color      | TaikoColor | Color of taiko hitcircle. (e.g. Red) |
+| ManiaHit, ManiaHold     | GetCollumn | int        | Returns column index of this object. |
+| ManiaHit, ManiaHold     | SetCollumn | void       | Sets column index.                   |
 
 ### HitObject Extras properties
 | Name           | Type      | Description                                                                             |
