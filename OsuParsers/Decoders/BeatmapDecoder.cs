@@ -337,11 +337,11 @@ namespace OsuParsers.Decoders
                 case HitObjectType.Circle:
                 {
                     if (Beatmap.GeneralSection.Mode == Ruleset.Standard)
-                        Beatmap.HitObjects.Add(new Circle(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset));
+                        hitObject = new Circle(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset);
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Taiko)
-                        Beatmap.HitObjects.Add(new TaikoHit(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset));
+                        hitObject = new TaikoHit(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset);
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Fruits)
-                        Beatmap.HitObjects.Add(new CatchFruit(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset));
+                        hitObject = new CatchFruit(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset);
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Mania)
                         hitObject = new ManiaHit(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset);
                 }
@@ -389,11 +389,11 @@ namespace OsuParsers.Decoders
                     int endTime = Convert.ToInt32(tokens[5].Trim());
 
                     if (Beatmap.GeneralSection.Mode == Ruleset.Standard)
-                        Beatmap.HitObjects.Add(new Spinner(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset));
+                        hitObject = new Spinner(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Taiko)
-                        Beatmap.HitObjects.Add(new TaikoSpinner(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset));
+                        hitObject = new TaikoSpinner(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Fruits)
-                        Beatmap.HitObjects.Add(new CatchSpinner(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset));
+                        hitObject = new CatchSpinner(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
                 }
                     break;
                 case HitObjectType.Hold:
@@ -408,8 +408,43 @@ namespace OsuParsers.Decoders
             Beatmap.HitObjects.Add(hitObject);
         }
 
-        //TODO: this seems to be broken
         private int CalculateEndTime(int startTime, int repeats, double pixelLength)
+        {
+            int duration = (int)(pixelLength / (100.0 * Beatmap.DifficultySection.SliderMultiplier) * BeatLengthAt(startTime));
+
+            return startTime + duration;
+        }
+
+        private double BeatLengthAt(int offset)
+        {
+            if (Beatmap.TimingPoints.Count == 0)
+                return 0;
+
+            int timingPoint = 0;
+            int samplePoint = 0;
+
+            for (int i = 0; i < Beatmap.TimingPoints.Count; i++)
+            {
+                if (Beatmap.TimingPoints[i].Offset <= offset)
+                {
+                    if (Beatmap.TimingPoints[i].Inherited)
+                        timingPoint = i;
+                    else
+                        samplePoint = i;
+                }
+            }
+
+            double multiplier = 1;
+
+            if (samplePoint > timingPoint && Beatmap.TimingPoints[samplePoint].BeatLength < 0)
+                multiplier = MathHelper.CalculateBpmMultiplier(Beatmap.TimingPoints[samplePoint]);
+
+            return Beatmap.TimingPoints[timingPoint].BeatLength * multiplier;
+        }
+
+        #region Old slider end time algorithm
+        //kept it just in case if the new one will work worse
+        private int OldSliderEndTimeAlgorithm(int startTime, int repeats, double pixelLength)
         {
             var timingPoint = GetTimingPointFromOffset(startTime);
             var parentTimingPoint = timingPoint;
@@ -458,5 +493,6 @@ namespace OsuParsers.Decoders
 
             return null;
         }
+        #endregion
     }
 }
