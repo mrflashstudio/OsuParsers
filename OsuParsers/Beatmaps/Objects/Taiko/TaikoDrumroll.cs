@@ -24,8 +24,8 @@ namespace OsuParsers.Beatmaps.Objects.Taiko
         }
 
         public TaikoDrumroll(Point position, int startTime, int endTime, HitSoundType hitSound, CurveType type, 
-            List<Point> points, int repeats, double pixelLength, List<HitSoundType> edgeHitSounds, 
-            Tuple<SampleSet, SampleSet>[] edgeAdditions, Extras extras, bool isNewCombo, int comboOffset) 
+            List<Point> points, int repeats, double pixelLength, List<HitSoundType> edgeHitSounds,
+            List<Tuple<SampleSet, SampleSet>> edgeAdditions, Extras extras, bool isNewCombo, int comboOffset) 
             : base(position, startTime, endTime, hitSound, type, points, repeats, pixelLength, edgeHitSounds, edgeAdditions, extras, isNewCombo, comboOffset)
         {
         }
