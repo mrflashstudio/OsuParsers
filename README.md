@@ -148,7 +148,7 @@ namespace SomeNamespace
 }
 ```
 
-### Beatmap writer
+### Storyboard writer
 ```cs
 using OsuParsers;
 using OsuParsers.Storyboards;
