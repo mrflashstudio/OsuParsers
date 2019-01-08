@@ -1,6 +1,7 @@
 ﻿using OsuParsers.Enums;
 using OsuParsers.Storyboards.Interfaces;
 using System.Collections.Generic;
+using System.IO;
 
 namespace OsuParsers.Storyboards
 {
@@ -29,6 +30,11 @@ namespace OsuParsers.Storyboards
                 default:
                     return BackgroundLayer;
             }
+        }
+
+        public void Write(string path)
+        {
+            File.WriteAllLines(path, Writers.StoryboardWriter.Write(this));
         }
     }
 }
