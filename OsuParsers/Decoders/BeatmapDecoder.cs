@@ -2,7 +2,6 @@
 using OsuParsers.Beatmaps.Objects;
 using OsuParsers.Beatmaps.Objects.Catch;
 using OsuParsers.Beatmaps.Objects.Mania;
-using OsuParsers.Beatmaps.Objects.Standard;
 using OsuParsers.Beatmaps.Objects.Taiko;
 using OsuParsers.Beatmaps.Sections.Events;
 using OsuParsers.Enums;
@@ -33,22 +32,22 @@ namespace OsuParsers.Decoders
                     if (ParseHelper.GetCurrentSection(line) != Sections.None)
                         currentSection = ParseHelper.GetCurrentSection(line);
                     else
-                        ParseLine(line, lines);
+                        ParseLine(line);
                 }
             }
 
             Beatmap.EventsSection.Storyboard = new StoryboardDecoder().Decode(sbLines.ToArray());
 
-            Beatmap.GeneralSection.CirclesCount = Beatmap.HitObjects.Count(c => c is StandardHitCircle || c is TaikoHitCircle || c is ManiaSingle || c is CatchHitCircle);
-            Beatmap.GeneralSection.SlidersCount = Beatmap.HitObjects.Count(c => c is StandardSlider || c is TaikoDrumroll || c is ManiaHold || c is CatchSlider);
-            Beatmap.GeneralSection.SpinnersCount = Beatmap.HitObjects.Count(c => c is StandardSpinner || c is TaikoSpinner || c is CatchSpinner);
+            Beatmap.GeneralSection.CirclesCount = Beatmap.HitObjects.Count(c => c is Circle || c is TaikoHit || c is ManiaHit || c is CatchFruit);
+            Beatmap.GeneralSection.SlidersCount = Beatmap.HitObjects.Count(c => c is Slider || c is TaikoDrumroll || c is ManiaHold || c is CatchDroplets);
+            Beatmap.GeneralSection.SpinnersCount = Beatmap.HitObjects.Count(c => c is Spinner || c is TaikoSpinner || c is CatchSpinner);
 
             Beatmap.GeneralSection.Length = Beatmap.HitObjects.Last().EndTime / 1000;
 
             return Beatmap;
         }
 
-        private void ParseLine(string line, string[] bmLines)
+        private void ParseLine(string line)
         {
             switch (currentSection)
             {
@@ -68,7 +67,7 @@ namespace OsuParsers.Decoders
                     ParseDifficulty(line);
                     break;
                 case Enums.Sections.Events:
-                    ParseEvents(line, bmLines);
+                    ParseEvents(line);
                     break;
                 case Enums.Sections.TimingPoints:
                     ParseTimingPoints(line);
@@ -103,7 +102,7 @@ namespace OsuParsers.Decoders
                     Beatmap.GeneralSection.SampleSet = (SampleSet)Enum.Parse(typeof(SampleSet), tokens[1].Trim());
                     break;
                 case "StackLeniency":
-                    Beatmap.GeneralSection.StackLeniency = ParseHelper.ToFloat(tokens[1].Trim());
+                    Beatmap.GeneralSection.StackLeniency = ParseHelper.ToDouble(tokens[1].Trim());
                     break;
                 case "Mode":
                     Beatmap.GeneralSection.Mode = (Ruleset)Enum.Parse(typeof(Ruleset), tokens[1].Trim());
@@ -139,7 +138,7 @@ namespace OsuParsers.Decoders
                     Beatmap.EditorSection.Bookmarks = tokens[1].Trim().Split(',').Select(b => Convert.ToInt32(b)).ToArray();
                     break;
                 case "DistanceSpacing":
-                    Beatmap.EditorSection.DistanceSpacing = ParseHelper.ToFloat(tokens[1].Trim());
+                    Beatmap.EditorSection.DistanceSpacing = ParseHelper.ToDouble(tokens[1].Trim());
                     break;
                 case "BeatDivisor":
                     Beatmap.EditorSection.BeatDivisor = Convert.ToInt32(tokens[1].Trim());
@@ -209,22 +208,26 @@ namespace OsuParsers.Decoders
                     Beatmap.DifficultySection.ApproachRate = ParseHelper.ToFloat(tokens[1].Trim());
                     break;
                 case "SliderMultiplier":
-                    Beatmap.DifficultySection.SliderMultiplier = ParseHelper.ToFloat(tokens[1].Trim());
+                    Beatmap.DifficultySection.SliderMultiplier = ParseHelper.ToDouble(tokens[1].Trim());
                     break;
                 case "SliderTickRate":
-                    Beatmap.DifficultySection.SliderTickRate = ParseHelper.ToFloat(tokens[1].Trim());
+                    Beatmap.DifficultySection.SliderTickRate = ParseHelper.ToDouble(tokens[1].Trim());
                     break;
             }
         }
 
-        private void ParseEvents(string line, string[] bmLines)
+        private void ParseEvents(string line)
         {
             string[] tokens = line.Split(',');
 
-            if (!Enum.TryParse(tokens[0], out EventType e))
-                return;
+            EventType eventType = default(EventType);
 
-            EventType eventType = (EventType)Enum.Parse(typeof(EventType), tokens[0]);
+            if (Enum.TryParse(tokens[0], out EventType e))
+                eventType = (EventType)Enum.Parse(typeof(EventType), tokens[0]);
+            else if (line.StartsWith(" ") || line.StartsWith("_"))
+                eventType = EventType.StoryboardCommand;
+            else
+                return;
 
             switch (eventType)
             {
@@ -238,18 +241,11 @@ namespace OsuParsers.Decoders
                 case EventType.Break:
                     Beatmap.EventsSection.Breaks.Add(new BreakEvent(Convert.ToInt32(tokens[1]), Convert.ToInt32(tokens[2])));
                     break;
-                case EventType.Sample:
-                    sbLines.Add(line);
-                    break;
                 case EventType.Sprite:
                 case EventType.Animation:
+                case EventType.Sample:
+                case EventType.StoryboardCommand:
                     sbLines.Add(line);
-                    int i = Array.IndexOf(bmLines, line) + 1;
-                    while (bmLines[i].StartsWith(" ") || bmLines[i].StartsWith("_"))
-                    {
-                        sbLines.Add(bmLines[i]);
-                        i++;
-                    }
                     break;
             }
         }
@@ -259,7 +255,7 @@ namespace OsuParsers.Decoders
             string[] tokens = line.Split(',');
 
             int offset = (int)ParseHelper.ToFloat(tokens[0]);
-            float beatLength = ParseHelper.ToFloat(tokens[1]);
+            double beatLength = ParseHelper.ToDouble(tokens[1]);
             TimeSignature timeSignature = TimeSignature.SimpleQuadruple;
             SampleSet sampleSet = SampleSet.None;
             int customSampleSet = 0;
@@ -321,21 +317,22 @@ namespace OsuParsers.Decoders
             HitSoundType hitSound = (HitSoundType)Convert.ToInt32(tokens[4]);
 
             string[] extrasSplit = tokens.Last().Split(':');
-            HitObjectExtras extras = tokens.Last().Contains(":") ? new HitObjectExtras
+            int extrasOffset = type.HasFlag(HitObjectType.Hold) ? 1 : 0;
+            Extras extras = tokens.Last().Contains(":") ? new Extras
             {
-                SampleSet = (SampleSet)Convert.ToInt32(extrasSplit[0]),
-                AdditionSet = (SampleSet)Convert.ToInt32(extrasSplit[1]),
-                CustomIndex = Convert.ToInt32(extrasSplit[2]),
-                Volume = Convert.ToInt32(extrasSplit[3]),
-                SampleFileName = extrasSplit[4]
-            } : new HitObjectExtras();
+                SampleSet = (SampleSet)Convert.ToInt32(extrasSplit[0 + extrasOffset]),
+                AdditionSet = (SampleSet)Convert.ToInt32(extrasSplit[1 + extrasOffset]),
+                CustomIndex = Convert.ToInt32(extrasSplit[2 + extrasOffset]),
+                Volume = Convert.ToInt32(extrasSplit[3 + extrasOffset]),
+                SampleFileName = extrasSplit[4 + extrasOffset]
+            } : new Extras();
 
             switch (Beatmap.GeneralSection.Mode)
             {
                 case Ruleset.Standard:
                     if (type.HasFlag(HitObjectType.Circle))
                     {
-                        hitObject = new StandardHitCircle(position, startTime, startTime, hitSound, isNewCombo, comboOffset, extras);
+                        hitObject = new Circle(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset);
                     }
                     else if (type.HasFlag(HitObjectType.Slider))
                     {
@@ -343,9 +340,9 @@ namespace OsuParsers.Decoders
                         List<Point> sliderPoints = ParseHelper.GetSliderPoints(tokens[5].Split('|'));
 
                         int repeats = Convert.ToInt32(tokens[6]);
-                        float pixelLength = ParseHelper.ToFloat(tokens[7]);
+                        double pixelLength = ParseHelper.ToDouble(tokens[7]);
 
-                        HitSoundType[] edgeHitsounds = tokens.Length > 8 ? Array.ConvertAll(tokens[8].Split('|'), s => (HitSoundType)Convert.ToInt32(s)) : new HitSoundType[] { HitSoundType.None, HitSoundType.None };
+                        List<HitSoundType> edgeHitsounds = tokens.Length > 8 ? Array.ConvertAll(tokens[8].Split('|'), s => (HitSoundType)Convert.ToInt32(s)).ToList() : new List<HitSoundType> { HitSoundType.None, HitSoundType.None };
                         List<Tuple<SampleSet, SampleSet>> tempEdgeAdditions = new List<Tuple<SampleSet, SampleSet>>();
                         if (tokens.Length > 9)
                         {
@@ -358,12 +355,12 @@ namespace OsuParsers.Decoders
 
                         int endTime = CalculateEndTime(startTime, repeats, pixelLength);
 
-                        hitObject = new StandardSlider(position, startTime, endTime, hitSound, isNewCombo, comboOffset, curveType, sliderPoints, repeats, pixelLength, edgeHitsounds, edgeAdditions, extras);
+                        hitObject = new Slider(position, startTime, endTime, hitSound, curveType, sliderPoints, repeats, pixelLength, edgeHitsounds, edgeAdditions, extras, isNewCombo, comboOffset);
                     }
                     else
                     {
                         int endTime = Convert.ToInt32(tokens[5]);
-                        hitObject = new StandardSpinner(position, startTime, endTime, hitSound, isNewCombo, comboOffset, extras);
+                        hitObject = new Spinner(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
                     }
                     break;
                 case Ruleset.Taiko:
@@ -372,13 +369,16 @@ namespace OsuParsers.Decoders
                     bool isBig = hitSound.HasFlag(HitSoundType.Finish);
 
                     if (type.HasFlag(HitObjectType.Circle))
-                        hitObject = new TaikoHitCircle(position, startTime, startTime, hitSound, color, isBig, extras);
+                        hitObject = new TaikoHit(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset);
                     else if (type.HasFlag(HitObjectType.Slider))
                     {
-                        int repeats = Convert.ToInt32(tokens[6].Trim());
-                        float pixelLength = ParseHelper.ToFloat(tokens[7].Trim());
+                        CurveType curveType = ParseHelper.GetCurveType(tokens[5].Split('|')[0][0]);
+                        List<Point> sliderPoints = ParseHelper.GetSliderPoints(tokens[5].Split('|'));
 
-                        HitSoundType[] edgeHitsounds = tokens.Length > 8 ? Array.ConvertAll(tokens[8].Split('|'), s => (HitSoundType)Convert.ToInt32(s)) : new HitSoundType[] { HitSoundType.None, HitSoundType.None };
+                        int repeats = Convert.ToInt32(tokens[6]);
+                        double pixelLength = ParseHelper.ToDouble(tokens[7]);
+
+                        List<HitSoundType> edgeHitsounds = tokens.Length > 8 ? Array.ConvertAll(tokens[8].Split('|'), s => (HitSoundType)Convert.ToInt32(s)).ToList() : null;
                         List<Tuple<SampleSet, SampleSet>> tempEdgeAdditions = new List<Tuple<SampleSet, SampleSet>>();
                         if (tokens.Length > 9)
                         {
@@ -387,25 +387,26 @@ namespace OsuParsers.Decoders
                                 tempEdgeAdditions.Add(new Tuple<SampleSet, SampleSet>((SampleSet)Convert.ToInt32(s.Split(':').First()), (SampleSet)Convert.ToInt32(s.Split(':').Last())));
                             }
                         }
-                        Tuple<SampleSet, SampleSet>[] edgeAdditions = tokens.Length > 9 ? tempEdgeAdditions.ToArray() : new Tuple<SampleSet, SampleSet>[] { new Tuple<SampleSet, SampleSet>(SampleSet.None, SampleSet.None), new Tuple<SampleSet, SampleSet>(SampleSet.None, SampleSet.None) };
-                        hitObject = new TaikoDrumroll(position, startTime, startTime, hitSound, (int)(repeats * pixelLength), isBig, edgeHitsounds, edgeAdditions, extras);
+                        Tuple<SampleSet, SampleSet>[] edgeAdditions = tokens.Length > 9 ? tempEdgeAdditions.ToArray() : null;
+
+                        hitObject = new TaikoDrumroll(position, startTime, startTime, hitSound, curveType, sliderPoints, repeats, pixelLength, edgeHitsounds, edgeAdditions, extras, isNewCombo, comboOffset);
                     }
                     else
                     {
                         int endTime = Convert.ToInt32(tokens[5].Trim());
-                        hitObject = new TaikoSpinner(position, startTime, endTime, hitSound, extras);
+                        hitObject = new TaikoSpinner(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
                     }
                     break;
                 case Ruleset.Fruits:
                     if (type.HasFlag(HitObjectType.Circle))
-                        hitObject = new CatchHitCircle(position, startTime, startTime, hitSound, isNewCombo, comboOffset, extras);
+                        hitObject = new CatchFruit(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset);
                     else if (type.HasFlag(HitObjectType.Slider))
                     {
                         CurveType curveType = ParseHelper.GetCurveType(tokens[5].Split('|')[0][0]);
                         List<Point> sliderPoints = ParseHelper.GetSliderPoints(tokens[5].Split('|'));
 
                         int repeats = Convert.ToInt32(tokens[6]);
-                        float pixelLength = ParseHelper.ToFloat(tokens[7]);
+                        double pixelLength = ParseHelper.ToDouble(tokens[7]);
 
                         HitSoundType[] edgeHitsounds = tokens.Length > 8 ? Array.ConvertAll(tokens[8].Split('|'), s => (HitSoundType)Convert.ToInt32(s)) : new HitSoundType[] { HitSoundType.None, HitSoundType.None };
                         List<Tuple<SampleSet, SampleSet>> tempEdgeAdditions = new List<Tuple<SampleSet, SampleSet>>();
@@ -421,23 +422,22 @@ namespace OsuParsers.Decoders
                         int endTime = CalculateEndTime(startTime, repeats, pixelLength);
 
                         //let's just hope that the endTime algorithm is same as osu!standard
-                        hitObject = new CatchSlider(position, startTime, endTime, hitSound, isNewCombo, comboOffset, curveType, sliderPoints, repeats, pixelLength, edgeHitsounds, edgeAdditions, extras);
+                        hitObject = new CatchDroplets(position, startTime, endTime, hitSound, curveType, sliderPoints, repeats, pixelLength, edgeHitsounds.ToList(), edgeAdditions, extras, isNewCombo, comboOffset);
                     }
                     else
                     {
                         int endTime = Convert.ToInt32(tokens[5].Trim());
-                        hitObject = new CatchSpinner(position, startTime, endTime, hitSound, extras);
+                        hitObject = new CatchSpinner(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
                     }
                     break;
                 case Ruleset.Mania:
-                    int collumn = MathHelper.CalculateCollumn(position.X, (int)Beatmap.DifficultySection.CircleSize);
                     if (type.HasFlag(HitObjectType.Circle))
-                        hitObject = new ManiaSingle(position, startTime, startTime, hitSound, collumn, extras);
+                        hitObject = new ManiaHit(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset);
                     else
                     {
                         string[] additions = tokens[5].Split(':');
                         int endTime = Convert.ToInt32(additions[0].Trim());
-                        hitObject = new ManiaHold(position, startTime, endTime, hitSound, collumn, extras);
+                        hitObject = new ManiaHold(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
                     }
                     break;
             }
@@ -446,7 +446,7 @@ namespace OsuParsers.Decoders
         }
 
         //TODO: this seems to be broken
-        private int CalculateEndTime(int startTime, int repeats, float pixelLength)
+        private int CalculateEndTime(int startTime, int repeats, double pixelLength)
         {
             var timingPoint = GetTimingPointFromOffset(startTime);
             var parentTimingPoint = timingPoint;

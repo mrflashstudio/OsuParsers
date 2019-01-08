@@ -10,6 +10,7 @@ namespace OsuParsers.Storyboards
         public List<IStoryboardObject> FailLayer = new List<IStoryboardObject>();
         public List<IStoryboardObject> PassLayer = new List<IStoryboardObject>();
         public List<IStoryboardObject> ForegroundLayer = new List<IStoryboardObject>();
+        public List<IStoryboardObject> SamplesLayer = new List<IStoryboardObject>();
 
         public List<IStoryboardObject> GetLayer(StoryboardLayer layer)
         {
@@ -23,6 +24,8 @@ namespace OsuParsers.Storyboards
                     return PassLayer;
                 case StoryboardLayer.Foreground:
                     return ForegroundLayer;
+                case StoryboardLayer.Samples:
+                    return SamplesLayer;
                 default:
                     return BackgroundLayer;
             }

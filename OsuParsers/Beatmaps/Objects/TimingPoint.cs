@@ -5,7 +5,7 @@ namespace OsuParsers.Beatmaps.Objects
     public class TimingPoint
     {
         public int Offset { get; set; }
-        public float BeatLength { get; set; }
+        public double BeatLength { get; set; }
         public TimeSignature TimeSignature { get; set; }
         public SampleSet SampleSet { get; set; }
         public int CustomSampleSet { get; set; }

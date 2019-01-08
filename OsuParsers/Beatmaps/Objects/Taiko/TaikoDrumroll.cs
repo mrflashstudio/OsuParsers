@@ -1,24 +1,33 @@
-using OsuParsers.Enums;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using OsuParsers.Enums;
 
 namespace OsuParsers.Beatmaps.Objects.Taiko
 {
-    public class TaikoDrumroll : TaikoHitObject
+    class TaikoDrumroll : Slider
     {
-        public int PixelLength { get; }
-        public bool IsBig { get; }
-        public HitSoundType[] EdgeHitSounds { get; }
-        public Tuple<SampleSet, SampleSet>[] EdgeAdditions { get; }
-
-        public TaikoDrumroll(Point position, int startTime, int endTime, HitSoundType hitSound, int pixelLength, 
-            bool isBig, HitSoundType[] edgeHitSounds, Tuple<SampleSet, SampleSet>[] edgeAdditions, HitObjectExtras extras)
-            : base(position, startTime, endTime, hitSound, extras)
+        public bool IsBig
         {
-            PixelLength = pixelLength;
-            IsBig = isBig;
-            EdgeHitSounds = edgeHitSounds;
-            EdgeAdditions = edgeAdditions;
+            get
+            {
+                return HitSound.HasFlag(HitSoundType.Finish);
+            }
+            set
+            {
+                if (value && !HitSound.HasFlag(HitSoundType.Finish))
+                    HitSound += (int)HitSoundType.Finish;
+                else
+                    if (HitSound.HasFlag(HitSoundType.Finish))
+                    HitSound -= (int)HitSoundType.Finish;
+            }
+        }
+
+        public TaikoDrumroll(Point position, int startTime, int endTime, HitSoundType hitSound, CurveType type, 
+            List<Point> points, int repeats, double pixelLength, List<HitSoundType> edgeHitSounds, 
+            Tuple<SampleSet, SampleSet>[] edgeAdditions, Extras extras, bool isNewCombo, int comboOffset) 
+            : base(position, startTime, endTime, hitSound, type, points, repeats, pixelLength, edgeHitSounds, edgeAdditions, extras, isNewCombo, comboOffset)
+        {
         }
     }
 }

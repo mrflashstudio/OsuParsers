@@ -73,7 +73,7 @@ namespace OsuParsers.Decoders
                         int time = Convert.ToInt32(tokens[1]);
                         string filePath = tokens[3].Trim('"');
                         int volume = tokens.Length > 4 ? Convert.ToInt32(tokens[4]) : 100;
-                        storyboard.GetLayer(layer).Add(new StoryboardSample(time, filePath, volume));
+                        storyboard.SamplesLayer.Add(new StoryboardSample(layer, time, filePath, volume));
                     }
                     break;
             }
@@ -186,8 +186,8 @@ namespace OsuParsers.Decoders
                             float endGreen = tokens.Length > 8 ? ParseHelper.ToFloat(tokens[8]) : startGreen;
                             float endBlue = tokens.Length > 9 ? ParseHelper.ToFloat(tokens[9]) : startBlue;
                             commandGroup.Commands.Add(new Command(easing, startTime, endTime,
-                                Color.FromArgb(255, (int)startRed, (int)startGreen, (int)startGreen),
-                                Color.FromArgb(255, (int)endRed, (int)endGreen, (int)endGreen)));
+                                Color.FromArgb(255, (int)startRed, (int)startGreen, (int)startBlue),
+                                Color.FromArgb(255, (int)endRed, (int)endGreen, (int)endBlue)));
                         }
                             break;
                         case "P":

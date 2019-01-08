@@ -1,12 +1,12 @@
+﻿using System.Drawing;
 using OsuParsers.Enums;
-using System.Drawing;
 
 namespace OsuParsers.Beatmaps.Objects.Mania
 {
-    public class ManiaHold : ManiaHitObject
+    class ManiaHold : ManiaHit
     {
-        public ManiaHold(Point position, int startTime, int endTime, HitSoundType hitSound, int collumn, HitObjectExtras extras)
-            : base(position, startTime, endTime, hitSound, collumn, extras)
+        public ManiaHold(Point position, int startTime, int endTime, HitSoundType hitSound, Extras extras, bool isNewCombo, int comboOffset) 
+            : base(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset)
         {
         }
     }

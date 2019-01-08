@@ -5,6 +5,7 @@
         Background,
         Fail,
         Pass,
-        Foreground
+        Foreground,
+        Samples
     }
 }

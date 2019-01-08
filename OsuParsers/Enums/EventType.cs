@@ -8,6 +8,7 @@
         Colour = 3,
         Sprite = 4,
         Sample = 5,
-        Animation = 6
+        Animation = 6,
+        StoryboardCommand = 7
     }
 }

@@ -9,7 +9,7 @@ namespace OsuParsers.Beatmaps.Sections
         public int PreviewTime { get; set; }
         public bool Countdown { get; set; }
         public SampleSet SampleSet { get; set; }
-        public float StackLeniency { get; set; }
+        public double StackLeniency { get; set; }
         public Ruleset Mode { get; set; }
         public int ModeId { get; set; }
         public bool LetterboxInBreaks { get; set; }
