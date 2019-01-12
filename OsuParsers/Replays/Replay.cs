@@ -24,7 +24,8 @@ namespace OsuParsers.Replays
         public Mods Mods { get; set; }
         public DateTime ReplayTimestamp { get; set; }
         public int ReplayLength { get; set; }
-        public List<ReplayFrame> ReplayFrames { get; private set; } = new List<ReplayFrame>();
-        public List<LifeFrame> LifeFrames { get; private set; } = new List<LifeFrame>();
+        public List<ReplayFrame> ReplayFrames { get; set; } = new List<ReplayFrame>();
+        public List<LifeFrame> LifeFrames { get; set; } = new List<LifeFrame>();
+        public int Seed { get; set; }
     }
 }

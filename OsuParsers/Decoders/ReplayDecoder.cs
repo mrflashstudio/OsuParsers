@@ -72,7 +72,10 @@ namespace OsuParsers.Decoders
                         continue;
 
                     if (split[0] == "-12345")
+                    {
+                        replay.Seed = Convert.ToInt32(split[3]);
                         continue;
+                    }
 
                     ReplayFrame replayFrame = new ReplayFrame();
                     replayFrame.TimeDiff = Convert.ToInt32(split[0]);
