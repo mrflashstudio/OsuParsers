@@ -2,7 +2,7 @@
 
 namespace OsuParsers.Serialization
 {
-    public class SerializationWriter : BinaryWriter
+    internal class SerializationWriter : BinaryWriter
     {
         public SerializationWriter(Stream s) : base(s) { }
 
