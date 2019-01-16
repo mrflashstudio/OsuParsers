@@ -127,6 +127,7 @@
     <Compile Include="Beatmaps\Sections\Events\BreakEvent.cs" />
     <Compile Include="Beatmaps\Sections\GeneralSection.cs" />
     <Compile Include="Beatmaps\Sections\MetadataSection.cs" />
+    <Compile Include="Serialization\SerializationWriter.cs" />
     <Compile Include="Storyboards\Commands\Command.cs" />
     <Compile Include="Storyboards\Commands\CommandGroup.cs" />
     <Compile Include="Storyboards\Commands\LoopCommand.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Storyboards\Objects\StoryboardSprite.cs" />
     <Compile Include="Storyboards\Storyboard.cs" />
     <Compile Include="Writers\BeatmapWriter.cs" />
+    <Compile Include="Writers\ReplayWriter.cs" />
     <Compile Include="Writers\StoryboardWriter.cs" />
   </ItemGroup>
   <ItemGroup />

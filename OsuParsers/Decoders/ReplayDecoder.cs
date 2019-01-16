@@ -104,6 +104,8 @@ namespace OsuParsers.Decoders
                 }
             }
 
+            replay.OnlineId = r.ReadInt64();
+
             return replay;
         }
     }

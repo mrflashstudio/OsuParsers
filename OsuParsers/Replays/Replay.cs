@@ -1,5 +1,6 @@
 ﻿using OsuParsers.Enums;
 using OsuParsers.Replays.Objects;
+using OsuParsers.Writers;
 using System;
 using System.Collections.Generic;
 
@@ -27,5 +28,11 @@ namespace OsuParsers.Replays
         public List<ReplayFrame> ReplayFrames { get; set; } = new List<ReplayFrame>();
         public List<LifeFrame> LifeFrames { get; set; } = new List<LifeFrame>();
         public int Seed { get; set; }
+        public long OnlineId { get; set; }
+
+        public void Write(string path)
+        {
+            ReplayWriter.Write(this, path);
+        }
     }
 }
