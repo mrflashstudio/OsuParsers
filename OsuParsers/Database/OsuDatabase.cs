@@ -1,4 +1,5 @@
 ﻿using OsuParsers.Database.Objects;
+using OsuParsers.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -13,5 +14,6 @@ namespace OsuParsers.Database
         public string PlayerName { get; set; }
         public int BeatmapCount { get; set; }
         public List<DbBeatmap> Beatmaps { get; private set; } = new List<DbBeatmap>();
+        public Permissions Permissions { get; set; }
     }
 }

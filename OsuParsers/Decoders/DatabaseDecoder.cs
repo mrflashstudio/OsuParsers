@@ -102,6 +102,8 @@ namespace OsuParsers.Decoders
                 db.Beatmaps.Add(beatmap);
             }
 
+            db.Permissions = (Permissions)r.ReadInt32();
+
             return db;
         }
 
