@@ -12,15 +12,17 @@
 Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_Formats/Db_(file_format)).
 
 # OsuDatabase properties
-| Name            | Type            | Description                                                 |
-|-----------------|-----------------|-------------------------------------------------------------|
-| OsuVersion      | int             | osu! version                                                |
-| FolderCount     | int             | Folder count.                                               |
-| AccountUnlocked | bool            | Only false when the account is locked or banned in any way. |
-| UnlockDate      | DateTime        | Date the account will be unlocked.                          |
-| PlayerName      | string          | Player name.                                                |
-| BeatmapCount    | int             | Number of beatmaps.                                         |
-| Beatmaps        | List<DbBeatmap> | Aforementioned beatmaps.                                    |
+| Name               | Type            | Description                                                 |
+|--------------------|-----------------|-------------------------------------------------------------|
+| OsuVersion         | int             | osu! version                                                |
+| FolderCount        | int             | Folder count.                                               |
+| AccountUnlocked    | bool            | Only false when the account is locked or banned in any way. |
+| UnlockDate         | DateTime        | Date the account will be unlocked.                          |
+| PlayerName         | string          | Player name.                                                |
+| BeatmapCount       | int             | Number of beatmaps.                                         |
+| Beatmaps           | List<DbBeatmap> | Aforementioned beatmaps.                                    |
+| Permissions        | Permissions     | Represents all permissions you have. (e.g. Supporter)       |
+| Write(string path) | void            | Writes this OsuDatabase to the specified path.              |
 
 ### DbBeatmap properties
 | Name                      | Type                       | Description                                                                                         |
@@ -87,11 +89,12 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_For
 | Inherited | bool   | Is this timing point inherited. (if false, then this timing point is inherited) (?) |
 
 # CollectionDatabase properties
-| Name            | Type               | Description            |
-|-----------------|--------------------|------------------------|
-| OsuVersion      | int                | osu! version           |
-| CollectionCount | int                | Number of collections. |
-| Collections     | List\<Collection\> | Collections.           |
+| Name               | Type               | Description                                           |
+|--------------------|--------------------|-------------------------------------------------------|
+| OsuVersion         | int                | osu! version                                          |
+| CollectionCount    | int                | Number of collections.                                |
+| Collections        | List\<Collection\> | Collections.                                          |
+| Write(string path) | void               | Writes this CollectionDatabase to the specified path. |
 
 ### Collection properties
 | Name      | Type           | Description                           |
@@ -101,10 +104,11 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_For
 | MD5Hashes | List\<string\> | MD5 hashes of beatmaps.               |
 
 # ScoresDatabase properties
-| Name       | Type                             | Description                                                     |
-|------------|----------------------------------|-----------------------------------------------------------------|
-| OsuVersion | int                              | osu! version                                                    |
-| Scores     | List<Tuple<string, List<Score>>> | List with pairs of Beatmap MD5 hash and scores of this beatmap. |
+| Name               | Type                             | Description                                                        |
+|--------------------|----------------------------------|--------------------------------------------------------------------|
+| OsuVersion         | int                              | osu! version                                                       |
+| Scores             | List<Tuple<string, List<Score>>> | List with pairs of Beatmap MD5 hash and scores of this beatmap.    |
+| Write(string path) | void                             | Writes this ScoresDatabase to the specified path.                  |
 
 ### Score properties
 | Name           | Type            | Description                                                            |
@@ -128,10 +132,11 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_For
 | ScoreId        | int             | Online Score ID.                                                       |
 
 # PresenceDatabase properties
-| Name       | Type           | Description                   |
-|------------|----------------|-------------------------------|
-| OsuVersion | int            | osu! version                  |
-| Players    | List\<Player\> | All players of this database. |
+| Name               | Type           | Description                                         |
+|--------------------|----------------|-----------------------------------------------------|
+| OsuVersion         | int            | osu! version                                        |
+| Players            | List\<Player\> | All players of this database.                       |
+| Write(string path) | void           | Writes this PresenceDatabase to the specified path. |
 
 ### Player properties
 | Name           | Type        | Description                                        |
