@@ -25,6 +25,7 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/Storyboard_Sc
 | ForegroundLayer                 | List\<IStoryboardObject\> | The "highest" layer of storyboard.                               |
 | SamplesLayer                    | List\<IStoryboardObject\> | Storyboard layer that contains audio samples.                    |
 | GetLayer(StoryboardLayer layer) | List\<IStoryboardObject\> | Returns one of the five lists specified above.                   |
+| Write(string path)              | void                      | Writes this Storyboard to the specified path.                    |
 
 # Interfaces
 ### IStoryboardObject properties
