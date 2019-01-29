@@ -1,4 +1,5 @@
 ﻿using OsuParsers.Database.Objects;
+using OsuParsers.Writers;
 using System.Collections.Generic;
 
 namespace OsuParsers.Database
@@ -7,5 +8,10 @@ namespace OsuParsers.Database
     {
         public int OsuVersion { get; set; }
         public List<Player> Players { get; private set; } = new List<Player>();
+
+        public void Write(string path)
+        {
+            DatabaseWriter.WritePresenceDatabase(path, this);
+        }
     }
 }

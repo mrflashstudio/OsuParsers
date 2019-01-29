@@ -17,9 +17,9 @@ namespace OsuParsers.Writers
             {
                 writer.Write((byte)replay.Ruleset);
                 writer.Write(replay.OsuVersion);
-                writer.WriteNullableString(replay.BeatmapMD5Hash);
-                writer.WriteNullableString(replay.PlayerName);
-                writer.WriteNullableString(replay.ReplayMD5Hash);
+                writer.Write(replay.BeatmapMD5Hash);
+                writer.Write(replay.PlayerName);
+                writer.Write(replay.ReplayMD5Hash);
                 writer.Write(replay.Count300);
                 writer.Write(replay.Count100);
                 writer.Write(replay.Count50);
@@ -34,7 +34,7 @@ namespace OsuParsers.Writers
                 string lifeFrames = null;
                 foreach (LifeFrame frame in replay.LifeFrames)
                     lifeFrames += $"{frame.Time.Format()}|{frame.Percentage.Format()},";
-                writer.WriteNullableString(lifeFrames);
+                writer.Write(lifeFrames);
 
                 writer.Write(replay.ReplayTimestamp.ToUniversalTime().Ticks);
 
