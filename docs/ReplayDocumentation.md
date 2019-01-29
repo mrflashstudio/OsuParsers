@@ -27,6 +27,8 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_For
 | ReplayLength   | int                 | Length in bytes of compressed replay data.                             |
 | ReplayFrames   | List\<ReplayFrame\> | Replay data.                                                           |
 | LifeFrames     | List\<LifeFrame\>   | Life bar graph data.                                                   |
+| Seed           | int                 | RNG seed. (used in replays with osu!mania random mod)                  |
+| OnlineId       | long                | Online Score ID                                                        |
 
 ### LifeFrame properties
 | Name       | Type  | Description                                               |
