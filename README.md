@@ -139,6 +139,7 @@ namespace SomeNamespace
             string newTitle = System.Console.ReadLine();
             //parsing beatmap
             Beatmap beatmap = Parser.ParseBeatmap(@"pathToBeatmap.osu")
+            
             //changing song title
             beatmap.MetadataSection.Title = newTitle;
             //writing beatmap to file
@@ -163,6 +164,7 @@ namespace SomeNamespace
             string newFilePath = System.Console.ReadLine();
             //parsing storyboard
             Storyboard storyboard = Parser.ParseStoryboard(@"pathToStoryboard.osb")
+            
             //changing filepath of the first storyboard object in background layer
             storyboard.BackgroundLayer[0].FilePath = newFilePath;
             //writing storyboard to file
