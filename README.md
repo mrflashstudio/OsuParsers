@@ -16,6 +16,7 @@ Cuz, you know, i might have broke something in the last few commits ;)
     - [Beatmap writer](#beatmap-writer)
     - [Storyboard writer](#storyboard-writer)
     - [Replay writer](#replay-writer)
+    - [Database writer](#database-writer)
 - [Documentation](#documentation)  
     - [Parser documentation](docs/ParserDocumentation.md)
     - [Beatmap documentation](docs/BeatmapDocumentation.md)
@@ -137,13 +138,11 @@ namespace SomeNamespace
             //getting console output text as the song's new title
             string newTitle = System.Console.ReadLine();
             //parsing beatmap
-            using (Beatmap beatmap = Parser.ParseBeatmap(@"pathToBeatmap.osu"))
-            {
-                //changing song title
-                beatmap.MetadataSection.Title = newTitle;
-                //writing beatmap to file
-                beatmap.Write(@"pathToNewBeatmap.osu");
-            }
+            Beatmap beatmap = Parser.ParseBeatmap(@"pathToBeatmap.osu")
+            //changing song title
+            beatmap.MetadataSection.Title = newTitle;
+            //writing beatmap to file
+            beatmap.Write(@"pathToNewBeatmap.osu");
         }
     }
 }
@@ -163,13 +162,11 @@ namespace SomeNamespace
             //getting console output text as the object's new filepath
             string newFilePath = System.Console.ReadLine();
             //parsing storyboard
-            using (Storyboard storyboard = Parser.ParseStoryboard(@"pathToStoryboard.osb"))
-            {
-                //changing filepath of the first storyboard object in background layer
-                storyboard.BackgroundLayer[0].FilePath = newFilePath;
-                //writing storyboard to file
-                beatmap.Write(@"pathToNewStoryboard.osb");
-            }
+            Storyboard storyboard = Parser.ParseStoryboard(@"pathToStoryboard.osb")
+            //changing filepath of the first storyboard object in background layer
+            storyboard.BackgroundLayer[0].FilePath = newFilePath;
+            //writing storyboard to file
+            beatmap.Write(@"pathToNewStoryboard.osb");
         }
     }
 }
@@ -189,13 +186,36 @@ namespace SomeNamespace
             //getting console output text as the new player's name
             string newPlayerName = System.Console.ReadLine();
             //parsing replay
-            using (Replay replay = Parser.ParseReplay(@"pathToReplay.osr"))
-            {
-                //changing player name
-                replay.PlayerName = newPlayerName;
-                //writing replay to file
-                replay.Write(@"pathToNewReplay.osr");
-            }
+            Replay replay = Parser.ParseReplay(@"pathToReplay.osr")
+            
+            //changing player name
+            replay.PlayerName = newPlayerName;
+            //writing replay to file
+            replay.Write(@"pathToNewReplay.osr");
+        }
+    }
+}
+```
+
+### Database writer
+```cs
+using OsuParsers;
+using OsuParsers.Database;
+using OsuParsers.Enums;
+
+namespace SomeNamespace
+{
+    class Program
+    {
+        public static void Main(string[] args)
+        {
+            //parsing osu database
+            OsuDatabase db = Parser.ParseOsuDatabase(@"pathToOsuDb.db")
+            
+            //changing permissions
+            db.Permissions = Permissions.Supporter;
+            //writing database to file
+            db.Write(@"pathToNewOsuDb.db");
         }
     }
 }
