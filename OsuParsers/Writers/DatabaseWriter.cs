@@ -144,7 +144,6 @@ namespace OsuParsers.Writers
                         writer.Write(score.ScoreId);
                     }
                 }
-
             }
         }
 
