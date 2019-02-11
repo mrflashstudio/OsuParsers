@@ -10,8 +10,6 @@ namespace OsuParsers.Test
         [TestMethod]
         public void TestImportAndExportBeatmap()
         {
-            
-
             //Test beatmap 002
             //TODO : fix error while hitobject's format is 88,271,350,6,0,L|84:338,2,56,2|2|2,0:0|0:0|0:00:0:0:0:
             var dic = RootPath + "538998 chano 40mP - Natsukoi Hanab/";

@@ -104,7 +104,8 @@ namespace OsuParsers.Decoders
                 }
             }
 
-            replay.OnlineId = r.ReadInt64();
+            //ins some old replay only has 4 bit at the end
+            replay.OnlineId = r.BaseStream.Length - r.BaseStream.Position == 4 ? r.ReadInt32() : r.ReadInt64();
 
             return replay;
         }
