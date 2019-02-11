@@ -323,7 +323,7 @@ namespace OsuParsers.Decoders
 
             string[] extrasSplit = tokens.Last().Split(':');
             int extrasOffset = type.HasFlag(HitObjectType.Hold) ? 1 : 0;
-            Extras extras = (tokens.Last().Contains(":") && !tokens.Last().Contains("|")) ? new Extras
+            Extras extras = tokens.Last().Contains(":") ? new Extras
             {
                 SampleSet = (SampleSet)Convert.ToInt32(extrasSplit[0 + extrasOffset]),
                 AdditionSet = (SampleSet)Convert.ToInt32(extrasSplit[1 + extrasOffset]),
