@@ -40,13 +40,10 @@ namespace OsuParsers.Test
                     Source = "Source",//Must have value to pass the test
                     Tags = new []{ "Tag001" ,"Tag002","Tag003" }//Must have value to pass the test
                 },
-                Colours = new List<Color>
+                EventsSection = new EventsSection
                 {
 
-                },
-                TimingPoints = new List<TimingPoint>
-                {
-
+                    BackgroundImage = "BackgroundImage.png"//Must have value to pass the test
                 }
             };
         }
@@ -60,11 +57,22 @@ namespace OsuParsers.Test
             //reload beatmap again
             var reloadBeatmap = Parser.ParseBeatmap(exportPath);
 
+            //apply value
+            beatmap.GeneralSection.CirclesCount = reloadBeatmap.GeneralSection.CirclesCount;
+            beatmap.GeneralSection.SlidersCount = reloadBeatmap.GeneralSection.SlidersCount;
+            beatmap.GeneralSection.SpinnersCount = reloadBeatmap.GeneralSection.SpinnersCount;
+            beatmap.GeneralSection.Length = reloadBeatmap.GeneralSection.Length;
+
+            //compare beatmap1 and beatmap2
+            if (!CompareTwoObjects(beatmap, reloadBeatmap))
+                return false;
+
+            //reload beatmap again
             var exportPathAgain = exportPath + "2";
             reloadBeatmap.Write(exportPathAgain);
             var reloadBeatmapAgain = Parser.ParseBeatmap(exportPathAgain);
 
-            //compare two beatmap
+            //compare beatmap2 and beatmap3
             return CompareTwoObjects(reloadBeatmap, reloadBeatmapAgain);
         }
     }

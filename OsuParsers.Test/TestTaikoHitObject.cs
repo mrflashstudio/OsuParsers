@@ -18,12 +18,12 @@ namespace OsuParsers.Test
             var beatmap = GenerateBeatmap(Ruleset.Taiko);
 
             //Create TaikoDrumroll
-            beatmap.HitObjects.Add(new TaikoDrumroll(new Point(100, 100), 1000, 2000, HitSoundType.Clap
+            beatmap.HitObjects.Add(new TaikoDrumroll(new Point(100, 100), 1000, -2147482648, HitSoundType.Clap
                 , CurveType.Bezier, new List<Point>(), 1, 0, new List<HitSoundType>()
                 , new List<Tuple<SampleSet, SampleSet>>(), new Extras(), false, 0));
 
             //Create TaikoHit
-            beatmap.HitObjects.Add(new TaikoHit(new Point(200, 200), 3000, 4000, HitSoundType.Clap, new Extras(), true, 0));
+            beatmap.HitObjects.Add(new TaikoHit(new Point(200, 200), 3000, 3000, HitSoundType.Clap, new Extras(), true, 0));
 
             //Create TaikoSpinner
             beatmap.HitObjects.Add(new TaikoSpinner(new Point(300, 300), 5000, 6000, HitSoundType.Finish, new Extras(), false, 0));

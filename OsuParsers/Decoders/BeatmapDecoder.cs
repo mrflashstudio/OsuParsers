@@ -356,14 +356,14 @@ namespace OsuParsers.Decoders
 
                     int endTime = CalculateEndTime(startTime, repeats, pixelLength);
 
-                    List<HitSoundType> edgeHitSounds = null;
+                    List<HitSoundType> edgeHitSounds = new List<HitSoundType>();
                     if (tokens.Length > 8 && tokens[8].Length > 0)
                     {
                         edgeHitSounds = new List<HitSoundType>();
                         edgeHitSounds = Array.ConvertAll(tokens[8].Split('|'), s => (HitSoundType)Convert.ToInt32(s)).ToList();
                     }
 
-                    List<Tuple<SampleSet, SampleSet>> edgeAdditions = null;
+                    List<Tuple<SampleSet, SampleSet>> edgeAdditions = new List<Tuple<SampleSet, SampleSet>>();
                     if (tokens.Length > 9 && tokens[9].Length > 0)
                     {
                         edgeAdditions = new List<Tuple<SampleSet, SampleSet>>();

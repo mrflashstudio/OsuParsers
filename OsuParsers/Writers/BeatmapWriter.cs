@@ -119,7 +119,7 @@ namespace OsuParsers.Writers
             list.AddRange(new List<string>
             {
                 @"//Background and Video events",
-                $"0,0,\"{section.BackgroundImage}\",0,0",
+                $"0,0,\"{section.BackgroundImage ?? ""}\",0,0",
             });
 
             if (section.Video != null)
