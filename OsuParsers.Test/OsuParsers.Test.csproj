@@ -39,6 +39,18 @@
     <None Update="Sample\Beatmaps\540058 Kana Nishino - Distance\Kana Nishino - Distance (TANUKI's Christmas Remix) (arcwinolivirus) [Faraway].osu">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Sample\Databases\collection.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample\Databases\osu!.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample\Databases\presence.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample\Databases\scores.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Sample\Replays\andy840119 - Suzuki Konomi - DAYS of DASH %28TV Size%29 [Hard] %282013-02-02%29 Osu.osr">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
