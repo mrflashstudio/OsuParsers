@@ -329,7 +329,7 @@ namespace OsuParsers.Decoders
                 AdditionSet = (SampleSet)Convert.ToInt32(extrasSplit[1 + extrasOffset]),
                 CustomIndex = Convert.ToInt32(extrasSplit[2 + extrasOffset]),
                 Volume = Convert.ToInt32(extrasSplit[3 + extrasOffset]),
-                SampleFileName = extrasSplit[4 + extrasOffset]
+                SampleFileName = string.IsNullOrEmpty(extrasSplit[4 + extrasOffset]) ? null : extrasSplit[4 + extrasOffset]
             } : new Extras();
 
             switch (type)
