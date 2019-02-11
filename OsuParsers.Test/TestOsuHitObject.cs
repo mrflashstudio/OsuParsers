@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace OsuParsers.Test
 {
     [TestClass]
-    public class TestOsuHitObject
+    public class TestOsuHitObject : BaseTest
     {
     }
 }

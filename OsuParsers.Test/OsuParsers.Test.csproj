@@ -10,10 +10,38 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.3.2" />
     <PackageReference Include="MSTest.TestFramework" Version="1.3.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\OsuParsers\OsuParsers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Sample\Beatmaps\538998 chano 40mP - Natsukoi Hanab\chano &amp; 40mP - Natsukoi Hanabi %28Riven%29 [Hard].osu">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample\Beatmaps\538998 chano 40mP - Natsukoi Hanab\chano &amp; 40mP - Natsukoi Hanabi %28Riven%29 [Insane].osu">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample\Beatmaps\538998 chano 40mP - Natsukoi Hanab\chano &amp; 40mP - Natsukoi Hanabi %28Riven%29 [N a s y a%27s Insane].osu">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample\Beatmaps\538998 chano 40mP - Natsukoi Hanab\chano &amp; 40mP - Natsukoi Hanabi %28Riven%29 [Normal].osu">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample\Beatmaps\538998 chano 40mP - Natsukoi Hanab\chano &amp; 40mP - Natsukoi Hanabi %28Riven%29 [Smokeman%27s Advanced].osu">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample\Beatmaps\538998 chano 40mP - Natsukoi Hanab\chano &amp; 40mP - Natsukoi Hanabi %28Riven%29 [Spark of Light].osu">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample\Beatmaps\540058 Kana Nishino - Distance\Kana Nishino - Distance (TANUKI's Christmas Remix) (arcwinolivirus) [Faraway].osu">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sample\Replays\andy840119 - Suzuki Konomi - DAYS of DASH %28TV Size%29 [Hard] %282013-02-02%29 Osu.osr">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
