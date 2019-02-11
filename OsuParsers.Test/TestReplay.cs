@@ -8,7 +8,7 @@ namespace OsuParsers.Test
     [TestClass]
     public class TestReplay : BaseTest
     {
-        public override string RootPath => base.RootPath + "Replays/";
+        protected override string RootPath => base.RootPath + "Replays/";
 
         [TestMethod]
         public void TestImportAndExportReplay()

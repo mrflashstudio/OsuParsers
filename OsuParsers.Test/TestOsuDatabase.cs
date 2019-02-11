@@ -9,7 +9,7 @@ namespace OsuParsers.Test
     [TestClass]
     public class TestOsuDatabase : BaseTest
     {
-        public override string RootPath => base.RootPath + "Databases/";
+        protected override string RootPath => base.RootPath + "Databases/";
 
         [TestMethod]
         public void TestImportAndExportPresenceDatabase()

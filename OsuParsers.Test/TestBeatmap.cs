@@ -5,7 +5,7 @@ namespace OsuParsers.Test
     [TestClass]
     public class TestBeatmap : BaseTest
     {
-        public override string RootPath => base.RootPath + "Beatmaps/";
+        protected override string RootPath => base.RootPath + "Beatmaps/";
 
         [TestMethod]
         public void TestImportAndExportBeatmap()
