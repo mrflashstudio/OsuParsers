@@ -25,11 +25,11 @@ Cuz, you know, i might have broke something in the last few commits ;)
     - [Database documentation](docs/DatabaseDocumentation.md)
 
 # Installation
-Download latest version of parser from [releases](https://github.com/mrflashstudio/OsuParsers/releases), then add the dll into your project references.  
-Or you can just install [NuGet package](https://www.nuget.org/packages/OsuParsers). (`Install-Package OsuParsers -Version 1.5.0`)
+Download latest version of parser from [releases](https://github.com/mrflashstudio/OsuParsers/releases), then add the dll into your project references/dependencies.  
+Or you can just install [NuGet package](https://www.nuget.org/packages/OsuParsers). (`Install-Package OsuParsers -Version 1.5.1`)
 
 # Building and Requirements
-- You need a desktop platform that can compile .NET 4.5
+- You need a desktop platform that can compile .NET 4.5 or higher.
 - Clone the repository `git clone https://github.com/mrflashstudio/OsuParsers`
 - And then you can build the project in your IDE.
 
