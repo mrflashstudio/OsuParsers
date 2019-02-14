@@ -1,9 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFrameworks>net45;net461;netstandard2.0</TargetFrameworks>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>1.5.0</Version>
+    <Version>1.5.1</Version>
+    <Authors>mrflashstudio</Authors>
+    <Description>Library for parsing/writing files associated with osu!</Description>
+    <Copyright>Copyright 2019</Copyright>
+    <AssemblyVersion>1.5.1.0</AssemblyVersion>
+    <FileVersion>1.5.1.0</FileVersion>
+    <Company />
   </PropertyGroup>
-
 </Project>
