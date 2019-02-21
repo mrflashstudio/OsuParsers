@@ -11,6 +11,6 @@ namespace OsuParsers.Beatmaps.Objects
         public int CustomSampleSet { get; set; }
         public int Volume { get; set; }
         public bool Inherited { get; set; }
-        public bool KiaiMode { get; set; }
+        public Effects Effects { get; set; }
     }
 }

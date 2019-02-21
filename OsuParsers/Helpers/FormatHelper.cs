@@ -48,9 +48,9 @@ namespace OsuParsers.Helpers
             var sampleIndex = timingPoint.CustomSampleSet;
             var volume = timingPoint.Volume;
             var inherited = Bool(timingPoint.Inherited);
-            var kiaiMode = Bool(timingPoint.KiaiMode);
+            var effects = (int)timingPoint.Effects;
 
-            return $"{offset},{msPerBeat},{meter},{sampleSet},{sampleIndex},{volume},{inherited},{kiaiMode}";
+            return $"{offset},{msPerBeat},{meter},{sampleSet},{sampleIndex},{volume},{inherited},{effects}";
         }
 
         public static string Colour(Color colour, int index)

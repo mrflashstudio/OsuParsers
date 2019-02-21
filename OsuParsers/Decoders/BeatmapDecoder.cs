@@ -261,7 +261,7 @@ namespace OsuParsers.Decoders
             int customSampleSet = 0;
             int volume = 100;
             bool inherited = true;
-            bool kiaiMode = false;
+            Effects effects = Effects.None;
 
             if (tokens.Length >= 3)
                 timeSignature = (TimeSignature)Convert.ToInt32(tokens[2]);
@@ -279,7 +279,7 @@ namespace OsuParsers.Decoders
                 inherited = ParseHelper.ToBool(tokens[6]);
 
             if (tokens.Length >= 8)
-                kiaiMode = ParseHelper.ToBool(tokens[7]);
+                effects = (Effects)Convert.ToInt32(tokens[7]);
 
             Beatmap.TimingPoints.Add(new TimingPoint
             {
@@ -290,7 +290,7 @@ namespace OsuParsers.Decoders
                 CustomSampleSet = customSampleSet,
                 Volume = volume,
                 Inherited = inherited,
-                KiaiMode = kiaiMode,
+                Effects = effects
             });
         }
 
