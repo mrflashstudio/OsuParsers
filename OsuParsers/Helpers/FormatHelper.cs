@@ -81,7 +81,7 @@ namespace OsuParsers.Helpers
             }
             if (hitObject is Slider slider)
             {
-                extra +=  SliderProperties(slider) + (slider.EdgeHitSounds == null ? string.Empty : extras);
+                extra +=  SliderProperties(slider) + (slider.EdgeHitSounds == null ? string.Empty : $",{extras}");
             }
             if (hitObject is Spinner spinner)
             {
