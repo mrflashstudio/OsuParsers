@@ -123,7 +123,7 @@ namespace OsuParsers.Writers
             });
 
             if (section.Video != null)
-                list.Add($"1,{section.VideoOffset},{section.Video}");
+                list.Add($"Video,{section.VideoOffset},\"{section.Video}\"");
 
             list.Add(@"//Break Periods");
             if (section.Breaks.Count > 0)
