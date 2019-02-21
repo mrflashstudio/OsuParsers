@@ -81,7 +81,7 @@ namespace OsuParsers.Helpers
             }
             if (hitObject is Slider slider)
             {
-                extra +=  SliderProperties(slider) + (slider.EdgeHitSounds == null ? string.Empty : $",{extras}");
+                extra +=  SliderProperties(slider) + ((slider.EdgeHitSounds == null || slider.EdgeAdditions == null) ? string.Empty : $",{extras}");
             }
             if (hitObject is Spinner spinner)
             {
@@ -114,6 +114,9 @@ namespace OsuParsers.Helpers
                 string edgeHitsounds = string.Empty;
                 slider.EdgeHitSounds.ForEach(sound => edgeHitsounds += $"{(int)sound}|");
                 edgeHitsounds = edgeHitsounds.TrimEnd('|');
+
+                if (slider.EdgeAdditions == null)
+                    return $"{sliderType}{sliderPoints},{repeats},{pixelLength},{edgeHitsounds}";
 
                 string edgeAdditions = string.Empty;
                 slider.EdgeAdditions.ToList().ForEach(e => edgeAdditions += $"{(int)e.Item1}:{(int)e.Item2}|");
