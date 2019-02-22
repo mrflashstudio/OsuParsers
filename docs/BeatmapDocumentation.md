@@ -30,16 +30,16 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_For
 | Write(string path) | void                 | Writes this Beatmap to the specified path. |
 
 ### TimingPoint properties
-| Name            | Type          | Description                                                         |
-|-----------------|---------------|---------------------------------------------------------------------|
-| BeatLength      | float         | Length of a single beat in ms.                                      |
-| CustomSampleSet | int           | Index of custom sound sample.                                       |
-| Inherited       | bool          | Is parameters inherited from parent timing point?                   |
-| KiaiMode        | bool          | Are we in kiai section right now?                                   |
-| Offset          | int           | Offset in ms.                                                       |
+| Name            | Type          | Description                                                          |
+|-----------------|---------------|----------------------------------------------------------------------|
+| BeatLength      | float         | Length of a single beat in ms.                                       |
+| CustomSampleSet | int           | Index of custom sound sample.                                        |
+| Inherited       | bool          | Is parameters inherited from parent timing point?                    |
+| Effects         | Effects       | Effects of this timing point. (e.g. Kiai or OmitFirstBarLine)        |
+| Offset          | int           | Offset in ms.                                                        |
 | Sample          | SampleSet     | TimingPoint's sample set. (e.g. Normal, Soft)                        |
 | TimeSignature   | TimeSignature | Time signature, used in editor. (e.g. SimpleTriple, SimpleQuadruple) |
-| Volume          | int           | Volume of samples from 0 to 100.                                    |
+| Volume          | int           | Volume of samples from 0 to 100.                                     |
 
 ### HitObject properties
 Base class for all objects.  
