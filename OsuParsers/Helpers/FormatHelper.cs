@@ -78,7 +78,7 @@ namespace OsuParsers.Helpers
             if (hitObject is Circle && !(hitObject is ManiaHold))
                 extra += extras;
             if (hitObject is Slider slider)
-                extra += SliderProperties(slider) + ((slider.EdgeHitSounds == null || slider.EdgeAdditions == null) ? string.Empty : $",{extras}");
+                extra += SliderProperties(slider) + ((slider.EdgeHitSounds == null || slider.EdgeAdditions == null) ? string.Empty : $",{extras}"); 
             if (hitObject is Spinner spinner)
                 extra +=  $"{spinner.EndTime},{extras}";
             if (hitObject is ManiaHold hold)
@@ -217,43 +217,37 @@ namespace OsuParsers.Helpers
 
         private static string GetCommandArguments(Command command)
         {
-            string arguments = string.Empty;
             switch (command.Type)
             {
                 case CommandType.Movement:
                 case CommandType.VectorScale:
                     if (command.StartVector.Equals(command.EndVector))
-                        arguments = $"{command.StartVector.Item1.Format()},{command.StartVector.Item2.Format()}";
+                        return $"{command.StartVector.Item1.Format()},{command.StartVector.Item2.Format()}";
                     else
-                        arguments = $"{command.StartVector.Item1.Format()},{command.StartVector.Item2.Format()},{command.EndVector.Item1.Format()},{command.EndVector.Item2.Format()}";
-                    break;
+                        return $"{command.StartVector.Item1.Format()},{command.StartVector.Item2.Format()},{command.EndVector.Item1.Format()},{command.EndVector.Item2.Format()}";
                 case CommandType.Fade:
                 case CommandType.Rotation:
                 case CommandType.Scale:
                 case CommandType.MovementX:
                 case CommandType.MovementY:
                     if (command.StartFloat == command.EndFloat)
-                        arguments = $"{command.StartFloat.Format()}";
+                        return $"{command.StartFloat.Format()}";
                     else
-                        arguments = $"{command.StartFloat.Format()},{command.EndFloat.Format()}";
-                    break;
+                        return $"{command.StartFloat.Format()},{command.EndFloat.Format()}";
                 case CommandType.Colour:
                     if (command.StartColour == command.EndColour)
-                        arguments = $"{command.StartColour.R},{command.StartColour.G},{command.StartColour.B}";
+                        return $"{command.StartColour.R},{command.StartColour.G},{command.StartColour.B}";
                     else
-                        arguments = $"{command.StartColour.R},{command.StartColour.G},{command.StartColour.B},{command.EndColour.R},{command.EndColour.G},{command.EndColour.B}";
-                    break;
+                        return $"{command.StartColour.R},{command.StartColour.G},{command.StartColour.B},{command.EndColour.R},{command.EndColour.G},{command.EndColour.B}";
                 case CommandType.FlipHorizontal:
-                    arguments = @"H";
-                    break;
+                    return @"H";
                 case CommandType.FlipVertical:
-                    arguments = @"V";
-                    break;
+                    return @"V";
                 case CommandType.BlendingMode:
-                    arguments = @"A";
-                    break;
+                    return @"A";
+                default:
+                    return null;
             }
-            return arguments;
         }
     }
 
