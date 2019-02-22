@@ -76,22 +76,14 @@ namespace OsuParsers.Helpers
             string extra = ",";
 
             if (hitObject is Circle && !(hitObject is ManiaHold))
-            {
                 extra += extras;
-            }
             if (hitObject is Slider slider)
-            {
-                extra +=  SliderProperties(slider) + ((slider.EdgeHitSounds == null || slider.EdgeAdditions == null) ? string.Empty : $",{extras}");
-            }
+                extra += SliderProperties(slider) + ((slider.EdgeHitSounds == null || slider.EdgeAdditions == null) ? string.Empty : $",{extras}");
             if (hitObject is Spinner spinner)
-            {
                 extra +=  $"{spinner.EndTime},{extras}";
-            }
             if (hitObject is ManiaHold hold)
-            {
                 extra += $"{hold.EndTime}:{extras}";
-            }
-
+            
             return hitObjectBase + extra;
         }
 
