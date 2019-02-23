@@ -246,7 +246,7 @@ namespace OsuParsers.Helpers
                 case CommandType.BlendingMode:
                     return @"A";
                 default:
-                    return null;
+                    return string.Empty;
             }
         }
     }
