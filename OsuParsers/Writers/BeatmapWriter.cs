@@ -41,23 +41,23 @@ namespace OsuParsers.Writers
                 "AudioFilename: " + section.AudioFilename,
                 "AudioLeadIn: " + section.AudioLeadIn,
                 "PreviewTime: " + section.PreviewTime,
-                "Countdown: " + section.Countdown.Format(),
+                "Countdown: " + section.Countdown.ToInt32(),
                 "SampleSet: " + section.SampleSet,
                 "StackLeniency: " + section.StackLeniency.Format(),
                 "Mode: " + (int)section.Mode,
-                "LetterboxInBreaks: " + section.LetterboxInBreaks.Format()
+                "LetterboxInBreaks: " + section.LetterboxInBreaks.ToInt32()
             });
 
             if (section.StoryFireInFront)
-                list.Add("StoryFireInFront: " + section.StoryFireInFront.Format());
+                list.Add("StoryFireInFront: " + section.StoryFireInFront.ToInt32());
             if (section.UseSkinSprites)
-                list.Add("UseSkinSprites: " + section.UseSkinSprites.Format());
+                list.Add("UseSkinSprites: " + section.UseSkinSprites.ToInt32());
             if (section.EpilepsyWarning)
-                list.Add("EpilepsyWarning: " + section.EpilepsyWarning.Format());
+                list.Add("EpilepsyWarning: " + section.EpilepsyWarning.ToInt32());
             if (section.Mode == Enums.Ruleset.Mania)
-                list.Add("SpecialStyle: " + section.SpecialStyle.Format());
+                list.Add("SpecialStyle: " + section.SpecialStyle.ToInt32());
 
-            list.Add("WidescreenStoryboard: " + section.WidescreenStoryboard.Format());
+            list.Add("WidescreenStoryboard: " + section.WidescreenStoryboard.ToInt32());
 
             return list;
         }
@@ -130,15 +130,15 @@ namespace OsuParsers.Writers
                 list.AddRange(section.Breaks.ConvertAll(b => $"2,{b.StartTime},{b.EndTime}"));
 
             list.Add(@"//Storyboard Layer 0 (Background)");
-            section.Storyboard.BackgroundLayer.ForEach(sbObject => list.AddRange(FormatHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Background)));
+            section.Storyboard.BackgroundLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Background)));
             list.Add(@"//Storyboard Layer 1 (Fail)");
-            section.Storyboard.FailLayer.ForEach(sbObject => list.AddRange(FormatHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Fail)));
+            section.Storyboard.FailLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Fail)));
             list.Add(@"//Storyboard Layer 2 (Pass)");
-            section.Storyboard.PassLayer.ForEach(sbObject => list.AddRange(FormatHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Pass)));
+            section.Storyboard.PassLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Pass)));
             list.Add(@"//Storyboard Layer 3 (Foreground)");
-            section.Storyboard.ForegroundLayer.ForEach(sbObject => list.AddRange(FormatHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Foreground)));
+            section.Storyboard.ForegroundLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Foreground)));
             list.Add(@"//Storyboard Sound Samples");
-            section.Storyboard.SamplesLayer.ForEach(sbObject => list.AddRange(FormatHelper.StoryboardObject(sbObject, (sbObject as Storyboards.Objects.StoryboardSample).Layer)));
+            section.Storyboard.SamplesLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, (sbObject as Storyboards.Objects.StoryboardSample).Layer)));
 
             return list;
         }
@@ -150,7 +150,7 @@ namespace OsuParsers.Writers
 
             var list = BaseListFormat("TimingPoints");
             if (timingPoints != null)
-                list.AddRange(timingPoints.ConvertAll(point => FormatHelper.TimingPoint(point)));
+                list.AddRange(timingPoints.ConvertAll(point => WriteHelper.TimingPoint(point)));
             list.Add(string.Empty); //osu!stable adds an extra blank line after timing points.
             return list;
         }
@@ -163,7 +163,7 @@ namespace OsuParsers.Writers
             var list = BaseListFormat("Colours");
             if (colours != null)
                 for (int i = 0; i < colours.Count; i++)
-                    list.Add(FormatHelper.Colour(colours[i], i + 1));
+                    list.Add(WriteHelper.Colour(colours[i], i + 1));
             return list;
         }
 
@@ -171,7 +171,7 @@ namespace OsuParsers.Writers
         {
             var list = BaseListFormat("HitObjects");
             if (hitObjects != null)
-                list.AddRange(hitObjects.ConvertAll(obj => FormatHelper.HitObject(obj)));
+                list.AddRange(hitObjects.ConvertAll(obj => WriteHelper.HitObject(obj)));
             return list;
         }
 

@@ -12,33 +12,8 @@ using OsuParsers.Storyboards.Commands;
 
 namespace OsuParsers.Helpers
 {
-    internal class FormatHelper
+    internal class WriteHelper
     {
-        public static string Join(IEnumerable<string> vs, char splitter = ' ')
-        {
-            if (vs != null)
-            {
-                string owo = string.Empty;
-                vs.ToList().ForEach(e => owo += e + splitter);
-                return owo.TrimEnd(splitter);
-            }
-            else
-                return string.Empty;
-        }
-
-        public static string Join(IEnumerable<int> vs, char splitter = ' ')
-        {
-            if (vs != null)
-            {
-                List<string> x = vs.ToList().ConvertAll(e => e.ToString());
-                return Join(x, splitter);
-            }
-            else
-                return string.Empty;
-        }
-
-        public static int Bool(bool value) => value ? 1 : 0;
-
         public static string TimingPoint(TimingPoint timingPoint)
         {
             var offset = timingPoint.Offset;
@@ -47,7 +22,7 @@ namespace OsuParsers.Helpers
             var sampleSet = (int)timingPoint.SampleSet;
             var sampleIndex = timingPoint.CustomSampleSet;
             var volume = timingPoint.Volume;
-            var inherited = Bool(timingPoint.Inherited);
+            var inherited = timingPoint.Inherited.ToInt32();
             var effects = (int)timingPoint.Effects;
 
             return $"{offset},{msPerBeat},{meter},{sampleSet},{sampleIndex},{volume},{inherited},{effects}";
@@ -144,10 +119,10 @@ namespace OsuParsers.Helpers
                 i += 1 << 1;
             if (hitObject is Spinner)
                 i += 1 << 3; 
-            if (hitObject.IsNewCombo)
-                i += 1 << 2;
             if (hitObject is ManiaHold)
                 i += 1 << 7;
+            if (hitObject.IsNewCombo)
+                i += 1 << 2;
             i += hitObject.ComboOffset << 4;
             return i;
         }
@@ -240,24 +215,14 @@ namespace OsuParsers.Helpers
                     else
                         return $"{command.StartColour.R},{command.StartColour.G},{command.StartColour.B},{command.EndColour.R},{command.EndColour.G},{command.EndColour.B}";
                 case CommandType.FlipHorizontal:
-                    return @"H";
+                    return "H";
                 case CommandType.FlipVertical:
-                    return @"V";
+                    return "V";
                 case CommandType.BlendingMode:
-                    return @"A";
+                    return "A";
                 default:
                     return string.Empty;
             }
         }
-    }
-
-    static class Extensions
-    {
-        private static NumberFormatInfo NumFormat = new CultureInfo(@"en-US", false).NumberFormat;
-
-        public static int Format(this bool value) => FormatHelper.Bool(value);
-        public static string Format(this float value) => value.ToString(NumFormat);
-        public static string Format(this double value) => value.ToString(NumFormat);
-        public static string Format(this int value) => value.ToString(NumFormat);
     }
 }

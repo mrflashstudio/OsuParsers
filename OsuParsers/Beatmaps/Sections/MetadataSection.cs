@@ -1,3 +1,5 @@
+using OsuParsers.Helpers;
+
 namespace OsuParsers.Beatmaps.Sections
 {
     public class MetadataSection
@@ -12,7 +14,7 @@ namespace OsuParsers.Beatmaps.Sections
         public string[] Tags { get; set; }
         public string TagsString
         {
-            get => Helpers.FormatHelper.Join(Tags);
+            get => Tags.Join();
             set => Tags = value.Split(' ');
         }
         public int BeatmapID { get; set; }
