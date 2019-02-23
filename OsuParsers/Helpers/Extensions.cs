@@ -13,25 +13,22 @@ namespace OsuParsers.Helpers
         public static string Format(this double value) => value.ToString(NumFormat);
         public static string Format(this int value) => value.ToString(NumFormat);
 
-        public static string Join(this IEnumerable<string> vs, char splitter = ' ')
+        public static string Join(this IEnumerable<string> stringGroup, char splitter = ' ')
         {
-            if (vs != null)
+            if (stringGroup != null)
             {
-                string owo = string.Empty;
-                vs.ToList().ForEach(e => owo += e + splitter);
-                return owo.TrimEnd(splitter);
+                string ret = string.Empty;
+                stringGroup.ToList().ForEach(line => ret += line + splitter);
+                return ret.TrimEnd(splitter);
             }
             else
                 return string.Empty;
         }
 
-        public static string Join(this IEnumerable<int> vs, char splitter = ' ')
+        public static string Join(this IEnumerable<int> intGroup, char splitter = ' ')
         {
-            if (vs != null)
-            {
-                List<string> x = vs.ToList().ConvertAll(e => e.ToString());
-                return Join(x, splitter);
-            }
+            if (intGroup != null)
+                return intGroup.ToList().ConvertAll(e => e.ToString()).Join(splitter);
             else
                 return string.Empty;
         }
