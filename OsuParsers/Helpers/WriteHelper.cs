@@ -72,11 +72,7 @@ namespace OsuParsers.Helpers
             var repeats = slider.Repeats;
             var pixelLength = slider.PixelLength.Format();
 
-            if (slider.EdgeHitSounds == null)
-            {
-                return $"{sliderType}{sliderPoints},{repeats},{pixelLength}";
-            }
-            else
+            if (slider.EdgeHitSounds != null)
             {
                 string edgeHitsounds = string.Empty;
                 slider.EdgeHitSounds.ForEach(sound => edgeHitsounds += $"{(int)sound}|");
@@ -91,8 +87,10 @@ namespace OsuParsers.Helpers
 
                 return $"{sliderType}{sliderPoints},{repeats},{pixelLength},{edgeHitsounds},{edgeAdditions}";
             }
+            else
+                return $"{sliderType}{sliderPoints},{repeats},{pixelLength}";
         }
-
+        
         public static char CurveType(CurveType value)
         {
             switch (value)
