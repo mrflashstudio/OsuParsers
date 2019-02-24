@@ -112,15 +112,14 @@ namespace OsuParsers.Helpers
         {
             int i = 0;
             if (hitObject is Circle && !(hitObject is ManiaHold))
-                i += 1 << 0;
+                i += (int)HitObjectType.Circle;
             if (hitObject is Slider)
-                i += 1 << 1;
+                i += (int)HitObjectType.Slider;
             if (hitObject is Spinner)
-                i += 1 << 3; 
+                i += (int)HitObjectType.Spinner;
             if (hitObject is ManiaHold)
-                i += 1 << 7;
-            if (hitObject.IsNewCombo)
-                i += 1 << 2;
+                i += (int)HitObjectType.Hold;
+            i += hitObject.IsNewCombo ? 1 << 2 : 0;
             i += hitObject.ComboOffset << 4;
             return i;
         }
