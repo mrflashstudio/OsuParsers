@@ -1,4 +1,5 @@
 using System.Linq;
+using OsuParsers.Helpers;
 
 namespace OsuParsers.Beatmaps.Sections
 {
@@ -7,7 +8,7 @@ namespace OsuParsers.Beatmaps.Sections
         public int[] Bookmarks { get; set; }
         public string BookmarksString
         {
-            get => Helpers.FormatHelper.Join(Bookmarks, ',');
+            get => Bookmarks.Join(',');
             set
             {
                 var valueArray = value.Split(',').ToList();
