@@ -12,33 +12,8 @@ using OsuParsers.Storyboards.Commands;
 
 namespace OsuParsers.Helpers
 {
-    internal class FormatHelper
+    internal class WriteHelper
     {
-        public static string Join(IEnumerable<string> vs, char splitter = ' ')
-        {
-            if (vs != null)
-            {
-                string owo = string.Empty;
-                vs.ToList().ForEach(e => owo += e + splitter);
-                return owo.TrimEnd(splitter);
-            }
-            else
-                return string.Empty;
-        }
-
-        public static string Join(IEnumerable<int> vs, char splitter = ' ')
-        {
-            if (vs != null)
-            {
-                List<string> x = vs.ToList().ConvertAll(e => e.ToString());
-                return Join(x, splitter);
-            }
-            else
-                return string.Empty;
-        }
-
-        public static int Bool(bool value) => value ? 1 : 0;
-
         public static string TimingPoint(TimingPoint timingPoint)
         {
             var offset = timingPoint.Offset;
@@ -47,10 +22,10 @@ namespace OsuParsers.Helpers
             var sampleSet = (int)timingPoint.SampleSet;
             var sampleIndex = timingPoint.CustomSampleSet;
             var volume = timingPoint.Volume;
-            var inherited = Bool(timingPoint.Inherited);
-            var kiaiMode = Bool(timingPoint.KiaiMode);
+            var inherited = timingPoint.Inherited.ToInt32();
+            var effects = (int)timingPoint.Effects;
 
-            return $"{offset},{msPerBeat},{meter},{sampleSet},{sampleIndex},{volume},{inherited},{kiaiMode}";
+            return $"{offset},{msPerBeat},{meter},{sampleSet},{sampleIndex},{volume},{inherited},{effects}";
         }
 
         public static string Colour(Color colour, int index)
@@ -76,22 +51,14 @@ namespace OsuParsers.Helpers
             string extra = ",";
 
             if (hitObject is Circle && !(hitObject is ManiaHold))
-            {
                 extra += extras;
-            }
             if (hitObject is Slider slider)
-            {
-                extra +=  SliderProperties(slider) + (slider.EdgeHitSounds == null ? string.Empty : "," + extras);
-            }
+                extra += SliderProperties(slider) + ((slider.EdgeHitSounds == null || slider.EdgeAdditions == null) ? string.Empty : $",{extras}"); 
             if (hitObject is Spinner spinner)
-            {
                 extra +=  $"{spinner.EndTime},{extras}";
-            }
             if (hitObject is ManiaHold hold)
-            {
                 extra += $"{hold.EndTime}:{extras}";
-            }
-
+            
             return hitObjectBase + extra;
         }
 
@@ -105,15 +72,14 @@ namespace OsuParsers.Helpers
             var repeats = slider.Repeats;
             var pixelLength = slider.PixelLength.Format();
 
-            if (slider.EdgeHitSounds == null)
-            {
-                return $"{sliderType}{sliderPoints},{repeats},{pixelLength}";
-            }
-            else
+            if (slider.EdgeHitSounds != null)
             {
                 string edgeHitsounds = string.Empty;
                 slider.EdgeHitSounds.ForEach(sound => edgeHitsounds += $"{(int)sound}|");
                 edgeHitsounds = edgeHitsounds.TrimEnd('|');
+
+                if (slider.EdgeAdditions == null)
+                    return $"{sliderType}{sliderPoints},{repeats},{pixelLength},{edgeHitsounds}";
 
                 string edgeAdditions = string.Empty;
                 slider.EdgeAdditions.ToList().ForEach(e => edgeAdditions += $"{(int)e.Item1}:{(int)e.Item2}|");
@@ -121,8 +87,10 @@ namespace OsuParsers.Helpers
 
                 return $"{sliderType}{sliderPoints},{repeats},{pixelLength},{edgeHitsounds},{edgeAdditions}";
             }
+            else
+                return $"{sliderType}{sliderPoints},{repeats},{pixelLength}";
         }
-
+        
         public static char CurveType(CurveType value)
         {
             switch (value)
@@ -144,15 +112,14 @@ namespace OsuParsers.Helpers
         {
             int i = 0;
             if (hitObject is Circle && !(hitObject is ManiaHold))
-                i += 1 << 0;
+                i += (int)HitObjectType.Circle;
             if (hitObject is Slider)
-                i += 1 << 1;
+                i += (int)HitObjectType.Slider;
             if (hitObject is Spinner)
-                i += 1 << 3; 
-            if (hitObject.IsNewCombo)
-                i += 1 << 2;
+                i += (int)HitObjectType.Spinner;
             if (hitObject is ManiaHold)
-                i += 1 << 7;
+                i += (int)HitObjectType.Hold;
+            i += hitObject.IsNewCombo ? 1 << 2 : 0;
             i += hitObject.ComboOffset << 4;
             return i;
         }
@@ -222,53 +189,37 @@ namespace OsuParsers.Helpers
 
         private static string GetCommandArguments(Command command)
         {
-            string arguments = string.Empty;
             switch (command.Type)
             {
                 case CommandType.Movement:
                 case CommandType.VectorScale:
                     if (command.StartVector.Equals(command.EndVector))
-                        arguments = $"{command.StartVector.Item1.Format()},{command.StartVector.Item2.Format()}";
+                        return $"{command.StartVector.Item1.Format()},{command.StartVector.Item2.Format()}";
                     else
-                        arguments = $"{command.StartVector.Item1.Format()},{command.StartVector.Item2.Format()},{command.EndVector.Item1.Format()},{command.EndVector.Item2.Format()}";
-                    break;
+                        return $"{command.StartVector.Item1.Format()},{command.StartVector.Item2.Format()},{command.EndVector.Item1.Format()},{command.EndVector.Item2.Format()}";
                 case CommandType.Fade:
                 case CommandType.Rotation:
                 case CommandType.Scale:
                 case CommandType.MovementX:
                 case CommandType.MovementY:
                     if (command.StartFloat == command.EndFloat)
-                        arguments = $"{command.StartFloat.Format()}";
+                        return $"{command.StartFloat.Format()}";
                     else
-                        arguments = $"{command.StartFloat.Format()},{command.EndFloat.Format()}";
-                    break;
+                        return $"{command.StartFloat.Format()},{command.EndFloat.Format()}";
                 case CommandType.Colour:
                     if (command.StartColour == command.EndColour)
-                        arguments = $"{command.StartColour.R},{command.StartColour.G},{command.StartColour.B}";
+                        return $"{command.StartColour.R},{command.StartColour.G},{command.StartColour.B}";
                     else
-                        arguments = $"{command.StartColour.R},{command.StartColour.G},{command.StartColour.B},{command.EndColour.R},{command.EndColour.G},{command.EndColour.B}";
-                    break;
+                        return $"{command.StartColour.R},{command.StartColour.G},{command.StartColour.B},{command.EndColour.R},{command.EndColour.G},{command.EndColour.B}";
                 case CommandType.FlipHorizontal:
-                    arguments = @"H";
-                    break;
+                    return "H";
                 case CommandType.FlipVertical:
-                    arguments = @"V";
-                    break;
+                    return "V";
                 case CommandType.BlendingMode:
-                    arguments = @"A";
-                    break;
+                    return "A";
+                default:
+                    return string.Empty;
             }
-            return arguments;
         }
-    }
-
-    static class Extensions
-    {
-        private static NumberFormatInfo NumFormat = new CultureInfo(@"en-US", false).NumberFormat;
-
-        public static int Format(this bool value) => FormatHelper.Bool(value);
-        public static string Format(this float value) => value.ToString(NumFormat);
-        public static string Format(this double value) => value.ToString(NumFormat);
-        public static string Format(this int value) => value.ToString(NumFormat);
     }
 }

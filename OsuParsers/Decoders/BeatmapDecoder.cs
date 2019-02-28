@@ -83,135 +83,143 @@ namespace OsuParsers.Decoders
 
         private void ParseGeneral(string line)
         {
-            string[] tokens = line.Split(':');
-            switch (tokens[0])
+            int index = line.IndexOf(':');
+            string variable = line.Remove(index).Trim();
+            string value = line.Remove(0, index + 1).Trim();
+            switch (variable)
             {
                 case "AudioFilename":
-                    Beatmap.GeneralSection.AudioFilename = tokens[1].Trim();
+                    Beatmap.GeneralSection.AudioFilename = value.Trim();
                     break;
                 case "AudioLeadIn":
-                    Beatmap.GeneralSection.AudioLeadIn = Convert.ToInt32(tokens[1].Trim());
+                    Beatmap.GeneralSection.AudioLeadIn = Convert.ToInt32(value.Trim());
                     break;
                 case "PreviewTime":
-                    Beatmap.GeneralSection.PreviewTime = Convert.ToInt32(tokens[1].Trim());
+                    Beatmap.GeneralSection.PreviewTime = Convert.ToInt32(value.Trim());
                     break;
                 case "Countdown":
-                    Beatmap.GeneralSection.Countdown = ParseHelper.ToBool(tokens[1].Trim());
+                    Beatmap.GeneralSection.Countdown = ParseHelper.ToBool(value.Trim());
                     break;
                 case "SampleSet":
-                    Beatmap.GeneralSection.SampleSet = (SampleSet)Enum.Parse(typeof(SampleSet), tokens[1].Trim());
+                    Beatmap.GeneralSection.SampleSet = (SampleSet)Enum.Parse(typeof(SampleSet), value.Trim());
                     break;
                 case "StackLeniency":
-                    Beatmap.GeneralSection.StackLeniency = ParseHelper.ToDouble(tokens[1].Trim());
+                    Beatmap.GeneralSection.StackLeniency = ParseHelper.ToDouble(value.Trim());
                     break;
                 case "Mode":
-                    Beatmap.GeneralSection.Mode = (Ruleset)Enum.Parse(typeof(Ruleset), tokens[1].Trim());
-                    Beatmap.GeneralSection.ModeId = Convert.ToInt32(tokens[1].Trim());
+                    Beatmap.GeneralSection.Mode = (Ruleset)Enum.Parse(typeof(Ruleset), value.Trim());
+                    Beatmap.GeneralSection.ModeId = Convert.ToInt32(value.Trim());
                     break;
                 case "LetterboxInBreaks":
-                    Beatmap.GeneralSection.LetterboxInBreaks = ParseHelper.ToBool(tokens[1].Trim());
+                    Beatmap.GeneralSection.LetterboxInBreaks = ParseHelper.ToBool(value.Trim());
                     break;
                 case "WidescreenStoryboard":
-                    Beatmap.GeneralSection.WidescreenStoryboard = ParseHelper.ToBool(tokens[1].Trim());
+                    Beatmap.GeneralSection.WidescreenStoryboard = ParseHelper.ToBool(value.Trim());
                     break;
                 case "StoryFireInFront":
-                    Beatmap.GeneralSection.StoryFireInFront = ParseHelper.ToBool(tokens[1].Trim());
+                    Beatmap.GeneralSection.StoryFireInFront = ParseHelper.ToBool(value.Trim());
                     break;
                 case "SpecialStyle":
-                    Beatmap.GeneralSection.SpecialStyle = ParseHelper.ToBool(tokens[1].Trim());
+                    Beatmap.GeneralSection.SpecialStyle = ParseHelper.ToBool(value.Trim());
                     break;
                 case "EpilepsyWarning":
-                    Beatmap.GeneralSection.EpilepsyWarning = ParseHelper.ToBool(tokens[1].Trim());
+                    Beatmap.GeneralSection.EpilepsyWarning = ParseHelper.ToBool(value.Trim());
                     break;
                 case "UseSkinSprites":
-                    Beatmap.GeneralSection.UseSkinSprites = ParseHelper.ToBool(tokens[1].Trim());
+                    Beatmap.GeneralSection.UseSkinSprites = ParseHelper.ToBool(value.Trim());
                     break;
             }
         }
 
         private void ParseEditor(string line)
         {
-            string[] tokens = line.Split(':');
-            switch (tokens[0])
+            int index = line.IndexOf(':');
+            string variable = line.Remove(index).Trim();
+            string value = line.Remove(0, index + 1).Trim();
+            switch (variable)
             {
                 case "Bookmarks":
-                    Beatmap.EditorSection.Bookmarks = tokens[1].Trim().Split(',').Select(b => Convert.ToInt32(b)).ToArray();
+                    Beatmap.EditorSection.Bookmarks = value.Trim().Split(',').Select(b => Convert.ToInt32(b)).ToArray();
                     break;
                 case "DistanceSpacing":
-                    Beatmap.EditorSection.DistanceSpacing = ParseHelper.ToDouble(tokens[1].Trim());
+                    Beatmap.EditorSection.DistanceSpacing = ParseHelper.ToDouble(value.Trim());
                     break;
                 case "BeatDivisor":
-                    Beatmap.EditorSection.BeatDivisor = Convert.ToInt32(tokens[1].Trim());
+                    Beatmap.EditorSection.BeatDivisor = Convert.ToInt32(value.Trim());
                     break;
                 case "GridSize":
-                    Beatmap.EditorSection.GridSize = Convert.ToInt32(tokens[1].Trim());
+                    Beatmap.EditorSection.GridSize = Convert.ToInt32(value.Trim());
                     break;
                 case "TimelineZoom":
-                    Beatmap.EditorSection.TimelineZoom = ParseHelper.ToFloat(tokens[1].Trim());
+                    Beatmap.EditorSection.TimelineZoom = ParseHelper.ToFloat(value.Trim());
                     break;
             }
         }
 
         private void ParseMetadata(string line)
         {
-            string[] tokens = line.Split(':');
-            switch (tokens[0])
+            int index = line.IndexOf(':');
+            string variable = line.Remove(index).Trim();
+            string value = line.Remove(0, index + 1).Trim();
+            switch (variable)
             {
                 case "Title":
-                    Beatmap.MetadataSection.Title = tokens[1].Trim();
+                    Beatmap.MetadataSection.Title = value.Trim();
                     break;
                 case "TitleUnicode":
-                    Beatmap.MetadataSection.TitleUnicode = tokens[1].Trim();
+                    Beatmap.MetadataSection.TitleUnicode = value.Trim();
                     break;
                 case "Artist":
-                    Beatmap.MetadataSection.Artist = tokens[1].Trim();
+                    Beatmap.MetadataSection.Artist = value.Trim();
                     break;
                 case "ArtistUnicode":
-                    Beatmap.MetadataSection.ArtistUnicode = tokens[1].Trim();
+                    Beatmap.MetadataSection.ArtistUnicode = value.Trim();
                     break;
                 case "Creator":
-                    Beatmap.MetadataSection.Creator = tokens[1].Trim();
+                    Beatmap.MetadataSection.Creator = value.Trim();
                     break;
                 case "Version":
-                    Beatmap.MetadataSection.Version = tokens[1].Trim();
+                    Beatmap.MetadataSection.Version = value.Trim();
                     break;
                 case "Source":
-                    Beatmap.MetadataSection.Source = tokens[1].Trim();
+                    Beatmap.MetadataSection.Source = value.Trim();
                     break;
                 case "Tags":
-                    Beatmap.MetadataSection.Tags = tokens[1].Trim().Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    Beatmap.MetadataSection.Tags = value.Trim().Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     break;
                 case "BeatmapID":
-                    Beatmap.MetadataSection.BeatmapID = Convert.ToInt32(tokens[1].Trim());
+                    Beatmap.MetadataSection.BeatmapID = Convert.ToInt32(value.Trim());
                     break;
                 case "BeatmapSetID":
-                    Beatmap.MetadataSection.BeatmapSetID = Convert.ToInt32(tokens[1].Trim());
+                    Beatmap.MetadataSection.BeatmapSetID = Convert.ToInt32(value.Trim());
                     break;
             }
         }
 
         private void ParseDifficulty(string line)
         {
-            string[] tokens = line.Split(':');
-            switch (tokens[0])
+            int index = line.IndexOf(':');
+            string variable = line.Remove(index).Trim();
+            string value = line.Remove(0, index + 1).Trim();
+            switch (variable)
             {
                 case "HPDrainRate":
-                    Beatmap.DifficultySection.HPDrainRate = ParseHelper.ToFloat(tokens[1].Trim());
+                    Beatmap.DifficultySection.HPDrainRate = ParseHelper.ToFloat(value.Trim());
                     break;
                 case "CircleSize":
-                    Beatmap.DifficultySection.CircleSize = ParseHelper.ToFloat(tokens[1].Trim());
+                    Beatmap.DifficultySection.CircleSize = ParseHelper.ToFloat(value.Trim());
                     break;
                 case "OverallDifficulty":
-                    Beatmap.DifficultySection.OverallDifficulty = ParseHelper.ToFloat(tokens[1].Trim());
+                    Beatmap.DifficultySection.OverallDifficulty = ParseHelper.ToFloat(value.Trim());
                     break;
                 case "ApproachRate":
-                    Beatmap.DifficultySection.ApproachRate = ParseHelper.ToFloat(tokens[1].Trim());
+                    Beatmap.DifficultySection.ApproachRate = ParseHelper.ToFloat(value.Trim());
                     break;
                 case "SliderMultiplier":
-                    Beatmap.DifficultySection.SliderMultiplier = ParseHelper.ToDouble(tokens[1].Trim());
+                    Beatmap.DifficultySection.SliderMultiplier = ParseHelper.ToDouble(value.Trim());
                     break;
                 case "SliderTickRate":
-                    Beatmap.DifficultySection.SliderTickRate = ParseHelper.ToDouble(tokens[1].Trim());
+                    Beatmap.DifficultySection.SliderTickRate = ParseHelper.ToDouble(value.Trim());
                     break;
             }
         }
@@ -261,7 +269,7 @@ namespace OsuParsers.Decoders
             int customSampleSet = 0;
             int volume = 100;
             bool inherited = true;
-            bool kiaiMode = false;
+            Effects effects = Effects.None;
 
             if (tokens.Length >= 3)
                 timeSignature = (TimeSignature)Convert.ToInt32(tokens[2]);
@@ -279,7 +287,7 @@ namespace OsuParsers.Decoders
                 inherited = ParseHelper.ToBool(tokens[6]);
 
             if (tokens.Length >= 8)
-                kiaiMode = ParseHelper.ToBool(tokens[7]);
+                effects = (Effects)Convert.ToInt32(tokens[7]);
 
             Beatmap.TimingPoints.Add(new TimingPoint
             {
@@ -290,7 +298,7 @@ namespace OsuParsers.Decoders
                 CustomSampleSet = customSampleSet,
                 Volume = volume,
                 Inherited = inherited,
-                KiaiMode = kiaiMode,
+                Effects = effects
             });
         }
 
