@@ -1,9 +1,9 @@
 using OsuParsers.Enums;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Numerics;
 
 namespace OsuParsers.Helpers
 {
@@ -33,15 +33,15 @@ namespace OsuParsers.Helpers
             }
         }
 
-        public static List<Point> GetSliderPoints(string[] segments)
+        public static List<Vector2> GetSliderPoints(string[] segments)
         {
-            List<Point> sliderPoints = new List<Point>();
+            List<Vector2> sliderPoints = new List<Vector2>();
             foreach (string segmentPos in segments.Skip(1))
             {
                 string[] positionTokens = segmentPos.Split(':');
                 if (positionTokens.Length == 2)
                 {
-                    sliderPoints.Add(new Point((int)Convert.ToDouble(positionTokens[0], CultureInfo.InvariantCulture), (int)Convert.ToDouble(positionTokens[1], CultureInfo.InvariantCulture)));
+                    sliderPoints.Add(new Vector2((int)Convert.ToDouble(positionTokens[0], CultureInfo.InvariantCulture), (int)Convert.ToDouble(positionTokens[1], CultureInfo.InvariantCulture)));
                 }
             }
 

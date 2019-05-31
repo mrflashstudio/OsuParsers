@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Drawing;
+using System.Numerics;
 using OsuParsers.Enums;
 
 namespace OsuParsers.Beatmaps.Objects.Mania
 {
     public class ManiaHit : Circle
     {
-        public ManiaHit(Point position, int startTime, int endTime, HitSoundType hitSound, Extras extras, bool isNewCombo, int comboOffset) 
+        public ManiaHit(Vector2 position, int startTime, int endTime, HitSoundType hitSound, Extras extras, bool isNewCombo, int comboOffset) 
             : base(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset)
         {
         }
@@ -15,7 +15,7 @@ namespace OsuParsers.Beatmaps.Objects.Mania
         {
             double width = 512.0 / count;
             int x = Convert.ToInt32(Math.Floor(column * width));
-            Position = new Point(x, 0);
+            Position = new Vector2(x, 0);
         }
 
         public int GetColumn(int count)
@@ -24,10 +24,10 @@ namespace OsuParsers.Beatmaps.Objects.Mania
             return Convert.ToInt32(Position.X / width);
         }
 
-        public new Point Position
+        public new Vector2 Position
         {
             set => base.Position = value;
-            get => new Point(base.Position.X, 0);
+            get => new Vector2(base.Position.X, 0);
         }
     }
 }

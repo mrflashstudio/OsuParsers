@@ -1,7 +1,7 @@
 ﻿using OsuParsers.Enums;
 using OsuParsers.Storyboards.Interfaces;
-using System;
 using System.Drawing;
+using System.Numerics;
 
 namespace OsuParsers.Storyboards.Commands
 {
@@ -13,9 +13,8 @@ namespace OsuParsers.Storyboards.Commands
         public int EndTime { get; set; }
         public Color StartColour { get; set; }
         public Color EndColour { get; set; }
-        //refusing to use vector2 again
-        public Tuple<float, float> StartVector { get; set; }
-        public Tuple<float, float> EndVector { get; set; }
+        public Vector2 StartVector { get; set; }
+        public Vector2 EndVector { get; set; }
         public float StartFloat { get; set; }
         public float EndFloat { get; set; }
 
@@ -29,7 +28,7 @@ namespace OsuParsers.Storyboards.Commands
             EndFloat = endValue;
         }
 
-        public Command(CommandType type, Easing easing, int startTime, int endTime, Tuple<float, float> startValue, Tuple<float, float> endValue)
+        public Command(CommandType type, Easing easing, int startTime, int endTime, Vector2 startValue, Vector2 endValue)
         {
             Type = type;
             Easing = easing;

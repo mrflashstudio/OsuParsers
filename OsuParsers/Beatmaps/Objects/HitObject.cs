@@ -1,11 +1,11 @@
 ﻿using OsuParsers.Enums;
-using System.Drawing;
+using System.Numerics;
 
 namespace OsuParsers.Beatmaps.Objects
 {
     public class HitObject
     {
-        public Point Position { get; set; }
+        public Vector2 Position { get; set; }
         public int StartTime { get; set; }
         public int EndTime { get; set; }
         public HitSoundType HitSound { get; set; }
@@ -14,7 +14,7 @@ namespace OsuParsers.Beatmaps.Objects
         public int ComboOffset { get; set; }
         public int MaxCombo { get; } = 1;
 
-        public HitObject(Point position, int startTime, int endTime, HitSoundType hitSound, Extras extras, bool isNewCombo, int comboOffset)
+        public HitObject(Vector2 position, int startTime, int endTime, HitSoundType hitSound, Extras extras, bool isNewCombo, int comboOffset)
         {
             Position = position;
             StartTime = startTime;

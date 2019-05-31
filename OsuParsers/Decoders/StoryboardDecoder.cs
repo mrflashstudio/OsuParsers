@@ -8,6 +8,7 @@ using System;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Numerics;
 
 namespace OsuParsers.Decoders
 {
@@ -136,7 +137,7 @@ namespace OsuParsers.Decoders
                             float startY = ParseHelper.ToFloat(tokens[5]);
                             float endX = tokens.Length > 6 ? ParseHelper.ToFloat(tokens[6]) : startX;
                             float endY = tokens.Length > 7 ? ParseHelper.ToFloat(tokens[7]) : startY;
-                            commandGroup.Commands.Add(new Command(CommandType.Movement, easing, startTime, endTime, new Tuple<float, float>(startX, startY), new Tuple<float, float>(endX, endY)));
+                            commandGroup.Commands.Add(new Command(CommandType.Movement, easing, startTime, endTime, new Vector2(startX, startY), new Vector2(endX, endY)));
                          }
                             break;
                         case "MX":
@@ -167,7 +168,7 @@ namespace OsuParsers.Decoders
                             float endX = tokens.Length > 6 ? ParseHelper.ToFloat(tokens[6]) : startX;
                             float endY = tokens.Length > 7 ? ParseHelper.ToFloat(tokens[7]) : startY;
                             commandGroup.Commands.Add(new Command(CommandType.VectorScale, easing, startTime, endTime,
-                                new Tuple<float, float>(startX, startY), new Tuple<float, float>(endX, endY)));
+                                new Vector2(startX, startY), new Vector2(endX, endY)));
                         }
                             break;
                         case "R":

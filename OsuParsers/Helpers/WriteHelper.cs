@@ -194,9 +194,9 @@ namespace OsuParsers.Helpers
                 case CommandType.Movement:
                 case CommandType.VectorScale:
                     if (command.StartVector.Equals(command.EndVector))
-                        return $"{command.StartVector.Item1.Format()},{command.StartVector.Item2.Format()}";
+                        return $"{command.StartVector.X.Format()},{command.StartVector.Y.Format()}";
                     else
-                        return $"{command.StartVector.Item1.Format()},{command.StartVector.Item2.Format()},{command.EndVector.Item1.Format()},{command.EndVector.Item2.Format()}";
+                        return $"{command.StartVector.X.Format()},{command.StartVector.Y.Format()},{command.EndVector.X.Format()},{command.EndVector.Y.Format()}";
                 case CommandType.Fade:
                 case CommandType.Rotation:
                 case CommandType.Scale:
