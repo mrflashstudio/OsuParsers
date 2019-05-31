@@ -450,58 +450,5 @@ namespace OsuParsers.Decoders
 
             return Beatmap.TimingPoints[timingPoint].BeatLength * multiplier;
         }
-
-        #region Old slider end time algorithm
-        //kept it just in case if the new one will work worse
-        private int OldSliderEndTimeAlgorithm(int startTime, int repeats, double pixelLength)
-        {
-            var timingPoint = GetTimingPointFromOffset(startTime);
-            var parentTimingPoint = timingPoint;
-            double velocity = 1;
-
-            if (timingPoint.BeatLength < 0)
-            {
-                velocity = Math.Abs(100 / timingPoint.BeatLength);
-                parentTimingPoint = GetParentTimingPoint(timingPoint);
-            }
-
-            double pixelsPerBeat = Beatmap.DifficultySection.SliderMultiplier * 100 * velocity;
-            double beats = pixelLength * repeats / pixelsPerBeat;
-            int duration = (int)Math.Ceiling(beats * parentTimingPoint.BeatLength);
-
-            return startTime + duration;
-        }
-
-        private TimingPoint GetTimingPointFromOffset(int offset)
-        {
-            if (Beatmap.TimingPoints.Count == 0)
-                return null;
-
-            if (offset < Beatmap.TimingPoints.First().Offset)
-                return Beatmap.TimingPoints.First();
-
-            for (int i = Beatmap.TimingPoints.Count - 1; i >= 0; i--)
-            {
-                if (Beatmap.TimingPoints[i].Offset <= offset)
-                    return Beatmap.TimingPoints[i];
-            }
-
-            return null;
-        }
-
-        private TimingPoint GetParentTimingPoint(TimingPoint child)
-        {
-            if (Beatmap.TimingPoints.Count == 0)
-                return null;
-
-            for (int i = Beatmap.TimingPoints.IndexOf(child) - 1; i >= 0; i--)
-            {
-                if (Beatmap.TimingPoints[i].BeatLength > 0)
-                    return Beatmap.TimingPoints[i];
-            }
-
-            return null;
-        }
-        #endregion
     }
 }
