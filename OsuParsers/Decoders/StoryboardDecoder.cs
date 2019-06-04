@@ -5,8 +5,10 @@ using OsuParsers.Storyboards.Commands;
 using OsuParsers.Storyboards.Interfaces;
 using OsuParsers.Storyboards.Objects;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Numerics;
 
@@ -18,7 +20,7 @@ namespace OsuParsers.Decoders
         private CommandGroup commandGroup;
 
         private Storyboard storyboard;
-        public Storyboard Decode(string[] lines)
+        public Storyboard Decode(IEnumerable<string> lines)
         {
             storyboard = new Storyboard();
             lastDrawable = null;
@@ -37,6 +39,8 @@ namespace OsuParsers.Decoders
 
             return storyboard;
         }
+
+        public Storyboard Decode(Stream stream) => Decode(stream.ReadAllLines());
 
         private void ParseSbObject(string line)
         {

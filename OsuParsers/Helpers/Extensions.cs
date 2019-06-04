@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 
 namespace OsuParsers.Helpers
 {
-    static class Extensions
+    internal static class Extensions
     {
         private static NumberFormatInfo NumFormat => new CultureInfo(@"en-US", false).NumberFormat;
 
@@ -31,6 +33,15 @@ namespace OsuParsers.Helpers
                 return intGroup.ToList().ConvertAll(e => e.ToString()).Join(splitter);
             else
                 return string.Empty;
+        }
+
+        public static IEnumerable<string> ReadAllLines(this Stream stream)
+        {
+            using (var sr = new StreamReader(stream))
+            {
+                var full = sr.ReadToEnd();
+                return full.Split(new string[] { Environment.NewLine }, 0);
+            }
         }
     }
 }

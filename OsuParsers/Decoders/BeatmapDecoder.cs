@@ -9,6 +9,7 @@ using OsuParsers.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Numerics;
 
@@ -20,7 +21,7 @@ namespace OsuParsers.Decoders
         private Sections currentSection = Sections.None;
         private List<string> sbLines = new List<string>();
 
-        public Beatmap Decode(string[] lines)
+        public Beatmap Decode(IEnumerable<string> lines)
         {
             Beatmap = new Beatmap();
             currentSection = Sections.Format;
@@ -48,35 +49,37 @@ namespace OsuParsers.Decoders
             return Beatmap;
         }
 
+        public Beatmap Decode(Stream stream) => Decode(stream.ReadAllLines());
+
         private void ParseLine(string line)
         {
             switch (currentSection)
             {
-                case Enums.Sections.Format:
+                case Sections.Format:
                     Beatmap.Version = Convert.ToInt32(line.Split(new string[] { "osu file format v" }, StringSplitOptions.None)[1]);
                     break;
-                case Enums.Sections.General:
+                case Sections.General:
                     ParseGeneral(line);
                     break;
-                case Enums.Sections.Editor:
+                case Sections.Editor:
                     ParseEditor(line);
                     break;
-                case Enums.Sections.Metadata:
+                case Sections.Metadata:
                     ParseMetadata(line);
                     break;
-                case Enums.Sections.Difficulty:
+                case Sections.Difficulty:
                     ParseDifficulty(line);
                     break;
-                case Enums.Sections.Events:
+                case Sections.Events:
                     ParseEvents(line);
                     break;
-                case Enums.Sections.TimingPoints:
+                case Sections.TimingPoints:
                     ParseTimingPoints(line);
                     break;
-                case Enums.Sections.Colours:
+                case Sections.Colours:
                     ParseColours(line);
                     break;
-                case Enums.Sections.HitObjects:
+                case Sections.HitObjects:
                     ParseHitObjects(line);
                     break;
             }
@@ -419,8 +422,7 @@ namespace OsuParsers.Decoders
 
         private int CalculateEndTime(int startTime, int repeats, double pixelLength)
         {
-            int duration = (int)(pixelLength / (100.0 * Beatmap.DifficultySection.SliderMultiplier) * BeatLengthAt(startTime));
-
+            int duration = (int)(pixelLength / (100d * Beatmap.DifficultySection.SliderMultiplier) * BeatLengthAt(startTime));
             return startTime + duration;
         }
 

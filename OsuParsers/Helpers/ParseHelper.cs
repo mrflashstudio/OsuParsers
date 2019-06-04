@@ -9,9 +9,9 @@ namespace OsuParsers.Helpers
 {
     internal class ParseHelper
     {
-        public static Enums.Sections GetCurrentSection(string line)
+        public static Sections GetCurrentSection(string line)
         {
-            Enums.Sections parsedSection = Enums.Sections.None;
+            Sections parsedSection = Sections.None;
             Enum.TryParse(line.Trim(new char[] { '[', ']' }), true, out parsedSection);
             return parsedSection;
         }
@@ -41,30 +41,33 @@ namespace OsuParsers.Helpers
                 string[] positionTokens = segmentPos.Split(':');
                 if (positionTokens.Length == 2)
                 {
-                    sliderPoints.Add(new Vector2((int)Convert.ToDouble(positionTokens[0], CultureInfo.InvariantCulture), (int)Convert.ToDouble(positionTokens[1], CultureInfo.InvariantCulture)));
+                    var x = Convert.ToInt32(positionTokens[0], CultureInfo.InvariantCulture);
+                    var y = Convert.ToInt32(positionTokens[1], CultureInfo.InvariantCulture);
+                    sliderPoints.Add(new Vector2(x, y));
                 }
             }
-
             return sliderPoints;
         }
 
         public static bool ToBool(string value)
         {
-            return (value == "1" || value.ToLower() == "true");
+            return value == "1" || value.ToLower() == "true";
         }
 
         public static float ToFloat(string value)
         {
-            float parsedFloat = 0;
-            float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out parsedFloat);
-            return parsedFloat;
+            if (float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var result))
+                return result;
+            else
+                throw new InvalidCastException(); //could replace with a default value
         }
 
         public static double ToDouble(string value)
         {
-            double parsedDouble = 0;
-            double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out parsedDouble);
-            return parsedDouble;
+            if (double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out double result))
+                return result;
+            else
+                throw new InvalidCastException(); //could replace with a default value
         }
     }
 }
