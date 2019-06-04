@@ -12,7 +12,7 @@ using System.Numerics;
 
 namespace OsuParsers.Decoders
 {
-    internal class StoryboardDecoder
+    public class StoryboardDecoder
     {
         private IStoryboardObject lastDrawable;
         private CommandGroup commandGroup;

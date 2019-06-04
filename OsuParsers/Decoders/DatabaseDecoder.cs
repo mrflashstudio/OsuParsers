@@ -8,7 +8,7 @@ using System.IO;
 
 namespace OsuParsers.Decoders
 {
-    internal class DatabaseDecoder
+    public class DatabaseDecoder
     {
         public OsuDatabase DecodeOsu(Stream s)
         {

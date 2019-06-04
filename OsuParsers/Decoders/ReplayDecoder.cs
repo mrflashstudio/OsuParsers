@@ -11,7 +11,7 @@ using System.Text;
 
 namespace OsuParsers.Decoders
 {
-    internal class ReplayDecoder
+    public class ReplayDecoder
     {
         public Replay Decode(Stream s)
         {

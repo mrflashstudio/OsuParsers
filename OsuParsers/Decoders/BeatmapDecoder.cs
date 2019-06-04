@@ -14,7 +14,7 @@ using System.Numerics;
 
 namespace OsuParsers.Decoders
 {
-    internal class BeatmapDecoder
+    public class BeatmapDecoder
     {
         private Beatmap Beatmap;
         private Sections currentSection = Sections.None;
