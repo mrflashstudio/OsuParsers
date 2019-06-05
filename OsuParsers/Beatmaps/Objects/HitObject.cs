@@ -6,7 +6,7 @@ namespace OsuParsers.Beatmaps.Objects
 {
     public class HitObject
     {
-        public Vector2 Position { get; set; } = new Vector2(0, 0);
+        public Vector2 Position { get; set; } = Vector2.Zero;
         public int StartTime { get; set; } = 0;
         public int EndTime { get; set; } = 0;
         public HitSoundType HitSound { get; set; } = 0;
