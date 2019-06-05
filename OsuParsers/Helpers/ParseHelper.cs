@@ -7,7 +7,7 @@ using System.Numerics;
 
 namespace OsuParsers.Helpers
 {
-    internal class ParseHelper
+    internal static class ParseHelper
     {
         public static Sections GetCurrentSection(string line)
         {
@@ -49,25 +49,8 @@ namespace OsuParsers.Helpers
             return sliderPoints;
         }
 
-        public static bool ToBool(string value)
-        {
-            return value == "1" || value.ToLower() == "true";
-        }
-
-        public static float ToFloat(string value)
-        {
-            if (float.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out var result))
-                return result;
-            else
-                throw new InvalidCastException(); //could replace with a default value
-        }
-
-        public static double ToDouble(string value)
-        {
-            if (double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out double result))
-                return result;
-            else
-                throw new InvalidCastException(); //could replace with a default value
-        }
+        public static bool ToBool(this string value) => value == "1" || value.ToLower() == "true";
+        public static float ToFloat(this string value) => float.Parse(value, NumberStyles.Float, CultureInfo.InvariantCulture);
+        public static double ToDouble(this string value) => double.Parse(value, NumberStyles.Float, CultureInfo.InvariantCulture);
     }
 }
