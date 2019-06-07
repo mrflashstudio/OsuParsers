@@ -16,10 +16,23 @@ namespace OsuParsers.Decoders
 {
     public class StoryboardDecoder
     {
+        private Storyboard storyboard;
         private IStoryboardObject lastDrawable;
         private CommandGroup commandGroup;
 
-        private Storyboard storyboard;
+        /// <summary>
+        /// Parses .osb file.
+        /// </summary>
+        /// <param name="path">Path to the .osb file.</param>
+        /// <returns>A usable storyboard.</returns>
+        public Storyboard Decode(string path)
+        {
+            if (File.Exists(path))
+                return Decode(File.ReadAllLines(path));
+            else
+                throw new FileNotFoundException();
+        }
+
         public Storyboard Decode(IEnumerable<string> lines)
         {
             storyboard = new Storyboard();

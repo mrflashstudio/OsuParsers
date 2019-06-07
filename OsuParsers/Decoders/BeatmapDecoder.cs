@@ -21,6 +21,19 @@ namespace OsuParsers.Decoders
         private Sections currentSection = Sections.None;
         private List<string> sbLines = new List<string>();
 
+        /// <summary>
+        /// Parses .osu file.
+        /// </summary>
+        /// <param name="pathToBeatmap">Path to the .osu file.</param>
+        /// <returns>A usable beatmap.</returns>
+        public Beatmap Decode(string path)
+        {
+            if (File.Exists(path))
+                return Decode(File.ReadAllLines(path));
+            else
+                throw new FileNotFoundException();
+        }
+
         public Beatmap Decode(IEnumerable<string> lines)
         {
             Beatmap = new Beatmap();
