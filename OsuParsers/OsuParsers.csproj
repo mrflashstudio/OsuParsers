@@ -3,6 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RootNamespace>OsuParsers</RootNamespace>
+    <Authors>mrflashstudio</Authors>
+    <Company />
+    <Version>1.5.2</Version>
+    <Description>Library for parsing/writing files associated with osu!</Description>
+    <Copyright></Copyright>
   </PropertyGroup>
 
 </Project>
