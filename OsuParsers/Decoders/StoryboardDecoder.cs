@@ -33,6 +33,11 @@ namespace OsuParsers.Decoders
                 throw new FileNotFoundException();
         }
 
+        /// <summary>
+        /// Parses .osb file.
+        /// </summary>
+        /// <param name="lines">Array of text lines containing storyboard data.</param>
+        /// <returns>A usable storyboard.</returns>
         public static Storyboard Decode(IEnumerable<string> lines)
         {
             storyboard = new Storyboard();
@@ -53,6 +58,11 @@ namespace OsuParsers.Decoders
             return storyboard;
         }
 
+        /// <summary>
+        /// Parses .osb file.
+        /// </summary>
+        /// <param name="stream">Stream containing storyboard data.</param>
+        /// <returns>A usable storyboard.</returns>
         public static Storyboard Decode(Stream stream) => Decode(stream.ReadAllLines());
 
         private static void ParseSbObject(string line)

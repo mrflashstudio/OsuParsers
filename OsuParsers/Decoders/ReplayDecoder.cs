@@ -26,7 +26,12 @@ namespace OsuParsers.Decoders
                 throw new FileNotFoundException();
         }
 
-        public static Replay Decode(Stream s)
+        /// <summary>
+        /// Parses .osr file.
+        /// </summary>
+        /// <param name="stream">Stream containing replay data.</param>
+        /// <returns>A usable <see cref="Replay"/>.</returns>
+        public static Replay Decode(Stream stream)
         {
             Replay replay = new Replay();
             SerializationReader r = new SerializationReader(s);

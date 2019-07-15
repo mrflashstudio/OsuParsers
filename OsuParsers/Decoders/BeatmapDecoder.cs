@@ -34,6 +34,11 @@ namespace OsuParsers.Decoders
                 throw new FileNotFoundException();
         }
 
+        /// <summary>
+        /// Parses .osu file.
+        /// </summary>
+        /// <param name="lines">Array of text lines containing beatmap data.</param>
+        /// <returns>A usable beatmap.</returns>
         public static Beatmap Decode(IEnumerable<string> lines)
         {
             Beatmap = new Beatmap();
@@ -62,6 +67,11 @@ namespace OsuParsers.Decoders
             return Beatmap;
         }
 
+        /// <summary>
+        /// Parses .osu file.
+        /// </summary>
+        /// <param name="stream">Stream containing beatmap data.</param>
+        /// <returns>A usable beatmap.</returns>
         public static Beatmap Decode(Stream stream) => Decode(stream.ReadAllLines());
 
         private static void ParseLine(string line)
