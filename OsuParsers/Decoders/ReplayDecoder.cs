@@ -11,14 +11,14 @@ using System.Text;
 
 namespace OsuParsers.Decoders
 {
-    public class ReplayDecoder
+    public static class ReplayDecoder
     {
         /// <summary>
         /// Parses .osr file.
         /// </summary>
         /// <param name="pathToReplay">Path to the .osr file.</param>
         /// <returns>A usable <see cref="Replay"/>.</returns>
-        public Replay Decode(string path)
+        public static Replay Decode(string path)
         {
             if (File.Exists(path))
                 return Decode(new FileStream(path, FileMode.Open));
@@ -26,7 +26,7 @@ namespace OsuParsers.Decoders
                 throw new FileNotFoundException();
         }
 
-        public Replay Decode(Stream s)
+        public static Replay Decode(Stream s)
         {
             Replay replay = new Replay();
             SerializationReader r = new SerializationReader(s);

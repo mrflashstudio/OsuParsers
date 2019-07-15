@@ -8,21 +8,22 @@ using System.IO;
 
 namespace OsuParsers.Decoders
 {
-    public class DatabaseDecoder
+    public static class DatabaseDecoder
     {
         /// <summary>
         /// Parses osu!.db file.
         /// </summary>
         /// <param name="pathToOsuDb">Path to the osu!.db file.</param>
         /// <returns>A usable <see cref="OsuDatabase"/>.</returns>
-        public OsuDatabase DecodeOsu(string path)
+        public static OsuDatabase DecodeOsu(string path)
         {
             if (TryOpenReadFile(path, out var stream))
                     return DecodeOsu(stream);
             else
                 throw new FileNotFoundException();
         }
-        public OsuDatabase DecodeOsu(Stream s)
+
+        public static OsuDatabase DecodeOsu(Stream s)
         {
             OsuDatabase db = new OsuDatabase();
             SerializationReader r = new SerializationReader(s);
@@ -124,14 +125,15 @@ namespace OsuParsers.Decoders
         /// </summary>
         /// <param name="pathToCollectionDb">Path to the collection.db file.</param>
         /// <returns>A usable <see cref="CollectionDatabase"/>.</returns>
-        public CollectionDatabase DecodeCollection(string path)
+        public static CollectionDatabase DecodeCollection(string path)
         {
             if (TryOpenReadFile(path, out var stream))
                 return DecodeCollection(stream);
             else
                 throw new FileNotFoundException();
         }
-        public CollectionDatabase DecodeCollection(Stream s)
+
+        public static CollectionDatabase DecodeCollection(Stream s)
         {
             CollectionDatabase db = new CollectionDatabase();
             SerializationReader r = new SerializationReader(s);
@@ -162,14 +164,15 @@ namespace OsuParsers.Decoders
         /// </summary>
         /// <param name="pathToScoresDb">Path to the scores.db file.</param>
         /// <returns>A usable <see cref="ScoresDatabase"/>.</returns>
-        public ScoresDatabase DecodeScores(string path)
+        public static ScoresDatabase DecodeScores(string path)
         {
             if (TryOpenReadFile(path, out var stream))
                 return DecodeScores(stream);
             else
                 throw new FileNotFoundException();
         }
-        public ScoresDatabase DecodeScores(Stream s)
+
+        public static ScoresDatabase DecodeScores(Stream s)
         {
             ScoresDatabase db = new ScoresDatabase();
             SerializationReader r = new SerializationReader(s);
@@ -219,14 +222,15 @@ namespace OsuParsers.Decoders
         /// </summary>
         /// <param name="pathToPresenceDb">Path to the presence.db file.</param>
         /// <returns>A usable <see cref="PresenceDatabase"/>.</returns>
-        public PresenceDatabase DecodePresence(string path)
+        public static PresenceDatabase DecodePresence(string path)
         {
             if (TryOpenReadFile(path, out var stream))
                 return DecodePresence(stream);
             else
                 throw new FileNotFoundException();
         }
-        public PresenceDatabase DecodePresence(Stream s)
+
+        public static PresenceDatabase DecodePresence(Stream s)
         {
             PresenceDatabase db = new PresenceDatabase();
             SerializationReader r = new SerializationReader(s);

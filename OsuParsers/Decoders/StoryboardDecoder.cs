@@ -14,18 +14,18 @@ using System.Numerics;
 
 namespace OsuParsers.Decoders
 {
-    public class StoryboardDecoder
+    public static class StoryboardDecoder
     {
-        private Storyboard storyboard;
-        private IStoryboardObject lastDrawable;
-        private CommandGroup commandGroup;
+        private static Storyboard storyboard;
+        private static IStoryboardObject lastDrawable;
+        private static CommandGroup commandGroup;
 
         /// <summary>
         /// Parses .osb file.
         /// </summary>
         /// <param name="path">Path to the .osb file.</param>
         /// <returns>A usable storyboard.</returns>
-        public Storyboard Decode(string path)
+        public static Storyboard Decode(string path)
         {
             if (File.Exists(path))
                 return Decode(File.ReadAllLines(path));
@@ -33,7 +33,7 @@ namespace OsuParsers.Decoders
                 throw new FileNotFoundException();
         }
 
-        public Storyboard Decode(IEnumerable<string> lines)
+        public static Storyboard Decode(IEnumerable<string> lines)
         {
             storyboard = new Storyboard();
             lastDrawable = null;
@@ -53,9 +53,9 @@ namespace OsuParsers.Decoders
             return storyboard;
         }
 
-        public Storyboard Decode(Stream stream) => Decode(stream.ReadAllLines());
+        public static Storyboard Decode(Stream stream) => Decode(stream.ReadAllLines());
 
-        private void ParseSbObject(string line)
+        private static void ParseSbObject(string line)
         {
             string[] tokens = line.Split(',');
             EventType type = (EventType)Enum.Parse(typeof(EventType), tokens[0]);
@@ -97,7 +97,7 @@ namespace OsuParsers.Decoders
             }
         }
 
-        private void ParseSbCommand(string line)
+        private static void ParseSbCommand(string line)
         {
             int depth = 0;
             while (line.StartsWith(" ") || line.StartsWith("_"))
