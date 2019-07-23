@@ -52,7 +52,7 @@ Base class for all objects.
 | MaxCombo    | int                     | Never used in code. Should be maximum combo that can be achieved by this hitobject. |
 | IsNewCombo  | bool                    | Is it a new combo?                                                                  |
 | ComboOffset | int                     | Represents how many combo colours this object is skipping.                          |
-| Position    | Point                   | HitObject's position.                                                               |
+| Position    | Vector2                 | HitObject's position.                                                               |
 | StartTime   | int                     | Start time offset of this object.                                                   |
 
 ### Circle properties
@@ -70,10 +70,10 @@ Represents osu!standard Slider. Base class for TaikoDrumroll and CatchDroplets.
 | MaxCombo        | int                                 | Never used in code. Should be maximum combo that can be achieved by this hitobject.          |
 | IsNewCombo      | bool                                | Is it a new combo?                                                                                 |
 | ComboOffset     | int                                 | Represents how many combo colours this object is skipping.                                         |
-| Position        | Point                               | HitObject's position.                                                                             |
+| Position        | Vector2                             | HitObject's position.                                                                             |
 | StartTime       | int                                 | Start time offset of this object.                                                                 |
 | CurveType       | CurveType                           | Curve type of this slider. (e.g. Bezier, Linear)                                                   |
-| SliderPoints    | List\<Point\>                       | List of all slider points.                                                                         |
+| SliderPoints    | List\<Vector2\>                     | List of all slider points.                                                                         |
 | Repeats         | int                                 | Number of slider repeats.                                                                         |
 | PixelLength     | double                              | Slider length in osu! pixels.                                                                     |
 | EdgeHitSounds   | List\<HitSoundType\>                | Slider edge HitSound additions.                                                                   |
