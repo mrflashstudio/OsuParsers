@@ -34,7 +34,7 @@ namespace OsuParsers.Decoders
         public static Replay Decode(Stream stream)
         {
             Replay replay = new Replay();
-            SerializationReader r = new SerializationReader(s);
+            SerializationReader r = new SerializationReader(stream);
 
             replay.Ruleset = (Ruleset)r.ReadByte();
             replay.OsuVersion = r.ReadInt32();
