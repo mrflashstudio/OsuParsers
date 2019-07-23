@@ -5,20 +5,40 @@ using OsuParsers.Storyboards.Commands;
 using OsuParsers.Storyboards.Interfaces;
 using OsuParsers.Storyboards.Objects;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Numerics;
 
 namespace OsuParsers.Decoders
 {
-    internal class StoryboardDecoder
+    public static class StoryboardDecoder
     {
-        private IStoryboardObject lastDrawable;
-        private CommandGroup commandGroup;
+        private static Storyboard storyboard;
+        private static IStoryboardObject lastDrawable;
+        private static CommandGroup commandGroup;
 
-        private Storyboard storyboard;
-        public Storyboard Decode(string[] lines)
+        /// <summary>
+        /// Parses .osb file.
+        /// </summary>
+        /// <param name="path">Path to the .osb file.</param>
+        /// <returns>A usable storyboard.</returns>
+        public static Storyboard Decode(string path)
+        {
+            if (File.Exists(path))
+                return Decode(File.ReadAllLines(path));
+            else
+                throw new FileNotFoundException();
+        }
+
+        /// <summary>
+        /// Parses .osb file.
+        /// </summary>
+        /// <param name="lines">Array of text lines containing storyboard data.</param>
+        /// <returns>A usable storyboard.</returns>
+        public static Storyboard Decode(IEnumerable<string> lines)
         {
             storyboard = new Storyboard();
             lastDrawable = null;
@@ -38,7 +58,14 @@ namespace OsuParsers.Decoders
             return storyboard;
         }
 
-        private void ParseSbObject(string line)
+        /// <summary>
+        /// Parses .osb file.
+        /// </summary>
+        /// <param name="stream">Stream containing storyboard data.</param>
+        /// <returns>A usable storyboard.</returns>
+        public static Storyboard Decode(Stream stream) => Decode(stream.ReadAllLines());
+
+        private static void ParseSbObject(string line)
         {
             string[] tokens = line.Split(',');
             EventType type = (EventType)Enum.Parse(typeof(EventType), tokens[0]);
@@ -80,7 +107,7 @@ namespace OsuParsers.Decoders
             }
         }
 
-        private void ParseSbCommand(string line)
+        private static void ParseSbCommand(string line)
         {
             int depth = 0;
             while (line.StartsWith(" ") || line.StartsWith("_"))

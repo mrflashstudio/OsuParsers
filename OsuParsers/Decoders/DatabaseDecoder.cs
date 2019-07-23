@@ -8,12 +8,30 @@ using System.IO;
 
 namespace OsuParsers.Decoders
 {
-    internal class DatabaseDecoder
+    public static class DatabaseDecoder
     {
-        public OsuDatabase DecodeOsu(Stream s)
+        /// <summary>
+        /// Parses osu!.db file.
+        /// </summary>
+        /// <param name="pathToOsuDb">Path to the osu!.db file.</param>
+        /// <returns>A usable <see cref="OsuDatabase"/>.</returns>
+        public static OsuDatabase DecodeOsu(string path)
+        {
+            if (TryOpenReadFile(path, out var stream))
+                    return DecodeOsu(stream);
+            else
+                throw new FileNotFoundException();
+        }
+
+        /// <summary>
+        /// Parses osu!.db file.
+        /// </summary>
+        /// <param name="stream">Stream containing osu!.db data.</param>
+        /// <returns>A usable <see cref="OsuDatabase"/>.</returns>
+        public static OsuDatabase DecodeOsu(Stream stream)
         {
             OsuDatabase db = new OsuDatabase();
-            SerializationReader r = new SerializationReader(s);
+            SerializationReader r = new SerializationReader(stream);
 
             db.OsuVersion = r.ReadInt32();
             db.FolderCount = r.ReadInt32();
@@ -107,10 +125,28 @@ namespace OsuParsers.Decoders
             return db;
         }
 
-        public CollectionDatabase DecodeCollection(Stream s)
+        /// <summary>
+        /// Parses collection.db file.
+        /// </summary>
+        /// <param name="pathToCollectionDb">Path to the collection.db file.</param>
+        /// <returns>A usable <see cref="CollectionDatabase"/>.</returns>
+        public static CollectionDatabase DecodeCollection(string path)
+        {
+            if (TryOpenReadFile(path, out var stream))
+                return DecodeCollection(stream);
+            else
+                throw new FileNotFoundException();
+        }
+
+        /// <summary>
+        /// Parses collection.db file.
+        /// </summary>
+        /// <param name="stream">Stream containing collection.db data.</param>
+        /// <returns>A usable <see cref="CollectionDatabase"/>.</returns>
+        public static CollectionDatabase DecodeCollection(Stream stream)
         {
             CollectionDatabase db = new CollectionDatabase();
-            SerializationReader r = new SerializationReader(s);
+            SerializationReader r = new SerializationReader(stream);
 
             db.OsuVersion = r.ReadInt32();
             int collectionsCount = r.ReadInt32();
@@ -133,10 +169,28 @@ namespace OsuParsers.Decoders
             return db;
         }
 
-        public ScoresDatabase DecodeScores(Stream s)
+        /// <summary>
+        /// Parses scores.db file.
+        /// </summary>
+        /// <param name="pathToScoresDb">Path to the scores.db file.</param>
+        /// <returns>A usable <see cref="ScoresDatabase"/>.</returns>
+        public static ScoresDatabase DecodeScores(string path)
+        {
+            if (TryOpenReadFile(path, out var stream))
+                return DecodeScores(stream);
+            else
+                throw new FileNotFoundException();
+        }
+
+        /// <summary>
+        /// Parses scores.db file.
+        /// </summary>
+        /// <param name="stream">Stream containing scores.db data.</param>
+        /// <returns>A usable <see cref="ScoresDatabase"/>.</returns>
+        public static ScoresDatabase DecodeScores(Stream stream)
         {
             ScoresDatabase db = new ScoresDatabase();
-            SerializationReader r = new SerializationReader(s);
+            SerializationReader r = new SerializationReader(stream);
 
             db.OsuVersion = r.ReadInt32();
             int beatmapCount = r.ReadInt32();
@@ -178,10 +232,28 @@ namespace OsuParsers.Decoders
             return db;
         }
 
-        public PresenceDatabase DecodePresence(Stream s)
+        /// <summary>
+        /// Parses presence.db file.
+        /// </summary>
+        /// <param name="pathToPresenceDb">Path to the presence.db file.</param>
+        /// <returns>A usable <see cref="PresenceDatabase"/>.</returns>
+        public static PresenceDatabase DecodePresence(string path)
+        {
+            if (TryOpenReadFile(path, out var stream))
+                return DecodePresence(stream);
+            else
+                throw new FileNotFoundException();
+        }
+
+        /// <summary>
+        /// Parses presence.db file.
+        /// </summary>
+        /// <param name="stream">Stream containing presence.db data.</param>
+        /// <returns>A usable <see cref="PresenceDatabase"/>.</returns>
+        public static PresenceDatabase DecodePresence(Stream stream)
         {
             PresenceDatabase db = new PresenceDatabase();
-            SerializationReader r = new SerializationReader(s);
+            SerializationReader r = new SerializationReader(stream);
 
             db.OsuVersion = r.ReadInt32();
             int playersCount = r.ReadInt32();
@@ -204,6 +276,22 @@ namespace OsuParsers.Decoders
             }
 
             return db;
+        }
+
+        // Tools
+
+        private static bool TryOpenReadFile(string path, out Stream stream)
+        {
+            if (File.Exists(path))
+            {
+                stream = new FileStream(path, FileMode.Open);
+                return true;
+            }
+            else
+            {
+                stream = null;
+                return false;
+            }
         }
     }
 }

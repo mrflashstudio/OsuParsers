@@ -8,23 +8,19 @@ namespace OsuParsers.Helpers
         public static double Clamp(double value, double min, double max)
         {
             if (value > max)
-            {
                 return max;
-            }
-
-            if (value < min)
-            {
+            else if (value < min)
                 return min;
-            }
-
-            return value;
+            else
+                return value;
         }
 
         public static double CalculateBpmMultiplier(TimingPoint timingPoint)
         {
-            if (timingPoint.BeatLength >= 0) return 1;
-
-            return Clamp((float)-timingPoint.BeatLength, 10, 1000) / 100f;
+            if (timingPoint.BeatLength >= 0)
+                return 1;
+            else
+                return Clamp((float)-timingPoint.BeatLength, 10, 1000) / 100f;
         }
     }
 }

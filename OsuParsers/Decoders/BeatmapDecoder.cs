@@ -9,18 +9,37 @@ using OsuParsers.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Numerics;
 
 namespace OsuParsers.Decoders
 {
-    internal class BeatmapDecoder
+    public static class BeatmapDecoder
     {
-        private Beatmap Beatmap;
-        private Sections currentSection = Sections.None;
-        private List<string> sbLines = new List<string>();
+        private static Beatmap Beatmap;
+        private static Sections currentSection = Sections.None;
+        private static List<string> sbLines = new List<string>();
 
-        public Beatmap Decode(string[] lines)
+        /// <summary>
+        /// Parses .osu file.
+        /// </summary>
+        /// <param name="pathToBeatmap">Path to the .osu file.</param>
+        /// <returns>A usable beatmap.</returns>
+        public static Beatmap Decode(string path)
+        {
+            if (File.Exists(path))
+                return Decode(File.ReadAllLines(path));
+            else
+                throw new FileNotFoundException();
+        }
+
+        /// <summary>
+        /// Parses .osu file.
+        /// </summary>
+        /// <param name="lines">Array of text lines containing beatmap data.</param>
+        /// <returns>A usable beatmap.</returns>
+        public static Beatmap Decode(IEnumerable<string> lines)
         {
             Beatmap = new Beatmap();
             currentSection = Sections.Format;
@@ -37,7 +56,7 @@ namespace OsuParsers.Decoders
                 }
             }
 
-            Beatmap.EventsSection.Storyboard = new StoryboardDecoder().Decode(sbLines.ToArray());
+            Beatmap.EventsSection.Storyboard = StoryboardDecoder.Decode(sbLines.ToArray());
 
             Beatmap.GeneralSection.CirclesCount = Beatmap.HitObjects.Count(c => c is Circle || c is TaikoHit || c is ManiaHit || c is CatchFruit);
             Beatmap.GeneralSection.SlidersCount = Beatmap.HitObjects.Count(c => c is Slider || c is TaikoDrumroll || c is ManiaHold || c is CatchDroplets);
@@ -48,41 +67,48 @@ namespace OsuParsers.Decoders
             return Beatmap;
         }
 
-        private void ParseLine(string line)
+        /// <summary>
+        /// Parses .osu file.
+        /// </summary>
+        /// <param name="stream">Stream containing beatmap data.</param>
+        /// <returns>A usable beatmap.</returns>
+        public static Beatmap Decode(Stream stream) => Decode(stream.ReadAllLines());
+
+        private static void ParseLine(string line)
         {
             switch (currentSection)
             {
-                case Enums.Sections.Format:
+                case Sections.Format:
                     Beatmap.Version = Convert.ToInt32(line.Split(new string[] { "osu file format v" }, StringSplitOptions.None)[1]);
                     break;
-                case Enums.Sections.General:
+                case Sections.General:
                     ParseGeneral(line);
                     break;
-                case Enums.Sections.Editor:
+                case Sections.Editor:
                     ParseEditor(line);
                     break;
-                case Enums.Sections.Metadata:
+                case Sections.Metadata:
                     ParseMetadata(line);
                     break;
-                case Enums.Sections.Difficulty:
+                case Sections.Difficulty:
                     ParseDifficulty(line);
                     break;
-                case Enums.Sections.Events:
+                case Sections.Events:
                     ParseEvents(line);
                     break;
-                case Enums.Sections.TimingPoints:
+                case Sections.TimingPoints:
                     ParseTimingPoints(line);
                     break;
-                case Enums.Sections.Colours:
+                case Sections.Colours:
                     ParseColours(line);
                     break;
-                case Enums.Sections.HitObjects:
+                case Sections.HitObjects:
                     ParseHitObjects(line);
                     break;
             }
         }
 
-        private void ParseGeneral(string line)
+        private static void ParseGeneral(string line)
         {
             int index = line.IndexOf(':');
             string variable = line.Remove(index).Trim();
@@ -132,7 +158,7 @@ namespace OsuParsers.Decoders
             }
         }
 
-        private void ParseEditor(string line)
+        private static void ParseEditor(string line)
         {
             int index = line.IndexOf(':');
             string variable = line.Remove(index).Trim();
@@ -157,7 +183,7 @@ namespace OsuParsers.Decoders
             }
         }
 
-        private void ParseMetadata(string line)
+        private static void ParseMetadata(string line)
         {
             int index = line.IndexOf(':');
             string variable = line.Remove(index).Trim();
@@ -197,7 +223,7 @@ namespace OsuParsers.Decoders
             }
         }
 
-        private void ParseDifficulty(string line)
+        private static void ParseDifficulty(string line)
         {
             int index = line.IndexOf(':');
             string variable = line.Remove(index).Trim();
@@ -225,7 +251,7 @@ namespace OsuParsers.Decoders
             }
         }
 
-        private void ParseEvents(string line)
+        private static void ParseEvents(string line)
         {
             string[] tokens = line.Split(',');
 
@@ -259,7 +285,7 @@ namespace OsuParsers.Decoders
             }
         }
 
-        private void ParseTimingPoints(string line)
+        private static void ParseTimingPoints(string line)
         {
             string[] tokens = line.Split(',');
 
@@ -303,14 +329,14 @@ namespace OsuParsers.Decoders
             });
         }
 
-        private void ParseColours(string line)
+        private static void ParseColours(string line)
         {
             string[] tokens = line.Split(':');
             int[] rgb = tokens[1].Trim().Split(',').Select(c => Convert.ToInt32(c)).ToArray();
             Beatmap.Colours.Add(Color.FromArgb(rgb.Length == 4 ? rgb[3] : 255, rgb[0], rgb[1], rgb[2]));
         }
-        
-        private void ParseHitObjects(string line)
+
+        private static void ParseHitObjects(string line)
         {
             string[] tokens = line.Split(',');
 
@@ -417,14 +443,13 @@ namespace OsuParsers.Decoders
             Beatmap.HitObjects.Add(hitObject);
         }
 
-        private int CalculateEndTime(int startTime, int repeats, double pixelLength)
+        private static int CalculateEndTime(int startTime, int repeats, double pixelLength)
         {
-            int duration = (int)(pixelLength / (100.0 * Beatmap.DifficultySection.SliderMultiplier) * BeatLengthAt(startTime));
-
+            int duration = (int)(pixelLength / (100d * Beatmap.DifficultySection.SliderMultiplier) * BeatLengthAt(startTime));
             return startTime + duration;
         }
 
-        private double BeatLengthAt(int offset)
+        private static double BeatLengthAt(int offset)
         {
             if (Beatmap.TimingPoints.Count == 0)
                 return 0;
