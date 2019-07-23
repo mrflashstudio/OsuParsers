@@ -13,7 +13,6 @@ namespace OsuParsers.Beatmaps.Objects
         public Extras Extras { get; set; } = new Extras();
         public bool IsNewCombo { get; set; } = false;
         public int ComboOffset { get; set; } = 0;
-        public int MaxCombo { get; } = 1;
 
         public HitObject() { }
         public HitObject(Vector2 position, int startTime, int endTime, HitSoundType hitSound, Extras extras, bool isNewCombo, int comboOffset)
