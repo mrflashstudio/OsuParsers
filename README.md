@@ -18,7 +18,7 @@ Cuz, you know, i might have broke something in the last few commits ;)
     - [Replay writer](#replay-writer)
     - [Database writer](#database-writer)
 - [Documentation](#documentation)  
-    - [Parser documentation](docs/ParserDocumentation.md)
+    - [Decoders documentation](docs/DecodersDocumentation.md)
     - [Beatmap documentation](docs/BeatmapDocumentation.md)
     - [Storyboard documentation](docs/StoryboardDocumentation.md)
     - [Replay documentation](docs/ReplayDocumentation.md)
@@ -45,8 +45,8 @@ PM> Install-Package OsuParsers
 # Usage
 ### Beatmap parser
 ```cs
-using OsuParsers;
 using OsuParsers.Beatmaps;
+using OsuParsers.Decoders;
 
 namespace SomeNamespace
 {
@@ -54,7 +54,7 @@ namespace SomeNamespace
     {
         public static void Main(string[] args)
         {
-            Beatmap beatmap = Parser.ParseBeatmap(@"beatmapPath.osu");
+            Beatmap beatmap = BeatmapDecoder.Decode(@"beatmapPath.osu");
             
             //printing beatmap's title
             System.Console.WriteLine(beatmap.MetadataSection.TitleUnicode);
@@ -65,7 +65,7 @@ namespace SomeNamespace
 
 ### Storyboard parser
 ```cs
-using OsuParsers;
+using OsuParsers.Decoders;
 using OsuParsers.Storyboards;
 
 namespace SomeNamespace
@@ -74,7 +74,7 @@ namespace SomeNamespace
     {
         public static void Main(string[] args)
         {
-            Storyboard storyboard = Parser.ParseStoryboard(@"storyboardPath.osb");
+            Storyboard storyboard = StoryboardDecoder.Decode(@"storyboardPath.osb");
             
             //getting first object of foreground layer
             IStoryboardObject object = storyboard.ForegroundLayer[0];
@@ -85,7 +85,7 @@ namespace SomeNamespace
 
 ### Replay parser
 ```cs
-using OsuParsers;
+using OsuParsers.Decoders;
 using OsuParsers.Replays;
 
 namespace SomeNamespace
@@ -94,7 +94,7 @@ namespace SomeNamespace
     {
         public static void Main(string[] args)
         {
-            Replay replay = Parser.ParseReplay(@"replayPath.osr");
+            Replay replay = ReplayDecoder.Decode(@"replayPath.osr");
             
             //printing player's nickname
             System.Console.WriteLine(replay.PlayerName);
@@ -105,7 +105,7 @@ namespace SomeNamespace
 
 ### Database parser
 ```cs
-using OsuParsers;
+using OsuParsers.Decoders;
 using OsuParsers.Database;
 
 namespace SomeNamespace
@@ -115,10 +115,10 @@ namespace SomeNamespace
         public static void Main(string[] args)
         {
             //parsing all available databases
-            OsuDatabase osuDb = Parser.ParseOsuDatabase(@"osuDbPath.db");
-            CollectionDatabase collectionDb = Parser.ParseCollectionDatabase(@"collectionDbPath.db");
-            ScoresDatabase scoresDb = Parser.ParseScoresDatabase(@"scoresDbPath.db");
-            PresenceDatabase presenceDb = Parser.ParsePresenceDatabase(@"presenceDbPath.db");
+            OsuDatabase osuDb = DatabaseDecoder.DecodeOsu(@"osuDbPath.db");
+            CollectionDatabase collectionDb = DatabaseDecoder.DecodeCollection(@"collectionDbPath.db");
+            ScoresDatabase scoresDb = DatabaseDecoder.DecodeScores(@"scoresDbPath.db");
+            PresenceDatabase presenceDb = DatabaseDecoder.DecodePresence(@"presenceDbPath.db");
             
             //printing player's nickname
             System.Console.WriteLine(osuDb.PlayerName);
@@ -135,8 +135,8 @@ namespace SomeNamespace
 
 ### Beatmap writer
 ```cs
-using OsuParsers;
 using OsuParsers.Beatmaps;
+using OsuParsers.Decoders;
 
 namespace SomeNamespace
 {
@@ -147,7 +147,7 @@ namespace SomeNamespace
             //getting console output text as the song's new title
             string newTitle = System.Console.ReadLine();
             //parsing beatmap
-            Beatmap beatmap = Parser.ParseBeatmap(@"pathToBeatmap.osu")
+            Beatmap beatmap = BeatmapDecoder.Decode(@"pathToBeatmap.osu")
             
             //changing song title
             beatmap.MetadataSection.Title = newTitle;
@@ -160,7 +160,7 @@ namespace SomeNamespace
 
 ### Storyboard writer
 ```cs
-using OsuParsers;
+using OsuParsers.Decoders;
 using OsuParsers.Storyboards;
 
 namespace SomeNamespace
@@ -172,7 +172,7 @@ namespace SomeNamespace
             //getting console output text as the object's new filepath
             string newFilePath = System.Console.ReadLine();
             //parsing storyboard
-            Storyboard storyboard = Parser.ParseStoryboard(@"pathToStoryboard.osb")
+            Storyboard storyboard = StoryboardDecoder.Decode(@"pathToStoryboard.osb")
             
             //changing filepath of the first storyboard object in background layer
             storyboard.BackgroundLayer[0].FilePath = newFilePath;
@@ -185,7 +185,7 @@ namespace SomeNamespace
 
 ### Replay writer
 ```cs
-using OsuParsers;
+using OsuParsers.Decoders;
 using OsuParsers.Replays;
 
 namespace SomeNamespace
@@ -197,7 +197,7 @@ namespace SomeNamespace
             //getting console output text as the new player's name
             string newPlayerName = System.Console.ReadLine();
             //parsing replay
-            Replay replay = Parser.ParseReplay(@"pathToReplay.osr")
+            Replay replay = ReplayDecoder.Decode(@"pathToReplay.osr")
             
             //changing player name
             replay.PlayerName = newPlayerName;
@@ -210,8 +210,8 @@ namespace SomeNamespace
 
 ### Database writer
 ```cs
-using OsuParsers;
 using OsuParsers.Database;
+using OsuParsers.Decoders;
 using OsuParsers.Enums;
 
 namespace SomeNamespace
@@ -221,7 +221,7 @@ namespace SomeNamespace
         public static void Main(string[] args)
         {
             //parsing osu database
-            OsuDatabase db = Parser.ParseOsuDatabase(@"pathToOsuDb.db")
+            OsuDatabase db = DatabaseDecoder.DecodeOsu(@"pathToOsuDb.db")
             
             //changing permissions
             db.Permissions = Permissions.Supporter;
