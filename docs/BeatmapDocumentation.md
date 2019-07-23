@@ -44,16 +44,20 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_For
 ### HitObject properties
 Base class for all objects.  
 
-| Name        | Type                    | Description                                                                         |
-|-------------|-------------------------|-------------------------------------------------------------------------------------|
-| EndTime     | int                     | End time offset of this object.                                                     |
-| Extras      | Extras                  | Class which contains Extras properties.                                             |
-| HitSound    | HitSoundType            | HitSound of this object (e.g. Normal, Whistle)                                      |
-| MaxCombo    | int                     | Never used in code. Should be maximum combo that can be achieved by this hitobject. |
-| IsNewCombo  | bool                    | Is it a new combo?                                                                  |
-| ComboOffset | int                     | Represents how many combo colours this object is skipping.                          |
-| Position    | Vector2                 | HitObject's position.                                                               |
-| StartTime   | int                     | Start time offset of this object.                                                   |
+| Name          | Type                    | Description                                                                         |
+|---------------|-------------------------|-------------------------------------------------------------------------------------|
+| EndTime       | int                     | End time offset of this object.                                                     |
+| Extras        | Extras                  | Class which contains Extras properties.                                             |
+| HitSound      | HitSoundType            | HitSound of this object (e.g. Normal, Whistle)                                      |
+| MaxCombo      | int                     | Never used in code. Should be maximum combo that can be achieved by this hitobject. |
+| IsNewCombo    | bool                    | Is it a new combo?                                                                  |
+| ComboOffset   | int                     | Represents how many combo colours this object is skipping.                          |
+| Position      | Vector2                 | HitObject's position.                                                               |
+| StartTime     | int                     | Start time offset of this object.                                                   |
+| StartTimeSpan | TimeSpan                | Start time timespan of this object.                                                 |
+| EndTimeSpan   | TimeSpan                | End time timespan of this object.                                                   |
+| TotalTimeSpan | TimeSpan                | Total timespan of this object.                                                      |
+| DistanceFrom  | float                   | The distance from this object to another.                                           |
 
 ### Circle properties
 Represents osu!standard HitCircle. Base class for TaikoHit, CatchFruit and ManiaHit classes.  
