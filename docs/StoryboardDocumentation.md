@@ -98,8 +98,8 @@ Indicates that this object is storyboard command.
 | EndTime     | int                   | Ending time of this command in ms.                                                          |
 | StartColour | Colour                | Start color of this command.                                                                |
 | EndColour   | Colour                | End color of this command.                                                                  |
-| StartVector | Tuple\<float, float\> | Start vector of this command.                                                                |
-| EndVector   | Tuple\<float, float\> | End vector of this command.                                                                  |
+| StartVector | Vector2               | Start vector of this command.                                                               |
+| EndVector   | Vector2               | End vector of this command.                                                                 |
 | StartFloat  | float                 | Start float of this command.                                                                |
 | EndFloat    | float                 | End float of this command.                                                                  |
 
