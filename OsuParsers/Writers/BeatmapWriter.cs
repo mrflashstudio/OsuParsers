@@ -137,6 +137,8 @@ namespace OsuParsers.Writers
             section.Storyboard.PassLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Pass)));
             list.Add(@"//Storyboard Layer 3 (Foreground)");
             section.Storyboard.ForegroundLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Foreground)));
+            list.Add(@"//Storyboard Layer 4 (Overlay)");
+            section.Storyboard.OverlayLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Overlay)));
             list.Add(@"//Storyboard Sound Samples");
             section.Storyboard.SamplesLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, (sbObject as Storyboards.Objects.StoryboardSample).Layer)));
 

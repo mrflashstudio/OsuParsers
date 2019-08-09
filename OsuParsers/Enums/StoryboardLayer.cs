@@ -6,6 +6,7 @@
         Fail,
         Pass,
         Foreground,
+        Overlay,
         Samples
     }
 }
