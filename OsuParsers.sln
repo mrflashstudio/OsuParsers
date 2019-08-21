@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2027
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuParsers", "OsuParsers\OsuParsers.csproj", "{84C32A7C-78DD-4DB5-A9F5-1AD7083F9C8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OsuParsers", "OsuParsers\OsuParsers.csproj", "{84C32A7C-78DD-4DB5-A9F5-1AD7083F9C8C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7C35CDD1-121F-4D54-8A56-E3172A60B8BC}"
 	ProjectSection(SolutionItems) = preProject
@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{573FFB96-8
 	ProjectSection(SolutionItems) = preProject
 		docs\BeatmapDocumentation.md = docs\BeatmapDocumentation.md
 		docs\DatabaseDocumentation.md = docs\DatabaseDocumentation.md
-		docs\ParserDocumentation.md = docs\ParserDocumentation.md
+		docs\DecodersDocumentation.md = docs\DecodersDocumentation.md
 		docs\ReplayDocumentation.md = docs\ReplayDocumentation.md
 		docs\StoryboardDocumentation.md = docs\StoryboardDocumentation.md
 	EndProjectSection

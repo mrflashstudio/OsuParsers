@@ -13,7 +13,7 @@ namespace OsuParsers.Decoders
         /// <summary>
         /// Parses osu!.db file.
         /// </summary>
-        /// <param name="pathToOsuDb">Path to the osu!.db file.</param>
+        /// <param name="path">Path to the osu!.db file.</param>
         /// <returns>A usable <see cref="OsuDatabase"/>.</returns>
         public static OsuDatabase DecodeOsu(string path)
         {
@@ -128,7 +128,7 @@ namespace OsuParsers.Decoders
         /// <summary>
         /// Parses collection.db file.
         /// </summary>
-        /// <param name="pathToCollectionDb">Path to the collection.db file.</param>
+        /// <param name="path">Path to the collection.db file.</param>
         /// <returns>A usable <see cref="CollectionDatabase"/>.</returns>
         public static CollectionDatabase DecodeCollection(string path)
         {
@@ -172,7 +172,7 @@ namespace OsuParsers.Decoders
         /// <summary>
         /// Parses scores.db file.
         /// </summary>
-        /// <param name="pathToScoresDb">Path to the scores.db file.</param>
+        /// <param name="path">Path to the scores.db file.</param>
         /// <returns>A usable <see cref="ScoresDatabase"/>.</returns>
         public static ScoresDatabase DecodeScores(string path)
         {
@@ -235,7 +235,7 @@ namespace OsuParsers.Decoders
         /// <summary>
         /// Parses presence.db file.
         /// </summary>
-        /// <param name="pathToPresenceDb">Path to the presence.db file.</param>
+        /// <param name="path">Path to the presence.db file.</param>
         /// <returns>A usable <see cref="PresenceDatabase"/>.</returns>
         public static PresenceDatabase DecodePresence(string path)
         {

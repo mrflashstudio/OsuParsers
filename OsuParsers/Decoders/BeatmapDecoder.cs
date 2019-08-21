@@ -24,7 +24,7 @@ namespace OsuParsers.Decoders
         /// <summary>
         /// Parses .osu file.
         /// </summary>
-        /// <param name="pathToBeatmap">Path to the .osu file.</param>
+        /// <param name="path">Path to the .osu file.</param>
         /// <returns>A usable beatmap.</returns>
         public static Beatmap Decode(string path)
         {

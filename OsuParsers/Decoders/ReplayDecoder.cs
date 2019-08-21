@@ -16,7 +16,7 @@ namespace OsuParsers.Decoders
         /// <summary>
         /// Parses .osr file.
         /// </summary>
-        /// <param name="pathToReplay">Path to the .osr file.</param>
+        /// <param name="path">Path to the .osr file.</param>
         /// <returns>A usable <see cref="Replay"/>.</returns>
         public static Replay Decode(string path)
         {
