@@ -1,6 +1,7 @@
 using OsuParsers.Enums;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Numerics;
@@ -47,6 +48,13 @@ namespace OsuParsers.Helpers
                 }
             }
             return sliderPoints;
+        }
+
+        public static Color ParseColour(string line)
+        {
+            string[] tokens = line.Split(':');
+            int[] colour = tokens[1].Trim().Split(',').Select(c => Convert.ToInt32(c)).ToArray();
+            return Color.FromArgb(colour.Length == 4 ? colour[3] : 255, colour[0], colour[1], colour[2]);
         }
 
         public static bool ToBool(this string value) => value == "1" || value.ToLower() == "true";

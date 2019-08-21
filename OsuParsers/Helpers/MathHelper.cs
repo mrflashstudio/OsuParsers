@@ -1,4 +1,5 @@
-﻿using OsuParsers.Beatmaps.Objects;
+﻿using OsuParsers.Beatmaps;
+using OsuParsers.Beatmaps.Objects;
 using System;
 
 namespace OsuParsers.Helpers
@@ -21,6 +22,12 @@ namespace OsuParsers.Helpers
                 return 1;
             else
                 return Clamp((float)-timingPoint.BeatLength, 10, 1000) / 100f;
+        }
+
+        public static int CalculateEndTime(Beatmap beatmap, int startTime, int repeats, double pixelLength)
+        {
+            int duration = (int)(pixelLength / (100d * beatmap.DifficultySection.SliderMultiplier) * repeats * beatmap.BeatLengthAt(startTime));
+            return startTime + duration;
         }
     }
 }

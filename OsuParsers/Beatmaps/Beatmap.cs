@@ -1,6 +1,7 @@
 using OsuParsers.Beatmaps.Objects;
 using OsuParsers.Beatmaps.Sections;
 using OsuParsers.Enums;
+using OsuParsers.Helpers;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
@@ -28,6 +29,33 @@ namespace OsuParsers.Beatmaps
             MetadataSection = new MetadataSection();
             DifficultySection = new DifficultySection();
             EventsSection = new EventsSection();
+        }
+
+        public double BeatLengthAt(int offset)
+        {
+            if (TimingPoints.Count == 0)
+                return 0;
+
+            int timingPoint = 0;
+            int samplePoint = 0;
+
+            for (int i = 0; i < TimingPoints.Count; i++)
+            {
+                if (TimingPoints[i].Offset <= offset)
+                {
+                    if (TimingPoints[i].Inherited)
+                        timingPoint = i;
+                    else
+                        samplePoint = i;
+                }
+            }
+
+            double multiplier = 1;
+
+            if (samplePoint > timingPoint && TimingPoints[samplePoint].BeatLength < 0)
+                multiplier = MathHelper.CalculateBpmMultiplier(TimingPoints[samplePoint]);
+
+            return TimingPoints[timingPoint].BeatLength * multiplier;
         }
 
         public void Write(string path)

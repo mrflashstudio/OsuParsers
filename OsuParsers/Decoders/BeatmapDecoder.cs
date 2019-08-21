@@ -329,12 +329,7 @@ namespace OsuParsers.Decoders
             });
         }
 
-        private static void ParseColours(string line)
-        {
-            string[] tokens = line.Split(':');
-            int[] rgb = tokens[1].Trim().Split(',').Select(c => Convert.ToInt32(c)).ToArray();
-            Beatmap.Colours.Add(Color.FromArgb(rgb.Length == 4 ? rgb[3] : 255, rgb[0], rgb[1], rgb[2]));
-        }
+        private static void ParseColours(string line) => Beatmap.Colours.Add(ParseHelper.ParseColour(line));
 
         private static void ParseHitObjects(string line)
         {
@@ -389,7 +384,7 @@ namespace OsuParsers.Decoders
                     int repeats = Convert.ToInt32(tokens[6]);
                     double pixelLength = ParseHelper.ToDouble(tokens[7]);
 
-                    int endTime = CalculateEndTime(startTime, repeats, pixelLength);
+                    int endTime = MathHelper.CalculateEndTime(Beatmap, startTime, repeats, pixelLength);
 
                     List<HitSoundType> edgeHitSounds = null;
                     if (tokens.Length > 8 && tokens[8].Length > 0)
@@ -441,39 +436,6 @@ namespace OsuParsers.Decoders
             }
 
             Beatmap.HitObjects.Add(hitObject);
-        }
-
-        private static int CalculateEndTime(int startTime, int repeats, double pixelLength)
-        {
-            int duration = (int)(pixelLength / (100d * Beatmap.DifficultySection.SliderMultiplier) * repeats * BeatLengthAt(startTime));
-            return startTime + duration;
-        }
-
-        private static double BeatLengthAt(int offset)
-        {
-            if (Beatmap.TimingPoints.Count == 0)
-                return 0;
-
-            int timingPoint = 0;
-            int samplePoint = 0;
-
-            for (int i = 0; i < Beatmap.TimingPoints.Count; i++)
-            {
-                if (Beatmap.TimingPoints[i].Offset <= offset)
-                {
-                    if (Beatmap.TimingPoints[i].Inherited)
-                        timingPoint = i;
-                    else
-                        samplePoint = i;
-                }
-            }
-
-            double multiplier = 1;
-
-            if (samplePoint > timingPoint && Beatmap.TimingPoints[samplePoint].BeatLength < 0)
-                multiplier = MathHelper.CalculateBpmMultiplier(Beatmap.TimingPoints[samplePoint]);
-
-            return Beatmap.TimingPoints[timingPoint].BeatLength * multiplier;
         }
     }
 }
