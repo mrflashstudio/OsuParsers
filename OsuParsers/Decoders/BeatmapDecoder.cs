@@ -445,7 +445,7 @@ namespace OsuParsers.Decoders
 
         private static int CalculateEndTime(int startTime, int repeats, double pixelLength)
         {
-            int duration = (int)(pixelLength / (100d * Beatmap.DifficultySection.SliderMultiplier) * BeatLengthAt(startTime));
+            int duration = (int)(pixelLength / (100d * Beatmap.DifficultySection.SliderMultiplier) * repeats * BeatLengthAt(startTime));
             return startTime + duration;
         }
 
