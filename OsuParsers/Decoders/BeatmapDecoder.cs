@@ -357,9 +357,9 @@ namespace OsuParsers.Decoders
             {
                 SampleSet = (SampleSet)Convert.ToInt32(extrasSplit[0 + extrasOffset]),
                 AdditionSet = (SampleSet)Convert.ToInt32(extrasSplit[1 + extrasOffset]),
-                CustomIndex = Convert.ToInt32(extrasSplit[2 + extrasOffset]),
-                Volume = Convert.ToInt32(extrasSplit[3 + extrasOffset]),
-                SampleFileName = extrasSplit[4 + extrasOffset]
+                CustomIndex = extrasSplit.Length > 2 + extrasOffset ? Convert.ToInt32(extrasSplit[2 + extrasOffset]) : 0,
+                Volume = extrasSplit.Length > 3 + extrasOffset ? Convert.ToInt32(extrasSplit[3 + extrasOffset]) : 0,
+                SampleFileName = extrasSplit.Length > 4 + extrasOffset ? extrasSplit[4 + extrasOffset] : string.Empty
             } : new Extras();
 
             switch (type)
