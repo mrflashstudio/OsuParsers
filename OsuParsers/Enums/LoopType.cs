@@ -3,6 +3,6 @@
     public enum LoopType
     {
         LoopForever,
-        LoopOnсe
+        LoopOnce
     }
 }
