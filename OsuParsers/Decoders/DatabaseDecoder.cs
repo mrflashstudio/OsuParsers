@@ -1,6 +1,7 @@
 ﻿using OsuParsers.Database;
 using OsuParsers.Database.Objects;
 using OsuParsers.Enums;
+using OsuParsers.Enums.Database;
 using OsuParsers.Serialization;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace OsuParsers.Decoders
         public static OsuDatabase DecodeOsu(string path)
         {
             if (TryOpenReadFile(path, out var stream))
-                    return DecodeOsu(stream);
+                return DecodeOsu(stream);
             else
                 throw new FileNotFoundException();
         }
@@ -194,7 +195,7 @@ namespace OsuParsers.Decoders
 
             db.OsuVersion = r.ReadInt32();
             int beatmapCount = r.ReadInt32();
-            
+
             for (int i = 0; i < beatmapCount; i++)
             {
                 string md5Hash = r.ReadString();

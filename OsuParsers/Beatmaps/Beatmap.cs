@@ -1,10 +1,8 @@
 using OsuParsers.Beatmaps.Objects;
 using OsuParsers.Beatmaps.Sections;
-using OsuParsers.Enums;
 using OsuParsers.Helpers;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 
 namespace OsuParsers.Beatmaps

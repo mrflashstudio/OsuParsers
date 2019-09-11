@@ -1,5 +1,5 @@
-using System.Linq;
 using OsuParsers.Helpers;
+using System.Linq;
 
 namespace OsuParsers.Beatmaps.Sections
 {

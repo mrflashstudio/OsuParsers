@@ -1,14 +1,14 @@
 ﻿using OsuParsers.Beatmaps.Objects;
 using OsuParsers.Beatmaps.Objects.Mania;
-using OsuParsers.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Drawing;
-using System.Globalization;
+using OsuParsers.Enums.Beatmaps;
+using OsuParsers.Enums.Storyboards;
+using OsuParsers.Storyboards.Commands;
 using OsuParsers.Storyboards.Interfaces;
 using OsuParsers.Storyboards.Objects;
-using OsuParsers.Storyboards.Commands;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 
 namespace OsuParsers.Helpers
 {
@@ -53,12 +53,12 @@ namespace OsuParsers.Helpers
             if (hitObject is Circle && !(hitObject is ManiaHold))
                 extra += extras;
             if (hitObject is Slider slider)
-                extra += SliderProperties(slider) + ((slider.EdgeHitSounds == null || slider.EdgeAdditions == null) ? string.Empty : $",{extras}"); 
+                extra += SliderProperties(slider) + ((slider.EdgeHitSounds == null || slider.EdgeAdditions == null) ? string.Empty : $",{extras}");
             if (hitObject is Spinner spinner)
-                extra +=  $"{spinner.EndTime},{extras}";
+                extra += $"{spinner.EndTime},{extras}";
             if (hitObject is ManiaHold hold)
                 extra += $"{hold.EndTime}:{extras}";
-            
+
             return hitObjectBase + extra;
         }
 
@@ -90,18 +90,18 @@ namespace OsuParsers.Helpers
             else
                 return $"{sliderType}{sliderPoints},{repeats},{pixelLength}";
         }
-        
+
         public static char CurveType(CurveType value)
         {
             switch (value)
             {
-                case Enums.CurveType.Bezier:
+                case Enums.Beatmaps.CurveType.Bezier:
                     return 'B';
-                case Enums.CurveType.Catmull:
+                case Enums.Beatmaps.CurveType.Catmull:
                     return 'C';
-                case Enums.CurveType.Linear:
+                case Enums.Beatmaps.CurveType.Linear:
                     return 'L';
-                case Enums.CurveType.PerfectCurve:
+                case Enums.Beatmaps.CurveType.PerfectCurve:
                     return 'P';
                 default:
                     throw new InvalidCastException();
@@ -142,7 +142,7 @@ namespace OsuParsers.Helpers
                 list.Add($"Sprite,{layer},{sprite.Origin},\"{sprite.FilePath}\",{sprite.X.Format()},{sprite.Y.Format()}");
             else if (storyboardObject is StoryboardAnimation animation)
                 list.Add($"Animation,{layer},{animation.Origin},\"{animation.FilePath}\",{animation.X.Format()},{animation.Y.Format()},{animation.FrameCount},{animation.FrameDelay},{animation.LoopType}");
-            else if(storyboardObject is StoryboardSample sample)
+            else if (storyboardObject is StoryboardSample sample)
                 list.Add($"Sample,{sample.Time},{layer},\"{sample.FilePath}\",{sample.Volume}");
 
             if (storyboardObject is IHasCommands obj)

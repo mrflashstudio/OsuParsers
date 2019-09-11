@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using OsuParsers.Beatmaps;
-using OsuParsers.Beatmaps.Sections;
+﻿using OsuParsers.Beatmaps;
 using OsuParsers.Beatmaps.Objects;
+using OsuParsers.Beatmaps.Sections;
+using OsuParsers.Enums.Storyboards;
 using OsuParsers.Helpers;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace OsuParsers.Writers
@@ -130,15 +131,15 @@ namespace OsuParsers.Writers
                 list.AddRange(section.Breaks.ConvertAll(b => $"2,{b.StartTime},{b.EndTime}"));
 
             list.Add(@"//Storyboard Layer 0 (Background)");
-            section.Storyboard.BackgroundLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Background)));
+            section.Storyboard.BackgroundLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, StoryboardLayer.Background)));
             list.Add(@"//Storyboard Layer 1 (Fail)");
-            section.Storyboard.FailLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Fail)));
+            section.Storyboard.FailLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, StoryboardLayer.Fail)));
             list.Add(@"//Storyboard Layer 2 (Pass)");
-            section.Storyboard.PassLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Pass)));
+            section.Storyboard.PassLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, StoryboardLayer.Pass)));
             list.Add(@"//Storyboard Layer 3 (Foreground)");
-            section.Storyboard.ForegroundLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Foreground)));
+            section.Storyboard.ForegroundLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, StoryboardLayer.Foreground)));
             list.Add(@"//Storyboard Layer 4 (Overlay)");
-            section.Storyboard.OverlayLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, Enums.StoryboardLayer.Overlay)));
+            section.Storyboard.OverlayLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, StoryboardLayer.Overlay)));
             list.Add(@"//Storyboard Sound Samples");
             section.Storyboard.SamplesLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, (sbObject as Storyboards.Objects.StoryboardSample).Layer)));
 

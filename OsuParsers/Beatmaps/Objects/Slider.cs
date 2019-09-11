@@ -1,15 +1,15 @@
-﻿using System;
+﻿using OsuParsers.Enums.Beatmaps;
+using System;
 using System.Collections.Generic;
 using System.Numerics;
-using OsuParsers.Enums;
 
 namespace OsuParsers.Beatmaps.Objects
 {
     public class Slider : HitObject
     {
-        public Slider(Vector2 position, int startTime, int endTime, HitSoundType hitSound, CurveType type, List<Vector2> points, 
-            int repeats, double pixelLength, List<HitSoundType> edgeHitSounds, List<Tuple<SampleSet, SampleSet>> edgeAdditions, 
-            Extras extras, bool isNewCombo, int comboOffset) 
+        public Slider(Vector2 position, int startTime, int endTime, HitSoundType hitSound, CurveType type, List<Vector2> points,
+            int repeats, double pixelLength, List<HitSoundType> edgeHitSounds, List<Tuple<SampleSet, SampleSet>> edgeAdditions,
+            Extras extras, bool isNewCombo, int comboOffset)
             : base(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset)
         {
             CurveType = type;

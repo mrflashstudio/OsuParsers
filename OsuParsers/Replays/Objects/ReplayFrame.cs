@@ -1,4 +1,4 @@
-﻿using OsuParsers.Enums;
+﻿using OsuParsers.Enums.Replays;
 
 namespace OsuParsers.Replays.Objects
 {

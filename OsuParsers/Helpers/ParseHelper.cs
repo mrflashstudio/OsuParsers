@@ -1,4 +1,4 @@
-using OsuParsers.Enums;
+using OsuParsers.Enums.Beatmaps;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

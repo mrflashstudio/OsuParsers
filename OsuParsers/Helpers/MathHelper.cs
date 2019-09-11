@@ -1,6 +1,5 @@
 ﻿using OsuParsers.Beatmaps;
 using OsuParsers.Beatmaps.Objects;
-using System;
 
 namespace OsuParsers.Helpers
 {

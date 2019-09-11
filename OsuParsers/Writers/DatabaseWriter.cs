@@ -115,12 +115,12 @@ namespace OsuParsers.Writers
             {
                 writer.Write(db.OsuVersion);
                 writer.Write(db.Scores.Count);
-                
+
                 foreach (var beatmap in db.Scores)
                 {
                     writer.Write(beatmap.Item1); //md5
                     writer.Write(beatmap.Item2.Count);
-                    
+
                     foreach (var score in beatmap.Item2) //scores
                     {
                         writer.Write((byte)score.Ruleset);

@@ -1,4 +1,5 @@
 ﻿using OsuParsers.Enums;
+using OsuParsers.Enums.Database;
 using System;
 using System.Collections.Generic;
 

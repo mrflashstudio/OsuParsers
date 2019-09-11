@@ -1,12 +1,12 @@
-﻿using System;
+﻿using OsuParsers.Enums.Beatmaps;
+using System;
 using System.Numerics;
-using OsuParsers.Enums;
 
 namespace OsuParsers.Beatmaps.Objects.Mania
 {
     public class ManiaHit : Circle
     {
-        public ManiaHit(Vector2 position, int startTime, int endTime, HitSoundType hitSound, Extras extras, bool isNewCombo, int comboOffset) 
+        public ManiaHit(Vector2 position, int startTime, int endTime, HitSoundType hitSound, Extras extras, bool isNewCombo, int comboOffset)
             : base(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset)
         {
         }

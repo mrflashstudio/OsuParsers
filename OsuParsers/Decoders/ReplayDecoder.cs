@@ -1,4 +1,5 @@
 ﻿using OsuParsers.Enums;
+using OsuParsers.Enums.Replays;
 using OsuParsers.Helpers;
 using OsuParsers.Replays;
 using OsuParsers.Replays.Objects;

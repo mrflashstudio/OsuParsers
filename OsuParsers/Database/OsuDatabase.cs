@@ -1,5 +1,5 @@
 ﻿using OsuParsers.Database.Objects;
-using OsuParsers.Enums;
+using OsuParsers.Enums.Database;
 using OsuParsers.Writers;
 using System;
 using System.Collections.Generic;

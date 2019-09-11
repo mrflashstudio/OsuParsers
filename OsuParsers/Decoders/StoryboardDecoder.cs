@@ -1,4 +1,4 @@
-﻿using OsuParsers.Enums;
+﻿using OsuParsers.Enums.Storyboards;
 using OsuParsers.Helpers;
 using OsuParsers.Storyboards;
 using OsuParsers.Storyboards.Commands;

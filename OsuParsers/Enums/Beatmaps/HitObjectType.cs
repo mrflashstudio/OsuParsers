@@ -1,4 +1,4 @@
-﻿namespace OsuParsers.Enums
+﻿namespace OsuParsers.Enums.Beatmaps
 {
     enum HitObjectType
     {

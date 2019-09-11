@@ -1,4 +1,4 @@
-﻿using OsuParsers.Enums;
+﻿using OsuParsers.Enums.Beatmaps;
 using System.Numerics;
 
 namespace OsuParsers.Beatmaps.Objects

@@ -1,4 +1,4 @@
-﻿namespace OsuParsers.Enums
+﻿namespace OsuParsers.Enums.Replays
 {
     public enum TaikoKeys
     {
