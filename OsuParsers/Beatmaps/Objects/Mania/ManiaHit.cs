@@ -21,7 +21,7 @@ namespace OsuParsers.Beatmaps.Objects.Mania
         public int GetColumn(int count)
         {
             double width = 512.0 / count;
-            return Convert.ToInt32(Position.X / width);
+            return (int)(Position.X / width);
         }
 
         public new Vector2 Position
