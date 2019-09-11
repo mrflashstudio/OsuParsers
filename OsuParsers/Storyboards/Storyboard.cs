@@ -14,6 +14,9 @@ namespace OsuParsers.Storyboards
         public List<IStoryboardObject> OverlayLayer = new List<IStoryboardObject>();
         public List<IStoryboardObject> SamplesLayer = new List<IStoryboardObject>();
 
+        /// <summary>
+        /// Returns specified storyboard layer.
+        /// </summary>
         public List<IStoryboardObject> GetLayer(StoryboardLayer layer)
         {
             switch (layer)
@@ -35,6 +38,9 @@ namespace OsuParsers.Storyboards
             }
         }
 
+        /// <summary>
+        /// Writes this <see cref="Storyboard"/> to the specified path.
+        /// </summary>
         public void Write(string path)
         {
             File.WriteAllLines(path, Writers.StoryboardWriter.Write(this));

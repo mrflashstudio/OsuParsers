@@ -29,6 +29,11 @@ namespace OsuParsers.Beatmaps
             EventsSection = new EventsSection();
         }
 
+        /// <summary>
+        /// Returns nearest beat length from the given offset.
+        /// </summary>
+        /// <param name="offset">Time in song. Should be in milliseconds.</param>
+        /// <returns></returns>
         public double BeatLengthAt(int offset)
         {
             if (TimingPoints.Count == 0)
@@ -56,6 +61,9 @@ namespace OsuParsers.Beatmaps
             return TimingPoints[timingPoint].BeatLength * multiplier;
         }
 
+        /// <summary>
+        /// Writes this <see cref="Beatmap"/> to the specified path.
+        /// </summary>
         public void Write(string path)
         {
             File.WriteAllLines(path, Writers.BeatmapWriter.Write(this));

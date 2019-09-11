@@ -10,6 +10,9 @@ namespace OsuParsers.Database
         public int CollectionCount { get; set; }
         public List<Collection> Collections { get; private set; } = new List<Collection>();
 
+        /// <summary>
+        /// Writes this <see cref="CollectionDatabase"/> to the specified path.
+        /// </summary>
         public void Write(string path)
         {
             DatabaseWriter.WriteCollectionDatabase(path, this);

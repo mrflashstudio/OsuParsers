@@ -17,6 +17,9 @@ namespace OsuParsers.Database
         public List<DbBeatmap> Beatmaps { get; private set; } = new List<DbBeatmap>();
         public Permissions Permissions { get; set; }
 
+        /// <summary>
+        /// Writes this <see cref="OsuDatabase"/> to the specified path.
+        /// </summary>
         public void Write(string path)
         {
             DatabaseWriter.WriteOsuDatabase(path, this);

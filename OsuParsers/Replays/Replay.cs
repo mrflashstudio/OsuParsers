@@ -30,6 +30,9 @@ namespace OsuParsers.Replays
         public int Seed { get; set; }
         public long OnlineId { get; set; }
 
+        /// <summary>
+        /// Writes this <see cref="Replay"/> to the specified path.
+        /// </summary>
         public void Write(string path)
         {
             ReplayWriter.Write(this, path);
