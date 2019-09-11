@@ -17,17 +17,18 @@
 Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_Formats/Osu_(file_format)).
         
 ### Beatmap properties
-| Name               | Type                 | Description                                |
-|--------------------|----------------------|--------------------------------------------|
-| Colours            | List\<Color\>        | List of combo colours.                     |
-| DifficultySection  | DifficultySection    | Section with difficulty properties.        |
-| EditorSection      | EditorSection        | Section with editor properties.            |
-| GeneralSection     | GeneralSection       | Section with general properties.           |
-| HitObjects         | List\<HitObject\>    | List of all hitobjects.                    |
-| MetadataSection    | MetadataSection      | Section with metadata properties.          |
-| TimingPoints       | List\<TimingPoints\> | List of all timing points.                 |
-| Version            | int                  | .osu file format version (e.g. 12, 14)     |
-| Write(string path) | void                 | Writes this Beatmap to the specified path. |
+| Name                     | Type                 | Description                                        |
+|--------------------------|----------------------|----------------------------------------------------|
+| Colours                  | List\<Color\>        | List of combo colours.                             |
+| DifficultySection        | DifficultySection    | Section with difficulty properties.                |
+| EditorSection            | EditorSection        | Section with editor properties.                    |
+| GeneralSection           | GeneralSection       | Section with general properties.                   |
+| HitObjects               | List\<HitObject\>    | List of all hitobjects.                            |
+| MetadataSection          | MetadataSection      | Section with metadata properties.                  |
+| TimingPoints             | List\<TimingPoints\> | List of all timing points.                         |
+| Version                  | int                  | .osu file format version (e.g. 12, 14)             |
+| BeatLengthAt(int offset) | double               | Returns nearest beat length from the given offset. |
+| Write(string path)       | void                 | Writes this Beatmap to the specified path.         |
 
 ### TimingPoint properties
 | Name            | Type          | Description                                                          |
