@@ -52,7 +52,7 @@ namespace OsuParsers.Decoders
                 {
                     if (ParseHelper.GetCurrentSection(line) != Sections.None)
                         currentSection = ParseHelper.GetCurrentSection(line);
-                    else
+                    else if (ParseHelper.IsLineValid(line, currentSection))
                         ParseLine(line);
                 }
             }

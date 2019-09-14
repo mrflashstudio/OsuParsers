@@ -57,6 +57,26 @@ namespace OsuParsers.Helpers
             return Color.FromArgb(colour.Length == 4 ? colour[3] : 255, colour[0], colour[1], colour[2]);
         }
 
+        public static bool IsLineValid(string line, Sections currentSection)
+        {
+            switch (currentSection)
+            {
+                case Sections.Format:
+                    return line.ToLower().Contains("osu file format v");
+                case Sections.General:
+                case Sections.Editor:
+                case Sections.Metadata:
+                case Sections.Difficulty:
+                case Sections.Colours:
+                    return line.Contains(":");
+                case Sections.Events:
+                case Sections.TimingPoints:
+                case Sections.HitObjects:
+                    return line.Contains(",");
+                default: return false;
+            }
+        }
+
         public static bool ToBool(this string value) => value == "1" || value.ToLower() == "true";
         public static float ToFloat(this string value) => float.Parse(value, NumberStyles.Float, CultureInfo.InvariantCulture);
         public static double ToDouble(this string value) => double.Parse(value, NumberStyles.Float, CultureInfo.InvariantCulture);
