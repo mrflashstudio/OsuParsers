@@ -100,8 +100,8 @@ namespace OsuParsers.Decoders
                     {
                         Origins origin = (Origins)Enum.Parse(typeof(Origins), tokens[2]);
                         string fileName = tokens[3].Trim('"');
-                        float x = float.Parse(tokens[4], NumberFormatInfo.InvariantInfo);
-                        float y = float.Parse(tokens[5], NumberFormatInfo.InvariantInfo);
+                        float x = ParseHelper.ToFloat(tokens[4]);
+                        float y = ParseHelper.ToFloat(tokens[5]);
                         storyboard.GetLayer(layer).Add(new StoryboardSprite(origin, fileName, x, y));
                         lastDrawable = storyboard.GetLayer(layer).Last();
                     }
@@ -110,8 +110,8 @@ namespace OsuParsers.Decoders
                     {
                         Origins origin = (Origins)Enum.Parse(typeof(Origins), tokens[2]);
                         string fileName = tokens[3].Trim('"');
-                        float x = float.Parse(tokens[4], NumberFormatInfo.InvariantInfo);
-                        float y = float.Parse(tokens[5], NumberFormatInfo.InvariantInfo);
+                        float x = ParseHelper.ToFloat(tokens[4]);
+                        float y = ParseHelper.ToFloat(tokens[5]);
                         int frameCount = Convert.ToInt32(tokens[6]);
                         double frameDelay = ParseHelper.ToDouble(tokens[7]);
                         LoopType loopType = tokens.Length > 8 ? (LoopType)Enum.Parse(typeof(LoopType), tokens[8]) : LoopType.LoopForever;
