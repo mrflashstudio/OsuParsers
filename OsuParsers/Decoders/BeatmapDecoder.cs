@@ -336,7 +336,7 @@ namespace OsuParsers.Decoders
         {
             string[] tokens = line.Split(',');
 
-            Vector2 position = new Vector2(Convert.ToInt32(tokens[0]), Convert.ToInt32(tokens[1]));
+            Vector2 position = new Vector2(ParseHelper.ToFloat(tokens[0]), ParseHelper.ToFloat(tokens[1]));
 
             int startTime = Convert.ToInt32(tokens[2]);
 
