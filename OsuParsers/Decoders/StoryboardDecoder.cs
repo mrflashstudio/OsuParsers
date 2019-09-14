@@ -146,8 +146,8 @@ namespace OsuParsers.Decoders
                 case "T":
                 {
                     string triggerName = tokens[1];
-                    int startTime = Convert.ToInt32(tokens[2]);
-                    int endTime = Convert.ToInt32(tokens[3]);
+                    int startTime = tokens.Length > 2 ? Convert.ToInt32(tokens[2]) : 0;
+                    int endTime = tokens.Length > 3 ? Convert.ToInt32(tokens[3]) : 0;
                     int groupNumber = tokens.Length > 4 ? Convert.ToInt32(tokens[4]) : 0;
                     commandGroup = commandGroup.AddTrigger(triggerName, startTime, endTime, groupNumber).Commands;
                 }
