@@ -11,6 +11,16 @@ namespace OsuParsers.Writers
         {
             var list = new List<string>();
 
+            if (storyboard.Variables != null && storyboard.Variables.Count > 0)
+            {
+                list.Add("[Variables]");
+
+                foreach (var v in storyboard.Variables)
+                    list.Add($"{v.Key}={v.Value}");
+
+                list.Add(string.Empty);
+            }
+
             list.AddRange(new List<string>
             {
                 "[Events]",
@@ -29,6 +39,10 @@ namespace OsuParsers.Writers
             storyboard.OverlayLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, StoryboardLayer.Overlay)));
             list.Add(@"//Storyboard Sound Samples");
             storyboard.SamplesLayer.ForEach(sbObject => list.AddRange(WriteHelper.StoryboardObject(sbObject, (sbObject as Storyboards.Objects.StoryboardSample).Layer)));
+
+            for (int i = 0; i < list.Count; i++)
+                foreach (var v in storyboard.Variables)
+                    list[i] = list[i].Replace($",{v.Value}", $",{v.Key}");
 
             return list;
         }

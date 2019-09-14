@@ -14,6 +14,8 @@ namespace OsuParsers.Storyboards
         public List<IStoryboardObject> OverlayLayer = new List<IStoryboardObject>();
         public List<IStoryboardObject> SamplesLayer = new List<IStoryboardObject>();
 
+        public Dictionary<string, string> Variables = new Dictionary<string, string>();
+
         /// <summary>
         /// Returns specified storyboard layer.
         /// </summary>

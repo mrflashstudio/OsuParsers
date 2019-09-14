@@ -46,12 +46,20 @@ namespace OsuParsers.Decoders
 
             foreach (var line in lines)
             {
-                if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("//") && !line.StartsWith("[Events]"))
+                if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("//") && !line.StartsWith("[Events]") && !line.StartsWith("[Variables]"))
                 {
-                    if (!line.StartsWith(" ") && !line.StartsWith("_"))
-                        ParseSbObject(line);
+                    if (line.StartsWith("$"))
+                    {
+                        string[] split = line.Split('=');
+                        if (split.Length != 2)
+                            continue;
+
+                        storyboard.Variables.Add(split[0], split[1]);
+                    }
+                    else if (!line.StartsWith(" ") && !line.StartsWith("_"))
+                        ParseSbObject(ParseVariables(line));
                     else
-                        ParseSbCommand(line);
+                        ParseSbCommand(ParseVariables(line));
                 }
             }
 
@@ -64,6 +72,17 @@ namespace OsuParsers.Decoders
         /// <param name="stream">Stream containing storyboard data.</param>
         /// <returns>A usable storyboard.</returns>
         public static Storyboard Decode(Stream stream) => Decode(stream.ReadAllLines());
+
+        private static string ParseVariables(string line)
+        {
+            if (storyboard.Variables == null || line.IndexOf('$') < 0)
+                return line;
+
+            foreach (var v in storyboard.Variables)
+                line = line.Replace(v.Key, v.Value);
+
+            return line;
+        }
 
         private static void ParseSbObject(string line)
         {
