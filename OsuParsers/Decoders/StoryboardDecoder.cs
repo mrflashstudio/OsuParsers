@@ -46,7 +46,7 @@ namespace OsuParsers.Decoders
 
             foreach (var line in lines)
             {
-                if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("//") && !line.StartsWith("[Events]") && !line.StartsWith("[Variables]"))
+                if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("//") && !line.StartsWith("["))
                 {
                     if (line.StartsWith("$"))
                     {
@@ -87,7 +87,11 @@ namespace OsuParsers.Decoders
         private static void ParseSbObject(string line)
         {
             string[] tokens = line.Split(',');
-            EventType type = (EventType)Enum.Parse(typeof(EventType), tokens[0]);
+
+            EventType type;
+            if (!Enum.TryParse(tokens[0], out type))
+                return;
+
             StoryboardLayer layer = (StoryboardLayer)Enum.Parse(typeof(StoryboardLayer), tokens[type == EventType.Sample ? 2 : 1]);
 
             switch (type)
