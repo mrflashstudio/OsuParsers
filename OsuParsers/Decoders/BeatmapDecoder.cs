@@ -413,6 +413,8 @@ namespace OsuParsers.Decoders
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Fruits)
                         hitObject = new CatchDroplets(position, startTime, endTime, hitSound, curveType, sliderPoints,
                             repeats, pixelLength, edgeHitSounds, edgeAdditions, extras, isNewCombo, comboOffset);
+                    else if (Beatmap.GeneralSection.Mode == Ruleset.Mania)
+                        hitObject = new ManiaHold(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
                 }
                     break;
                 case HitObjectType.Spinner:
