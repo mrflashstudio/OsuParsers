@@ -136,7 +136,12 @@ namespace OsuParsers.Decoders
             }
 
             if (depth < 2)
+            {
+                if (lastDrawable == null)
+                    return;
+
                 commandGroup = (lastDrawable as IHasCommands).Commands;
+            }
 
             string[] tokens = line.Split(',');
 
