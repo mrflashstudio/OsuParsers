@@ -90,7 +90,7 @@ namespace OsuParsers.Decoders
                         float x = float.Parse(tokens[4], NumberFormatInfo.InvariantInfo);
                         float y = float.Parse(tokens[5], NumberFormatInfo.InvariantInfo);
                         int frameCount = Convert.ToInt32(tokens[6]);
-                        int frameDelay = Convert.ToInt32(tokens[7]);
+                        double frameDelay = ParseHelper.ToDouble(tokens[7]);
                         LoopType loopType = (LoopType)Enum.Parse(typeof(LoopType), tokens[8]);
                         storyboard.GetLayer(layer).Add(new StoryboardAnimation(origin, fileName, x, y, frameCount, frameDelay, loopType));
                         lastDrawable = storyboard.GetLayer(layer).Last();
