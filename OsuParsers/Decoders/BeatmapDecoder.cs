@@ -167,7 +167,7 @@ namespace OsuParsers.Decoders
             switch (variable)
             {
                 case "Bookmarks":
-                    Beatmap.EditorSection.Bookmarks = value.Trim().Split(',').Select(b => Convert.ToInt32(b)).ToArray();
+                    Beatmap.EditorSection.Bookmarks = value.Trim().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(b => Convert.ToInt32(b)).ToArray();
                     break;
                 case "DistanceSpacing":
                     Beatmap.EditorSection.DistanceSpacing = ParseHelper.ToDouble(value.Trim());
