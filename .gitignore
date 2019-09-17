@@ -4,3 +4,4 @@ bin/[Dd]ebug/
 [Bb]in/
 [Oo]bj/
 .vs/
+.vscode/
