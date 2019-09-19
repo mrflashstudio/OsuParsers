@@ -87,6 +87,7 @@ namespace OsuParsers.Tests
             373781, // ginkiha - EOS [Lycoris]
             1883745, // Himeringo - Idola no Circus [Salvation]
             1922277, // nano - Rock on. [Finale]
+            1006822, // Mili - world.execute(me); [mapset.extra(Exile-);]
         };
 
         private List<IEnumerable<string>> RawFiles = new List<IEnumerable<string>>();
