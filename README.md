@@ -38,7 +38,7 @@ PM> Install-Package OsuParsers
 ```
 
 # Building and Requirements
-- You need a desktop platform that can compile .NET 4.5 or higher.
+- You need a desktop platform that can compile .NET 4.6.1 or higher.
 - Clone the repository `git clone https://github.com/mrflashstudio/OsuParsers`
 - And then you can build the project in your IDE.
 
