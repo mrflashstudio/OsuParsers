@@ -52,7 +52,7 @@ namespace OsuParsers.Decoders
                 {
                     if (ParseHelper.GetCurrentSection(line) != Sections.None)
                         currentSection = ParseHelper.GetCurrentSection(line);
-                    else
+                    else if (ParseHelper.IsLineValid(line, currentSection))
                         ParseLine(line);
                 }
             }
@@ -167,7 +167,7 @@ namespace OsuParsers.Decoders
             switch (variable)
             {
                 case "Bookmarks":
-                    Beatmap.EditorSection.Bookmarks = value.Trim().Split(',').Select(b => Convert.ToInt32(b)).ToArray();
+                    Beatmap.EditorSection.Bookmarks = value.Trim().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(b => Convert.ToInt32(b)).ToArray();
                     break;
                 case "DistanceSpacing":
                     Beatmap.EditorSection.DistanceSpacing = ParseHelper.ToDouble(value.Trim());
@@ -336,7 +336,7 @@ namespace OsuParsers.Decoders
         {
             string[] tokens = line.Split(',');
 
-            Vector2 position = new Vector2(Convert.ToInt32(tokens[0]), Convert.ToInt32(tokens[1]));
+            Vector2 position = new Vector2(ParseHelper.ToFloat(tokens[0]), ParseHelper.ToFloat(tokens[1]));
 
             int startTime = Convert.ToInt32(tokens[2]);
 
@@ -413,6 +413,8 @@ namespace OsuParsers.Decoders
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Fruits)
                         hitObject = new CatchDroplets(position, startTime, endTime, hitSound, curveType, sliderPoints,
                             repeats, pixelLength, edgeHitSounds, edgeAdditions, extras, isNewCombo, comboOffset);
+                    else if (Beatmap.GeneralSection.Mode == Ruleset.Mania)
+                        hitObject = new ManiaHold(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
                 }
                     break;
                 case HitObjectType.Spinner:

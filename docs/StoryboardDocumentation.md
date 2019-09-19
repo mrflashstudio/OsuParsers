@@ -17,16 +17,17 @@
 Also, see an [official documentation](https://osu.ppy.sh/help/wiki/Storyboard_Scripting).
 
 # Storyboard properties
-| Name                            | Type                      | Description                                                      |
-|---------------------------------|---------------------------|------------------------------------------------------------------|
-| BackgroundLayer                 | List\<IStoryboardObject\> | Storyboard layer that overrides default beatmap background.      |
-| FailLayer                       | List\<IStoryboardObject\> | Storyboard layer that appears only when player is in fail state. |
-| PassLayer                       | List\<IStoryboardObject\> | Storyboard layer that appears only when player is in pass state. |
-| ForegroundLayer                 | List\<IStoryboardObject\> | The "highest" layer of storyboard.                               |
-| OverlayLayer                    | List\<IStoryboardObject\> | Storyboard layer that sits in front of hitobjects.               |
-| SamplesLayer                    | List\<IStoryboardObject\> | Storyboard layer that contains audio samples.                    |
-| GetLayer(StoryboardLayer layer) | List\<IStoryboardObject\> | Returns one of the six lists specified above.                   |
-| Write(string path)              | void                      | Writes this Storyboard to the specified path.                    |
+| Name                            | Type                         | Description                                                      |
+|---------------------------------|------------------------------|------------------------------------------------------------------|
+| BackgroundLayer                 | List\<IStoryboardObject\>    | Storyboard layer that overrides default beatmap background.      |
+| FailLayer                       | List\<IStoryboardObject\>    | Storyboard layer that appears only when player is in fail state. |
+| PassLayer                       | List\<IStoryboardObject\>    | Storyboard layer that appears only when player is in pass state. |
+| ForegroundLayer                 | List\<IStoryboardObject\>    | The "highest" layer of storyboard.                               |
+| OverlayLayer                    | List\<IStoryboardObject\>    | Storyboard layer that sits in front of hitobjects.               |
+| SamplesLayer                    | List\<IStoryboardObject\>    | Storyboard layer that contains audio samples.                    |
+| Variables                       | Dictionary\<string, string\> | Contains pairs of variable names and values.                     |
+| GetLayer(StoryboardLayer layer) | List\<IStoryboardObject\>    | Returns one of the six lists specified above.                    |
+| Write(string path)              | void                         | Writes this Storyboard to the specified path.                    |
 
 # Interfaces
 ### IStoryboardObject properties

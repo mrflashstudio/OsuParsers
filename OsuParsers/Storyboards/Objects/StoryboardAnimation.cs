@@ -12,10 +12,10 @@ namespace OsuParsers.Storyboards.Objects
         public float X;
         public float Y;
         public int FrameCount;
-        public int FrameDelay;
+        public double FrameDelay;
         public LoopType LoopType;
 
-        public StoryboardAnimation(Origins origin, string filePath, float x, float y, int frameCount, int frameDelay,
+        public StoryboardAnimation(Origins origin, string filePath, float x, float y, int frameCount, double frameDelay,
             LoopType loopType)
         {
             Origin = origin;

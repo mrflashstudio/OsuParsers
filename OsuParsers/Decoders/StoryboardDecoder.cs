@@ -46,12 +46,20 @@ namespace OsuParsers.Decoders
 
             foreach (var line in lines)
             {
-                if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("//") && !line.StartsWith("[Events]"))
+                if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("//") && !line.StartsWith("["))
                 {
-                    if (!line.StartsWith(" ") && !line.StartsWith("_"))
-                        ParseSbObject(line);
+                    if (line.StartsWith("$"))
+                    {
+                        string[] split = line.Split('=');
+                        if (split.Length != 2)
+                            continue;
+
+                        storyboard.Variables.Add(split[0], split[1]);
+                    }
+                    else if (!line.StartsWith(" ") && !line.StartsWith("_"))
+                        ParseSbObject(ParseVariables(line));
                     else
-                        ParseSbCommand(line);
+                        ParseSbCommand(ParseVariables(line));
                 }
             }
 
@@ -65,10 +73,25 @@ namespace OsuParsers.Decoders
         /// <returns>A usable storyboard.</returns>
         public static Storyboard Decode(Stream stream) => Decode(stream.ReadAllLines());
 
+        private static string ParseVariables(string line)
+        {
+            if (storyboard.Variables == null || line.IndexOf('$') < 0)
+                return line;
+
+            foreach (var v in storyboard.Variables)
+                line = line.Replace(v.Key, v.Value);
+
+            return line;
+        }
+
         private static void ParseSbObject(string line)
         {
             string[] tokens = line.Split(',');
-            EventType type = (EventType)Enum.Parse(typeof(EventType), tokens[0]);
+
+            EventType type;
+            if (!Enum.TryParse(tokens[0], out type))
+                return;
+
             StoryboardLayer layer = (StoryboardLayer)Enum.Parse(typeof(StoryboardLayer), tokens[type == EventType.Sample ? 2 : 1]);
 
             switch (type)
@@ -77,8 +100,8 @@ namespace OsuParsers.Decoders
                     {
                         Origins origin = (Origins)Enum.Parse(typeof(Origins), tokens[2]);
                         string fileName = tokens[3].Trim('"');
-                        float x = float.Parse(tokens[4], NumberFormatInfo.InvariantInfo);
-                        float y = float.Parse(tokens[5], NumberFormatInfo.InvariantInfo);
+                        float x = ParseHelper.ToFloat(tokens[4]);
+                        float y = ParseHelper.ToFloat(tokens[5]);
                         storyboard.GetLayer(layer).Add(new StoryboardSprite(origin, fileName, x, y));
                         lastDrawable = storyboard.GetLayer(layer).Last();
                     }
@@ -87,11 +110,11 @@ namespace OsuParsers.Decoders
                     {
                         Origins origin = (Origins)Enum.Parse(typeof(Origins), tokens[2]);
                         string fileName = tokens[3].Trim('"');
-                        float x = float.Parse(tokens[4], NumberFormatInfo.InvariantInfo);
-                        float y = float.Parse(tokens[5], NumberFormatInfo.InvariantInfo);
+                        float x = ParseHelper.ToFloat(tokens[4]);
+                        float y = ParseHelper.ToFloat(tokens[5]);
                         int frameCount = Convert.ToInt32(tokens[6]);
-                        int frameDelay = Convert.ToInt32(tokens[7]);
-                        LoopType loopType = (LoopType)Enum.Parse(typeof(LoopType), tokens[8]);
+                        double frameDelay = ParseHelper.ToDouble(tokens[7]);
+                        LoopType loopType = tokens.Length > 8 ? (LoopType)Enum.Parse(typeof(LoopType), tokens[8]) : LoopType.LoopForever;
                         storyboard.GetLayer(layer).Add(new StoryboardAnimation(origin, fileName, x, y, frameCount, frameDelay, loopType));
                         lastDrawable = storyboard.GetLayer(layer).Last();
                     }
@@ -117,7 +140,12 @@ namespace OsuParsers.Decoders
             }
 
             if (depth < 2)
+            {
+                if (lastDrawable == null)
+                    return;
+
                 commandGroup = (lastDrawable as IHasCommands).Commands;
+            }
 
             string[] tokens = line.Split(',');
 
@@ -127,8 +155,8 @@ namespace OsuParsers.Decoders
                 case "T":
                 {
                     string triggerName = tokens[1];
-                    int startTime = Convert.ToInt32(tokens[2]);
-                    int endTime = Convert.ToInt32(tokens[3]);
+                    int startTime = tokens.Length > 2 ? Convert.ToInt32(tokens[2]) : 0;
+                    int endTime = tokens.Length > 3 ? Convert.ToInt32(tokens[3]) : 0;
                     int groupNumber = tokens.Length > 4 ? Convert.ToInt32(tokens[4]) : 0;
                     commandGroup = commandGroup.AddTrigger(triggerName, startTime, endTime, groupNumber).Commands;
                 }
