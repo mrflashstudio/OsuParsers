@@ -45,13 +45,15 @@ namespace OsuParsers.Tests
 
             if (data.Length == 0)
             {
-                Trace.WriteLine("Failed, file empty.");
+                Trace.WriteLine($"Failed, file empty ({data.Length}B)");
                 return false;
             }
-            
-            Trace.WriteLine($"Completed in {dlTimer.ElapsedMilliseconds}ms ({Math.Round((double)data.Length / 1024d, 3)}KB)");
-            RawFiles.Add(lines);
-            return true;
+            else
+            {
+                Trace.WriteLine($"Completed in {dlTimer.ElapsedMilliseconds}ms ({Math.Round((double)data.Length / 1024d, 3)}KB)");
+                RawFiles.Add(lines);
+                return true;
+            }
         }
 
         public void ParseAll()
