@@ -27,27 +27,29 @@ namespace OsuParsers.Tests
 
         public async Task<bool> AddBeatmap(uint id)
         {
-            var client = new HttpClient();
-            Trace.Write($"Downloading beatmap '{BaseUrl}{id}'...\t");
+            using (var client = new HttpClient())
+            {
+                Trace.Write($"Downloading beatmap '{BaseUrl}{id}'...\t");
                 
-            var dlTimer = new Stopwatch();
-            dlTimer.Start();
-            byte[] data = await client.GetByteArrayAsync(new Uri(BaseUrl + id));
-            dlTimer.Stop();
+                var dlTimer = new Stopwatch();
+                dlTimer.Start();
+                byte[] data = await client.GetByteArrayAsync(new Uri(BaseUrl + id));
+                dlTimer.Stop();
 
-            var file = Encoding.UTF8.GetString(data, 0, data.Length);
-            var lines = file.Split("\r\n", StringSplitOptions.None);
+                var file = Encoding.UTF8.GetString(data, 0, data.Length);
+                var lines = file.Split("\r\n", StringSplitOptions.None);
 
-            if (data.Length == 0)
-            {
-                Trace.WriteLine($"Failed, file empty ({data.Length}B)");
-                return false;
-            }
-            else
-            {
-                Trace.WriteLine($"Completed in {dlTimer.ElapsedMilliseconds}ms ({Math.Round((double)data.Length / 1024d, 3)}KB)");
-                RawFiles.Add(lines);
-                return true;
+                if (data.Length == 0)
+                {
+                    Trace.WriteLine($"Failed, file empty ({data.Length}B)");
+                    return false;
+                }
+                else
+                {
+                    Trace.WriteLine($"Completed in {dlTimer.ElapsedMilliseconds}ms ({Math.Round((double)data.Length / 1024d, 3)}KB)");
+                    RawFiles.Add(lines);
+                    return true;
+                }
             }
         }
 
