@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{573FFB96-8
 		docs\StoryboardDocumentation.md = docs\StoryboardDocumentation.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsuParsers.Tests", "OsuParsers.Tests\OsuParsers.Tests.csproj", "{C626EEF7-9C48-4BA0-8412-45623D8E9902}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{84C32A7C-78DD-4DB5-A9F5-1AD7083F9C8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84C32A7C-78DD-4DB5-A9F5-1AD7083F9C8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84C32A7C-78DD-4DB5-A9F5-1AD7083F9C8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C626EEF7-9C48-4BA0-8412-45623D8E9902}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C626EEF7-9C48-4BA0-8412-45623D8E9902}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C626EEF7-9C48-4BA0-8412-45623D8E9902}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C626EEF7-9C48-4BA0-8412-45623D8E9902}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
