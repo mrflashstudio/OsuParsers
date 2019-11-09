@@ -12,14 +12,15 @@
     - [Metadata Section properties](#metadata-section-properties)  
     - [Difficulty Section properties](#difficulty-section-properties)  
     - [Events Section properties](#events-section-properties)  
-        - [Break Event properties](#break-event-properties)
+        - [Break Event properties](#break-event-properties)  
+    - [Colours Section properties](#colours-section-properties)
         
 Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_Formats/Osu_(file_format)).
         
 ### Beatmap properties
 | Name                     | Type                 | Description                                        |
 |--------------------------|----------------------|----------------------------------------------------|
-| Colours                  | List\<Color\>        | List of combo colours.                             |
+| Colours                  | ColoursSection       | Section with colours properties.                   |
 | DifficultySection        | DifficultySection    | Section with difficulty properties.                |
 | EditorSection            | EditorSection        | Section with editor properties.                    |
 | GeneralSection           | GeneralSection       | Section with general properties.                   |
@@ -176,3 +177,10 @@ Properties are the same as the HitObject's.
 |-----------|------|-----------------------------------------------------------------------------------------------------|
 | StartTime | int  | Number of milliseconds from the beginning of the song defining the start point of the break period. |
 | EndTime   | int  | Number of milliseconds from the beginning of the song defining the end point of the break period.   |
+
+### Colours Section properties
+| Name                | Type          | Description           |
+|---------------------|---------------|-----------------------|
+| ComboColours        | List\<Color\> | Combo colours.        |
+| SliderTrackOverride | Color         | Slider track colour.  |
+| SliderBorder        | Color         | Slider border colour. |
