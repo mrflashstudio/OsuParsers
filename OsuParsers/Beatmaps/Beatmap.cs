@@ -15,8 +15,8 @@ namespace OsuParsers.Beatmaps
         public MetadataSection MetadataSection { get; set; }
         public DifficultySection DifficultySection { get; set; }
         public EventsSection EventsSection { get; set; }
+        public ColoursSection ColoursSection { get; set; }
 
-        public List<Color> Colours { get; set; } = new List<Color>();
         public List<TimingPoint> TimingPoints { get; set; } = new List<TimingPoint>();
         public List<HitObject> HitObjects { get; set; } = new List<HitObject>();
 
@@ -27,6 +27,7 @@ namespace OsuParsers.Beatmaps
             MetadataSection = new MetadataSection();
             DifficultySection = new DifficultySection();
             EventsSection = new EventsSection();
+            ColoursSection = new ColoursSection();
         }
 
         /// <summary>

@@ -20,7 +20,7 @@ namespace OsuParsers.Writers
                 DifficultySection(beatmap.DifficultySection),
                 EventsSection(beatmap.EventsSection),
                 TimingPoints(beatmap.TimingPoints),
-                Colours(beatmap.Colours),
+                Colours(beatmap.ColoursSection),
                 HitObjects(beatmap.HitObjects),
             };
 
@@ -158,15 +158,22 @@ namespace OsuParsers.Writers
             return list;
         }
 
-        public static List<string> Colours(List<Color> colours)
+        public static List<string> Colours(ColoursSection section)
         {
-            if (colours.Count == 0)
+            if (section.ComboColours.Count == 0 && section.SliderTrackOverride == default && section.SliderBorder == default)
                 return new List<string>();
 
             var list = BaseListFormat("Colours");
-            if (colours != null)
-                for (int i = 0; i < colours.Count; i++)
-                    list.Add(WriteHelper.Colour(colours[i], i + 1));
+            if (section.ComboColours != null)
+                for (int i = 0; i < section.ComboColours.Count; i++)
+                    list.Add($"Combo{i + 1} : {WriteHelper.Colour(section.ComboColours[i])}");
+
+            if (section.SliderTrackOverride != default)
+                list.Add($"SliderTrackOverride : {WriteHelper.Colour(section.SliderTrackOverride)}");
+
+            if (section.SliderBorder != default)
+                list.Add($"SliderBorder : {WriteHelper.Colour(section.SliderBorder)}");
+
             return list;
         }
 

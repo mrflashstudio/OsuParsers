@@ -28,14 +28,13 @@ namespace OsuParsers.Helpers
             return $"{offset},{msPerBeat},{meter},{sampleSet},{sampleIndex},{volume},{inherited},{effects}";
         }
 
-        public static string Colour(Color colour, int index)
+        public static string Colour(Color colour)
         {
-            var combo = $"Combo{index}";
             var r = colour.R;
             var g = colour.G;
             var b = colour.B;
 
-            return $"{combo} : {r},{g},{b}";
+            return $"{r},{g},{b}";
         }
 
         public static string HitObject(HitObject hitObject)

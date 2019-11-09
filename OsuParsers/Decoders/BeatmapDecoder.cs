@@ -330,7 +330,23 @@ namespace OsuParsers.Decoders
             });
         }
 
-        private static void ParseColours(string line) => Beatmap.Colours.Add(ParseHelper.ParseColour(line));
+        private static void ParseColours(string line)
+        {
+            string variable = line.Split(':')[0].Trim();
+
+            switch (variable)
+            {
+                case "SliderTrackOverride":
+                    Beatmap.ColoursSection.SliderTrackOverride = ParseHelper.ParseColour(line);
+                    break;
+                case "SliderBorder":
+                    Beatmap.ColoursSection.SliderBorder = ParseHelper.ParseColour(line);
+                    break;
+                default:
+                    Beatmap.ColoursSection.ComboColours.Add(ParseHelper.ParseColour(line));
+                    break;
+            }
+        }
 
         private static void ParseHitObjects(string line)
         {
