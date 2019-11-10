@@ -46,7 +46,9 @@ namespace OsuParsers.Decoders
             {
                 DbBeatmap beatmap = new DbBeatmap();
 
-                beatmap.BytesOfBeatmapEntry = r.ReadInt32();
+                if (db.OsuVersion < 20191106)
+                    beatmap.BytesOfBeatmapEntry = r.ReadInt32();
+
                 beatmap.Artist = r.ReadString();
                 beatmap.ArtistUnicode = r.ReadString();
                 beatmap.Title = r.ReadString();

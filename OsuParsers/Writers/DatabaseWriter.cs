@@ -20,7 +20,8 @@ namespace OsuParsers.Writers
 
                 foreach (var beatmap in db.Beatmaps)
                 {
-                    writer.Write(beatmap.BytesOfBeatmapEntry);
+                    if (db.OsuVersion < 20191106)
+                        writer.Write(beatmap.BytesOfBeatmapEntry);
                     writer.Write(beatmap.Artist);
                     writer.Write(beatmap.ArtistUnicode);
                     writer.Write(beatmap.Title);
