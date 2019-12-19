@@ -125,6 +125,9 @@ namespace OsuParsers.Helpers
 
         public static string HitObjectExtras(Extras extras)
         {
+            if (extras == null)
+                return $"0:0:0:0:";
+
             var sampleSet = (int)extras.SampleSet;
             var additionSet = (int)extras.AdditionSet;
             var customIndex = extras.CustomIndex;
