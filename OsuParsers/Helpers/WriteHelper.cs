@@ -52,7 +52,7 @@ namespace OsuParsers.Helpers
             if (hitObject is Circle && !(hitObject is ManiaHold))
                 extra += extras;
             if (hitObject is Slider slider)
-                extra += SliderProperties(slider) + ((slider.EdgeHitSounds == null || slider.EdgeAdditions == null) ? string.Empty : $",{extras}");
+                extra += SliderProperties(slider) + ((slider.EdgeHitSounds == null || !slider.EdgeHitSounds.Any()) ? string.Empty : $",{extras}");
             if (hitObject is Spinner spinner)
                 extra += $"{spinner.EndTime},{extras}";
             if (hitObject is ManiaHold hold)
@@ -71,7 +71,7 @@ namespace OsuParsers.Helpers
             var repeats = slider.Repeats;
             var pixelLength = slider.PixelLength.Format();
 
-            if (slider.EdgeHitSounds != null)
+            if (slider.EdgeHitSounds != null && slider.EdgeHitSounds.Any())
             {
                 string edgeHitsounds = string.Empty;
                 slider.EdgeHitSounds.ForEach(sound => edgeHitsounds += $"{(int)sound}|");
