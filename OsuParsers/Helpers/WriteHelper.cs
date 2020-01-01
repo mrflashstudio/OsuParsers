@@ -49,13 +49,13 @@ namespace OsuParsers.Helpers
             string hitObjectBase = $"{x},{y},{time},{type},{hitsound}";
             string extra = ",";
 
-            if (hitObject is Circle && !(hitObject is ManiaHold))
+            if (hitObject is HitCircle && !(hitObject is ManiaHoldNote))
                 extra += extras;
             if (hitObject is Slider slider)
                 extra += SliderProperties(slider) + ((slider.EdgeHitSounds == null || !slider.EdgeHitSounds.Any()) ? string.Empty : $",{extras}");
             if (hitObject is Spinner spinner)
                 extra += $"{spinner.EndTime},{extras}";
-            if (hitObject is ManiaHold hold)
+            if (hitObject is ManiaHoldNote hold)
                 extra += $"{hold.EndTime}:{extras}";
 
             return hitObjectBase + extra;
@@ -110,13 +110,13 @@ namespace OsuParsers.Helpers
         public static int TypeByte(HitObject hitObject)
         {
             int i = 0;
-            if (hitObject is Circle && !(hitObject is ManiaHold))
+            if (hitObject is HitCircle && !(hitObject is ManiaHoldNote))
                 i += (int)HitObjectType.Circle;
             if (hitObject is Slider)
                 i += (int)HitObjectType.Slider;
             if (hitObject is Spinner)
                 i += (int)HitObjectType.Spinner;
-            if (hitObject is ManiaHold)
+            if (hitObject is ManiaHoldNote)
                 i += (int)HitObjectType.Hold;
             i += hitObject.IsNewCombo ? 1 << 2 : 0;
             i += hitObject.ComboOffset << 4;

@@ -3,7 +3,7 @@ using System.Numerics;
 
 namespace OsuParsers.Beatmaps.Objects.Taiko
 {
-    public class TaikoHit : Circle
+    public class TaikoHit : HitCircle
     {
         public bool IsBig
         {

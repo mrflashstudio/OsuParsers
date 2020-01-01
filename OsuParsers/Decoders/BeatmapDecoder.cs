@@ -59,9 +59,9 @@ namespace OsuParsers.Decoders
 
             Beatmap.EventsSection.Storyboard = StoryboardDecoder.Decode(sbLines.ToArray());
 
-            Beatmap.GeneralSection.CirclesCount = Beatmap.HitObjects.Count(c => c is Circle || c is TaikoHit || c is ManiaHit || c is CatchFruit);
-            Beatmap.GeneralSection.SlidersCount = Beatmap.HitObjects.Count(c => c is Slider || c is TaikoDrumroll || c is ManiaHold || c is CatchDroplets);
-            Beatmap.GeneralSection.SpinnersCount = Beatmap.HitObjects.Count(c => c is Spinner || c is TaikoSpinner || c is CatchSpinner);
+            Beatmap.GeneralSection.CirclesCount = Beatmap.HitObjects.Count(c => c is HitCircle || c is TaikoHit || c is ManiaNote || c is CatchFruit);
+            Beatmap.GeneralSection.SlidersCount = Beatmap.HitObjects.Count(c => c is Slider || c is TaikoDrumroll || c is ManiaHoldNote || c is CatchJuiceStream);
+            Beatmap.GeneralSection.SpinnersCount = Beatmap.HitObjects.Count(c => c is Spinner || c is TaikoSpinner || c is CatchBananaRain);
 
             Beatmap.GeneralSection.Length = Beatmap.HitObjects.Count > 0 ? Beatmap.HitObjects.Last().EndTime / 1000 : 0;
 
@@ -384,13 +384,13 @@ namespace OsuParsers.Decoders
                 case HitObjectType.Circle:
                 {
                     if (Beatmap.GeneralSection.Mode == Ruleset.Standard)
-                        hitObject = new Circle(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset);
+                        hitObject = new HitCircle(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset);
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Taiko)
                         hitObject = new TaikoHit(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset);
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Fruits)
                         hitObject = new CatchFruit(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset);
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Mania)
-                        hitObject = new ManiaHit(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset);
+                        hitObject = new ManiaNote(position, startTime, startTime, hitSound, extras, isNewCombo, comboOffset);
                 }
                     break;
                 case HitObjectType.Slider:
@@ -427,10 +427,10 @@ namespace OsuParsers.Decoders
                         hitObject = new TaikoDrumroll(position, startTime, endTime, hitSound, curveType, sliderPoints,
                             repeats, pixelLength, edgeHitSounds, edgeAdditions, extras, isNewCombo, comboOffset);
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Fruits)
-                        hitObject = new CatchDroplets(position, startTime, endTime, hitSound, curveType, sliderPoints,
+                        hitObject = new CatchJuiceStream(position, startTime, endTime, hitSound, curveType, sliderPoints,
                             repeats, pixelLength, edgeHitSounds, edgeAdditions, extras, isNewCombo, comboOffset);
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Mania)
-                        hitObject = new ManiaHold(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
+                        hitObject = new ManiaHoldNote(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
                 }
                     break;
                 case HitObjectType.Spinner:
@@ -442,14 +442,14 @@ namespace OsuParsers.Decoders
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Taiko)
                         hitObject = new TaikoSpinner(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Fruits)
-                        hitObject = new CatchSpinner(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
+                        hitObject = new CatchBananaRain(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
                 }
                     break;
                 case HitObjectType.Hold:
                 {
                     string[] additions = tokens[5].Split(':');
                     int endTime = Convert.ToInt32(additions[0].Trim());
-                    hitObject = new ManiaHold(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
+                    hitObject = new ManiaHoldNote(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
                 }
                     break;
             }
