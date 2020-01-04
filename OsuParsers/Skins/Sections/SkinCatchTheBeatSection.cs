@@ -4,7 +4,7 @@ namespace OsuParsers.Skins.Sections
 {
     public class SkinCatchTheBeatSection
     {
-        public Color HyperDash { get; set; } = Color.Red;
+        public Color HyperDash { get; set; } = Color.FromArgb(255, 0, 0);
 
         private Color? hyperDashFruit = null;
         public Color HyperDashFruit
