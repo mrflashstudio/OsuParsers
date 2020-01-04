@@ -2,7 +2,7 @@ using OsuParsers.Helpers;
 
 namespace OsuParsers.Beatmaps.Sections
 {
-    public class MetadataSection
+    public class BeatmapMetadataSection
     {
         public string Title { get; set; }
         public string TitleUnicode { get; set; }

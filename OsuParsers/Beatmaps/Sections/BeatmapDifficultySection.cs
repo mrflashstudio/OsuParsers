@@ -1,6 +1,6 @@
 namespace OsuParsers.Beatmaps.Sections
 {
-    public class DifficultySection
+    public class BeatmapDifficultySection
     {
         public float HPDrainRate { get; set; }
         public float CircleSize { get; set; }

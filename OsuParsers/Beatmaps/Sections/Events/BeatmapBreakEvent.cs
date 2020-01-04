@@ -1,11 +1,11 @@
 ﻿namespace OsuParsers.Beatmaps.Sections.Events
 {
-    public class BreakEvent
+    public class BeatmapBreakEvent
     {
         public int StartTime { get; private set; }
         public int EndTime { get; private set; }
 
-        public BreakEvent(int startTime, int endTime)
+        public BeatmapBreakEvent(int startTime, int endTime)
         {
             StartTime = startTime;
             EndTime = endTime;

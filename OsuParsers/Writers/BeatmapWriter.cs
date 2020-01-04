@@ -4,7 +4,7 @@ using OsuParsers.Beatmaps.Sections;
 using OsuParsers.Enums.Storyboards;
 using OsuParsers.Helpers;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Linq;
 
 namespace OsuParsers.Writers
 {
@@ -28,15 +28,16 @@ namespace OsuParsers.Writers
             {
                 $"osu file format v{beatmap.Version}",
             };
+
             Sections.ForEach(stringList => stringList.ForEach(item => contents.Add(item)));
             return contents;
         }
 
         #region Sections
 
-        public static List<string> GeneralSection(GeneralSection section)
+        public static List<string> GeneralSection(BeatmapGeneralSection section)
         {
-            var list = BaseListFormat("General");
+            var list = WriteHelper.BaseListFormat("General");
             list.AddRange(new List<string>
             {
                 "AudioFilename: " + section.AudioFilename,
@@ -63,9 +64,9 @@ namespace OsuParsers.Writers
             return list;
         }
 
-        public static List<string> EditorSection(EditorSection section)
+        public static List<string> EditorSection(BeatmapEditorSection section)
         {
-            var list = BaseListFormat("Editor");
+            var list = WriteHelper.BaseListFormat("Editor");
             if (section.Bookmarks != null)
                 list.Add("Bookmarks: " + section.BookmarksString);
 
@@ -80,7 +81,7 @@ namespace OsuParsers.Writers
             return list;
         }
 
-        public static List<string> MetadataSection(MetadataSection section)
+        public static List<string> MetadataSection(BeatmapMetadataSection section)
         {
             return new List<string>
             {
@@ -99,7 +100,7 @@ namespace OsuParsers.Writers
             };
         }
 
-        public static List<string> DifficultySection(DifficultySection section)
+        public static List<string> DifficultySection(BeatmapDifficultySection section)
         {
             return new List<string>
             {
@@ -114,9 +115,9 @@ namespace OsuParsers.Writers
             };
         }
 
-        public static List<string> EventsSection(EventsSection section)
+        public static List<string> EventsSection(BeatmapEventsSection section)
         {
-            var list = BaseListFormat("Events");
+            var list = WriteHelper.BaseListFormat("Events");
             list.AddRange(new List<string>
             {
                 @"//Background and Video events",
@@ -127,7 +128,7 @@ namespace OsuParsers.Writers
                 list.Add($"Video,{section.VideoOffset},\"{section.Video}\"");
 
             list.Add(@"//Break Periods");
-            if (section.Breaks.Count > 0)
+            if (section.Breaks.Any())
                 list.AddRange(section.Breaks.ConvertAll(b => $"2,{b.StartTime},{b.EndTime}"));
 
             list.Add(@"//Storyboard Layer 0 (Background)");
@@ -151,19 +152,20 @@ namespace OsuParsers.Writers
             if (timingPoints.Count == 0)
                 return new List<string>();
 
-            var list = BaseListFormat("TimingPoints");
+            var list = WriteHelper.BaseListFormat("TimingPoints");
             if (timingPoints != null)
                 list.AddRange(timingPoints.ConvertAll(point => WriteHelper.TimingPoint(point)));
             list.Add(string.Empty); //osu!stable adds an extra blank line after timing points.
+
             return list;
         }
 
-        public static List<string> Colours(ColoursSection section)
+        public static List<string> Colours(BeatmapColoursSection section)
         {
             if (section.ComboColours.Count == 0 && section.SliderTrackOverride == default && section.SliderBorder == default)
                 return new List<string>();
 
-            var list = BaseListFormat("Colours");
+            var list = WriteHelper.BaseListFormat("Colours");
             if (section.ComboColours != null)
                 for (int i = 0; i < section.ComboColours.Count; i++)
                     list.Add($"Combo{i + 1} : {WriteHelper.Colour(section.ComboColours[i])}");
@@ -179,21 +181,12 @@ namespace OsuParsers.Writers
 
         public static List<string> HitObjects(List<HitObject> hitObjects)
         {
-            var list = BaseListFormat("HitObjects");
+            var list = WriteHelper.BaseListFormat("HitObjects");
             if (hitObjects != null)
                 list.AddRange(hitObjects.ConvertAll(obj => WriteHelper.HitObject(obj)));
             return list;
         }
 
         #endregion
-
-        public static List<string> BaseListFormat(string SectionName)
-        {
-            return new List<string>
-            {
-                string.Empty,
-                $"[{SectionName}]",
-            };
-        }
     }
 }

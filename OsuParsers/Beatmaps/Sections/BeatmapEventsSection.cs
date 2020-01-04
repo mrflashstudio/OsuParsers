@@ -4,12 +4,12 @@ using System.Collections.Generic;
 
 namespace OsuParsers.Beatmaps.Sections
 {
-    public class EventsSection
+    public class BeatmapEventsSection
     {
         public string BackgroundImage { get; set; }
         public string Video { get; set; }
         public int VideoOffset { get; set; }
-        public List<BreakEvent> Breaks { get; private set; } = new List<BreakEvent>();
+        public List<BeatmapBreakEvent> Breaks { get; private set; } = new List<BeatmapBreakEvent>();
         public Storyboard Storyboard { get; set; }
     }
 }

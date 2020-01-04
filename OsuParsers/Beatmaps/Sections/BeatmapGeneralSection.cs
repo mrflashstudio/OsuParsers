@@ -3,7 +3,7 @@ using OsuParsers.Enums.Beatmaps;
 
 namespace OsuParsers.Beatmaps.Sections
 {
-    public class GeneralSection
+    public class BeatmapGeneralSection
     {
         public string AudioFilename { get; set; }
         public int AudioLeadIn { get; set; }

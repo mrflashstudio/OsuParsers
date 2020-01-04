@@ -2,6 +2,7 @@
 using OsuParsers.Helpers;
 using OsuParsers.Storyboards;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OsuParsers.Writers
 {
@@ -11,7 +12,7 @@ namespace OsuParsers.Writers
         {
             var list = new List<string>();
 
-            if (storyboard.Variables != null && storyboard.Variables.Count > 0)
+            if (storyboard.Variables != null && storyboard.Variables.Any())
             {
                 list.Add("[Variables]");
 

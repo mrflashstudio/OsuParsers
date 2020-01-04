@@ -20,7 +20,7 @@ namespace OsuParsers.Beatmaps.Objects
             EdgeAdditions = edgeAdditions;
         }
 
-        public Slider(Vector2 position, int startTime, int endTime, HitSoundType hitSound, CurveType type, List<Vector2> points, 
+        public Slider(Vector2 position, int startTime, int endTime, HitSoundType hitSound, CurveType type, List<Vector2> points,
             int repeats, double pixelLength, bool isNewCombo, int comboOffset)
             : base(position, startTime, endTime, hitSound, null, isNewCombo, comboOffset)
         {

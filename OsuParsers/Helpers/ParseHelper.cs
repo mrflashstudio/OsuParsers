@@ -1,3 +1,4 @@
+using OsuParsers.Enums;
 using OsuParsers.Enums.Beatmaps;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ namespace OsuParsers.Helpers
 {
     internal static class ParseHelper
     {
-        public static Sections GetCurrentSection(string line)
+        public static FileSections GetCurrentSection(string line)
         {
-            Sections parsedSection = Sections.None;
+            FileSections parsedSection = FileSections.None;
             Enum.TryParse(line.Trim(new char[] { '[', ']' }), true, out parsedSection);
             return parsedSection;
         }
@@ -52,27 +53,30 @@ namespace OsuParsers.Helpers
 
         public static Color ParseColour(string line)
         {
-            string[] tokens = line.Split(':');
-            int[] colour = tokens[1].Trim().Split(',').Select(c => Convert.ToInt32(c)).ToArray();
+            int[] colour = line.Split(',').Select(c => Convert.ToInt32(c)).ToArray();
             return Color.FromArgb(colour.Length == 4 ? colour[3] : 255, colour[0], colour[1], colour[2]);
         }
 
-        public static bool IsLineValid(string line, Sections currentSection)
+        public static bool IsLineValid(string line, FileSections currentSection)
         {
             switch (currentSection)
             {
-                case Sections.Format:
+                case FileSections.Format:
                     return line.ToLower().Contains("osu file format v");
-                case Sections.General:
-                case Sections.Editor:
-                case Sections.Metadata:
-                case Sections.Difficulty:
-                case Sections.Colours:
+                case FileSections.General:
+                case FileSections.Editor:
+                case FileSections.Metadata:
+                case FileSections.Difficulty:
+                case FileSections.Fonts:
+                case FileSections.Mania:
                     return line.Contains(":");
-                case Sections.Events:
-                case Sections.TimingPoints:
-                case Sections.HitObjects:
+                case FileSections.Events:
+                case FileSections.TimingPoints:
+                case FileSections.HitObjects:
                     return line.Contains(",");
+                case FileSections.Colours:
+                case FileSections.CatchTheBeat:
+                    return line.Contains(',') && line.Contains(':');
                 default: return false;
             }
         }

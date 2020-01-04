@@ -2,7 +2,6 @@ using OsuParsers.Beatmaps.Objects;
 using OsuParsers.Beatmaps.Sections;
 using OsuParsers.Helpers;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 
 namespace OsuParsers.Beatmaps
@@ -10,24 +9,24 @@ namespace OsuParsers.Beatmaps
     public class Beatmap
     {
         public int Version { get; set; }
-        public GeneralSection GeneralSection { get; set; }
-        public EditorSection EditorSection { get; set; }
-        public MetadataSection MetadataSection { get; set; }
-        public DifficultySection DifficultySection { get; set; }
-        public EventsSection EventsSection { get; set; }
-        public ColoursSection ColoursSection { get; set; }
+        public BeatmapGeneralSection GeneralSection { get; set; }
+        public BeatmapEditorSection EditorSection { get; set; }
+        public BeatmapMetadataSection MetadataSection { get; set; }
+        public BeatmapDifficultySection DifficultySection { get; set; }
+        public BeatmapEventsSection EventsSection { get; set; }
+        public BeatmapColoursSection ColoursSection { get; set; }
 
         public List<TimingPoint> TimingPoints { get; set; } = new List<TimingPoint>();
         public List<HitObject> HitObjects { get; set; } = new List<HitObject>();
 
         public Beatmap()
         {
-            GeneralSection = new GeneralSection();
-            EditorSection = new EditorSection();
-            MetadataSection = new MetadataSection();
-            DifficultySection = new DifficultySection();
-            EventsSection = new EventsSection();
-            ColoursSection = new ColoursSection();
+            GeneralSection = new BeatmapGeneralSection();
+            EditorSection = new BeatmapEditorSection();
+            MetadataSection = new BeatmapMetadataSection();
+            DifficultySection = new BeatmapDifficultySection();
+            EventsSection = new BeatmapEventsSection();
+            ColoursSection = new BeatmapColoursSection();
         }
 
         /// <summary>

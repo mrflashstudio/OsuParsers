@@ -1,6 +1,6 @@
-namespace OsuParsers.Enums.Beatmaps
+namespace OsuParsers.Enums
 {
-    public enum Sections
+    internal enum FileSections
     {
         None,
         Format,
@@ -11,6 +11,10 @@ namespace OsuParsers.Enums.Beatmaps
         Events,
         TimingPoints,
         Colours,
-        HitObjects
+        HitObjects,
+        //skin.ini sections
+        Fonts,
+        CatchTheBeat,
+        Mania
     }
 }

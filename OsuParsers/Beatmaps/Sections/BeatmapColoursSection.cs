@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace OsuParsers.Beatmaps.Sections
 {
-    public class ColoursSection
+    public class BeatmapColoursSection
     {
         public List<Color> ComboColours { get; set; } = new List<Color>();
         public Color SliderTrackOverride { get; set; }

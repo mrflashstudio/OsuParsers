@@ -19,7 +19,7 @@ namespace OsuParsers.Decoders
     public static class BeatmapDecoder
     {
         private static Beatmap Beatmap;
-        private static Sections currentSection = Sections.None;
+        private static FileSections currentSection = FileSections.None;
         private static List<string> sbLines = new List<string>();
 
         /// <summary>
@@ -43,14 +43,14 @@ namespace OsuParsers.Decoders
         public static Beatmap Decode(IEnumerable<string> lines)
         {
             Beatmap = new Beatmap();
-            currentSection = Sections.Format;
+            currentSection = FileSections.Format;
             sbLines.Clear();
 
             foreach (var line in lines)
             {
                 if (!string.IsNullOrWhiteSpace(line) && !line.StartsWith("//"))
                 {
-                    if (ParseHelper.GetCurrentSection(line) != Sections.None)
+                    if (ParseHelper.GetCurrentSection(line) != FileSections.None)
                         currentSection = ParseHelper.GetCurrentSection(line);
                     else if (ParseHelper.IsLineValid(line, currentSection))
                         ParseLine(line);
@@ -63,7 +63,7 @@ namespace OsuParsers.Decoders
             Beatmap.GeneralSection.SlidersCount = Beatmap.HitObjects.Count(c => c is Slider || c is TaikoDrumroll || c is ManiaHoldNote || c is CatchJuiceStream);
             Beatmap.GeneralSection.SpinnersCount = Beatmap.HitObjects.Count(c => c is Spinner || c is TaikoSpinner || c is CatchBananaRain);
 
-            Beatmap.GeneralSection.Length = Beatmap.HitObjects.Count > 0 ? Beatmap.HitObjects.Last().EndTime / 1000 : 0;
+            Beatmap.GeneralSection.Length = Beatmap.HitObjects.Any() ? Beatmap.HitObjects.Last().EndTime / 1000 : 0;
 
             return Beatmap;
         }
@@ -79,31 +79,31 @@ namespace OsuParsers.Decoders
         {
             switch (currentSection)
             {
-                case Sections.Format:
+                case FileSections.Format:
                     Beatmap.Version = Convert.ToInt32(line.Split(new string[] { "osu file format v" }, StringSplitOptions.None)[1]);
                     break;
-                case Sections.General:
+                case FileSections.General:
                     ParseGeneral(line);
                     break;
-                case Sections.Editor:
+                case FileSections.Editor:
                     ParseEditor(line);
                     break;
-                case Sections.Metadata:
+                case FileSections.Metadata:
                     ParseMetadata(line);
                     break;
-                case Sections.Difficulty:
+                case FileSections.Difficulty:
                     ParseDifficulty(line);
                     break;
-                case Sections.Events:
+                case FileSections.Events:
                     ParseEvents(line);
                     break;
-                case Sections.TimingPoints:
+                case FileSections.TimingPoints:
                     ParseTimingPoints(line);
                     break;
-                case Sections.Colours:
+                case FileSections.Colours:
                     ParseColours(line);
                     break;
-                case Sections.HitObjects:
+                case FileSections.HitObjects:
                     ParseHitObjects(line);
                     break;
             }
@@ -114,47 +114,48 @@ namespace OsuParsers.Decoders
             int index = line.IndexOf(':');
             string variable = line.Remove(index).Trim();
             string value = line.Remove(0, index + 1).Trim();
+
             switch (variable)
             {
                 case "AudioFilename":
-                    Beatmap.GeneralSection.AudioFilename = value.Trim();
+                    Beatmap.GeneralSection.AudioFilename = value;
                     break;
                 case "AudioLeadIn":
-                    Beatmap.GeneralSection.AudioLeadIn = Convert.ToInt32(value.Trim());
+                    Beatmap.GeneralSection.AudioLeadIn = Convert.ToInt32(value);
                     break;
                 case "PreviewTime":
-                    Beatmap.GeneralSection.PreviewTime = Convert.ToInt32(value.Trim());
+                    Beatmap.GeneralSection.PreviewTime = Convert.ToInt32(value);
                     break;
                 case "Countdown":
-                    Beatmap.GeneralSection.Countdown = ParseHelper.ToBool(value.Trim());
+                    Beatmap.GeneralSection.Countdown = ParseHelper.ToBool(value);
                     break;
                 case "SampleSet":
-                    Beatmap.GeneralSection.SampleSet = (SampleSet)Enum.Parse(typeof(SampleSet), value.Trim());
+                    Beatmap.GeneralSection.SampleSet = (SampleSet)Enum.Parse(typeof(SampleSet), value);
                     break;
                 case "StackLeniency":
-                    Beatmap.GeneralSection.StackLeniency = ParseHelper.ToDouble(value.Trim());
+                    Beatmap.GeneralSection.StackLeniency = ParseHelper.ToDouble(value);
                     break;
                 case "Mode":
-                    Beatmap.GeneralSection.Mode = (Ruleset)Enum.Parse(typeof(Ruleset), value.Trim());
-                    Beatmap.GeneralSection.ModeId = Convert.ToInt32(value.Trim());
+                    Beatmap.GeneralSection.Mode = (Ruleset)Enum.Parse(typeof(Ruleset), value);
+                    Beatmap.GeneralSection.ModeId = Convert.ToInt32(value);
                     break;
                 case "LetterboxInBreaks":
-                    Beatmap.GeneralSection.LetterboxInBreaks = ParseHelper.ToBool(value.Trim());
+                    Beatmap.GeneralSection.LetterboxInBreaks = ParseHelper.ToBool(value);
                     break;
                 case "WidescreenStoryboard":
-                    Beatmap.GeneralSection.WidescreenStoryboard = ParseHelper.ToBool(value.Trim());
+                    Beatmap.GeneralSection.WidescreenStoryboard = ParseHelper.ToBool(value);
                     break;
                 case "StoryFireInFront":
-                    Beatmap.GeneralSection.StoryFireInFront = ParseHelper.ToBool(value.Trim());
+                    Beatmap.GeneralSection.StoryFireInFront = ParseHelper.ToBool(value);
                     break;
                 case "SpecialStyle":
-                    Beatmap.GeneralSection.SpecialStyle = ParseHelper.ToBool(value.Trim());
+                    Beatmap.GeneralSection.SpecialStyle = ParseHelper.ToBool(value);
                     break;
                 case "EpilepsyWarning":
-                    Beatmap.GeneralSection.EpilepsyWarning = ParseHelper.ToBool(value.Trim());
+                    Beatmap.GeneralSection.EpilepsyWarning = ParseHelper.ToBool(value);
                     break;
                 case "UseSkinSprites":
-                    Beatmap.GeneralSection.UseSkinSprites = ParseHelper.ToBool(value.Trim());
+                    Beatmap.GeneralSection.UseSkinSprites = ParseHelper.ToBool(value);
                     break;
             }
         }
@@ -164,22 +165,23 @@ namespace OsuParsers.Decoders
             int index = line.IndexOf(':');
             string variable = line.Remove(index).Trim();
             string value = line.Remove(0, index + 1).Trim();
+
             switch (variable)
             {
                 case "Bookmarks":
-                    Beatmap.EditorSection.Bookmarks = value.Trim().Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(b => Convert.ToInt32(b)).ToArray();
+                    Beatmap.EditorSection.Bookmarks = value.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(b => Convert.ToInt32(b)).ToArray();
                     break;
                 case "DistanceSpacing":
-                    Beatmap.EditorSection.DistanceSpacing = ParseHelper.ToDouble(value.Trim());
+                    Beatmap.EditorSection.DistanceSpacing = ParseHelper.ToDouble(value);
                     break;
                 case "BeatDivisor":
-                    Beatmap.EditorSection.BeatDivisor = Convert.ToInt32(value.Trim());
+                    Beatmap.EditorSection.BeatDivisor = Convert.ToInt32(value);
                     break;
                 case "GridSize":
-                    Beatmap.EditorSection.GridSize = Convert.ToInt32(value.Trim());
+                    Beatmap.EditorSection.GridSize = Convert.ToInt32(value);
                     break;
                 case "TimelineZoom":
-                    Beatmap.EditorSection.TimelineZoom = ParseHelper.ToFloat(value.Trim());
+                    Beatmap.EditorSection.TimelineZoom = ParseHelper.ToFloat(value);
                     break;
             }
         }
@@ -189,37 +191,38 @@ namespace OsuParsers.Decoders
             int index = line.IndexOf(':');
             string variable = line.Remove(index).Trim();
             string value = line.Remove(0, index + 1).Trim();
+
             switch (variable)
             {
                 case "Title":
-                    Beatmap.MetadataSection.Title = value.Trim();
+                    Beatmap.MetadataSection.Title = value;
                     break;
                 case "TitleUnicode":
-                    Beatmap.MetadataSection.TitleUnicode = value.Trim();
+                    Beatmap.MetadataSection.TitleUnicode = value;
                     break;
                 case "Artist":
-                    Beatmap.MetadataSection.Artist = value.Trim();
+                    Beatmap.MetadataSection.Artist = value;
                     break;
                 case "ArtistUnicode":
-                    Beatmap.MetadataSection.ArtistUnicode = value.Trim();
+                    Beatmap.MetadataSection.ArtistUnicode = value;
                     break;
                 case "Creator":
-                    Beatmap.MetadataSection.Creator = value.Trim();
+                    Beatmap.MetadataSection.Creator = value;
                     break;
                 case "Version":
-                    Beatmap.MetadataSection.Version = value.Trim();
+                    Beatmap.MetadataSection.Version = value;
                     break;
                 case "Source":
-                    Beatmap.MetadataSection.Source = value.Trim();
+                    Beatmap.MetadataSection.Source = value;
                     break;
                 case "Tags":
-                    Beatmap.MetadataSection.Tags = value.Trim().Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    Beatmap.MetadataSection.Tags = value.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     break;
                 case "BeatmapID":
-                    Beatmap.MetadataSection.BeatmapID = Convert.ToInt32(value.Trim());
+                    Beatmap.MetadataSection.BeatmapID = Convert.ToInt32(value);
                     break;
                 case "BeatmapSetID":
-                    Beatmap.MetadataSection.BeatmapSetID = Convert.ToInt32(value.Trim());
+                    Beatmap.MetadataSection.BeatmapSetID = Convert.ToInt32(value);
                     break;
             }
         }
@@ -229,25 +232,26 @@ namespace OsuParsers.Decoders
             int index = line.IndexOf(':');
             string variable = line.Remove(index).Trim();
             string value = line.Remove(0, index + 1).Trim();
+
             switch (variable)
             {
                 case "HPDrainRate":
-                    Beatmap.DifficultySection.HPDrainRate = ParseHelper.ToFloat(value.Trim());
+                    Beatmap.DifficultySection.HPDrainRate = ParseHelper.ToFloat(value);
                     break;
                 case "CircleSize":
-                    Beatmap.DifficultySection.CircleSize = ParseHelper.ToFloat(value.Trim());
+                    Beatmap.DifficultySection.CircleSize = ParseHelper.ToFloat(value);
                     break;
                 case "OverallDifficulty":
-                    Beatmap.DifficultySection.OverallDifficulty = ParseHelper.ToFloat(value.Trim());
+                    Beatmap.DifficultySection.OverallDifficulty = ParseHelper.ToFloat(value);
                     break;
                 case "ApproachRate":
-                    Beatmap.DifficultySection.ApproachRate = ParseHelper.ToFloat(value.Trim());
+                    Beatmap.DifficultySection.ApproachRate = ParseHelper.ToFloat(value);
                     break;
                 case "SliderMultiplier":
-                    Beatmap.DifficultySection.SliderMultiplier = ParseHelper.ToDouble(value.Trim());
+                    Beatmap.DifficultySection.SliderMultiplier = ParseHelper.ToDouble(value);
                     break;
                 case "SliderTickRate":
-                    Beatmap.DifficultySection.SliderTickRate = ParseHelper.ToDouble(value.Trim());
+                    Beatmap.DifficultySection.SliderTickRate = ParseHelper.ToDouble(value);
                     break;
             }
         }
@@ -256,7 +260,7 @@ namespace OsuParsers.Decoders
         {
             string[] tokens = line.Split(',');
 
-            EventType eventType = default(EventType);
+            EventType eventType;
 
             if (Enum.TryParse(tokens[0], out EventType e))
                 eventType = (EventType)Enum.Parse(typeof(EventType), tokens[0]);
@@ -275,7 +279,7 @@ namespace OsuParsers.Decoders
                     Beatmap.EventsSection.VideoOffset = Convert.ToInt32(tokens[1]);
                     break;
                 case EventType.Break:
-                    Beatmap.EventsSection.Breaks.Add(new BreakEvent(Convert.ToInt32(tokens[1]), Convert.ToInt32(tokens[2])));
+                    Beatmap.EventsSection.Breaks.Add(new BeatmapBreakEvent(Convert.ToInt32(tokens[1]), Convert.ToInt32(tokens[2])));
                     break;
                 case EventType.Sprite:
                 case EventType.Animation:
@@ -332,18 +336,20 @@ namespace OsuParsers.Decoders
 
         private static void ParseColours(string line)
         {
-            string variable = line.Split(':')[0].Trim();
+            int index = line.IndexOf(':');
+            string variable = line.Remove(index).Trim();
+            string value = line.Remove(0, index + 1).Trim();
 
             switch (variable)
             {
                 case "SliderTrackOverride":
-                    Beatmap.ColoursSection.SliderTrackOverride = ParseHelper.ParseColour(line);
+                    Beatmap.ColoursSection.SliderTrackOverride = ParseHelper.ParseColour(value);
                     break;
                 case "SliderBorder":
-                    Beatmap.ColoursSection.SliderBorder = ParseHelper.ParseColour(line);
+                    Beatmap.ColoursSection.SliderBorder = ParseHelper.ParseColour(value);
                     break;
                 default:
-                    Beatmap.ColoursSection.ComboColours.Add(ParseHelper.ParseColour(line));
+                    Beatmap.ColoursSection.ComboColours.Add(ParseHelper.ParseColour(value));
                     break;
             }
         }

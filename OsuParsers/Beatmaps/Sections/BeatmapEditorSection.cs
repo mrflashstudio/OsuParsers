@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace OsuParsers.Beatmaps.Sections
 {
-    public class EditorSection
+    public class BeatmapEditorSection
     {
         public int[] Bookmarks { get; set; }
         public string BookmarksString

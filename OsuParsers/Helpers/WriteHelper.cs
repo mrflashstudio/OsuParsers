@@ -223,5 +223,14 @@ namespace OsuParsers.Helpers
                     return string.Empty;
             }
         }
+
+        public static List<string> BaseListFormat(string SectionName)
+        {
+            return new List<string>
+            {
+                string.Empty,
+                $"[{SectionName}]",
+            };
+        }
     }
 }
