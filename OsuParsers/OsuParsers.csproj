@@ -4,11 +4,11 @@
     <RootNamespace>OsuParsers</RootNamespace>
     <Authors>mrflashstudio</Authors>
     <Company />
-    <Version>1.6.4</Version>
+    <Version>1.6.5</Version>
     <Description>Library for parsing/writing files associated with osu!</Description>
     <Copyright></Copyright>
-    <AssemblyVersion>1.6.4.0</AssemblyVersion>
-    <FileVersion>1.6.4.0</FileVersion>
+    <AssemblyVersion>1.6.5.0</AssemblyVersion>
+    <FileVersion>1.6.5.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
