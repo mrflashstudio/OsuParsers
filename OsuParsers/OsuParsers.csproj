@@ -4,7 +4,7 @@
     <RootNamespace>OsuParsers</RootNamespace>
     <Authors>mrflashstudio</Authors>
     <Company />
-    <Version>1.6.3</Version>
+    <Version>1.6.4</Version>
     <Description>Library for parsing/writing files associated with osu!</Description>
     <Copyright></Copyright>
     <AssemblyVersion>1.6.4.0</AssemblyVersion>
