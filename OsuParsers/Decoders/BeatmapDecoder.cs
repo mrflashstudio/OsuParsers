@@ -428,13 +428,13 @@ namespace OsuParsers.Decoders
 
                     if (Beatmap.GeneralSection.Mode == Ruleset.Standard)
                         hitObject = new Slider(position, startTime, endTime, hitSound, curveType, sliderPoints, repeats,
-                            pixelLength, edgeHitSounds, edgeAdditions, extras, isNewCombo, comboOffset);
+                            pixelLength, isNewCombo, comboOffset, edgeHitSounds, edgeAdditions, extras);
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Taiko)
                         hitObject = new TaikoDrumroll(position, startTime, endTime, hitSound, curveType, sliderPoints,
                             repeats, pixelLength, edgeHitSounds, edgeAdditions, extras, isNewCombo, comboOffset);
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Fruits)
                         hitObject = new CatchJuiceStream(position, startTime, endTime, hitSound, curveType, sliderPoints,
-                            repeats, pixelLength, edgeHitSounds, edgeAdditions, extras, isNewCombo, comboOffset);
+                            repeats, pixelLength, isNewCombo, comboOffset, edgeHitSounds, edgeAdditions, extras);
                     else if (Beatmap.GeneralSection.Mode == Ruleset.Mania)
                         hitObject = new ManiaHoldNote(position, startTime, endTime, hitSound, extras, isNewCombo, comboOffset);
                 }
