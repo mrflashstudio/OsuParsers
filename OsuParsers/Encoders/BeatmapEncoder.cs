@@ -6,11 +6,11 @@ using OsuParsers.Helpers;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OsuParsers.Writers
+namespace OsuParsers.Encoders
 {
-    internal class BeatmapWriter
+    internal class BeatmapEncoder
     {
-        public static List<string> Write(Beatmap beatmap)
+        public static List<string> Encode(Beatmap beatmap)
         {
             var Sections = new List<List<string>>
             {

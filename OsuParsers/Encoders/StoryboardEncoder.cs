@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace OsuParsers.Writers
 {
-    internal class StoryboardWriter
+    internal class StoryboardEncoder
     {
-        public static List<string> Write(Storyboard storyboard)
+        public static List<string> Encode(Storyboard storyboard)
         {
             var list = new List<string>();
 

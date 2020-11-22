@@ -3,11 +3,11 @@ using OsuParsers.Serialization;
 using System.IO;
 using System.Linq;
 
-namespace OsuParsers.Writers
+namespace OsuParsers.Encoders
 {
-    internal class DatabaseWriter
+    internal class DatabaseEncoder
     {
-        public static void WriteOsuDatabase(string path, OsuDatabase db)
+        public static void EncodeOsuDatabase(string path, OsuDatabase db)
         {
             using (SerializationWriter writer = new SerializationWriter(new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read)))
             {
@@ -92,7 +92,7 @@ namespace OsuParsers.Writers
             }
         }
 
-        public static void WriteCollectionDatabase(string path, CollectionDatabase db)
+        public static void EncodeCollectionDatabase(string path, CollectionDatabase db)
         {
             using (SerializationWriter writer = new SerializationWriter(new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read)))
             {
@@ -110,7 +110,7 @@ namespace OsuParsers.Writers
             }
         }
 
-        public static void WriteScoresDatabase(string path, ScoresDatabase db)
+        public static void EncodeScoresDatabase(string path, ScoresDatabase db)
         {
             using (SerializationWriter writer = new SerializationWriter(new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read)))
             {
@@ -148,7 +148,7 @@ namespace OsuParsers.Writers
             }
         }
 
-        public static void WritePresenceDatabase(string path, PresenceDatabase db)
+        public static void EncodePresenceDatabase(string path, PresenceDatabase db)
         {
             using (SerializationWriter writer = new SerializationWriter(new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read)))
             {

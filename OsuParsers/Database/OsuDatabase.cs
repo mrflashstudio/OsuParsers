@@ -1,8 +1,8 @@
 ﻿using OsuParsers.Database.Objects;
 using OsuParsers.Enums.Database;
-using OsuParsers.Writers;
 using System;
 using System.Collections.Generic;
+using OsuParsers.Encoders;
 
 namespace OsuParsers.Database
 {
@@ -14,15 +14,15 @@ namespace OsuParsers.Database
         public DateTime UnlockDate { get; set; }
         public string PlayerName { get; set; }
         public int BeatmapCount { get; set; }
-        public List<DbBeatmap> Beatmaps { get; private set; } = new List<DbBeatmap>();
+        public List<DbBeatmap> Beatmaps { get; set; } = new List<DbBeatmap>();
         public Permissions Permissions { get; set; }
 
         /// <summary>
-        /// Writes this <see cref="OsuDatabase"/> to the specified path.
+        /// Saves this <see cref="OsuDatabase"/> to the specified path.
         /// </summary>
-        public void Write(string path)
+        public void Save(string path)
         {
-            DatabaseWriter.WriteOsuDatabase(path, this);
+            DatabaseEncoder.EncodeOsuDatabase(path, this);
         }
     }
 }

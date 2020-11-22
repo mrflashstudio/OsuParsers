@@ -2,6 +2,7 @@
 using OsuParsers.Storyboards.Interfaces;
 using System.Collections.Generic;
 using System.IO;
+using OsuParsers.Writers;
 
 namespace OsuParsers.Storyboards
 {
@@ -41,11 +42,11 @@ namespace OsuParsers.Storyboards
         }
 
         /// <summary>
-        /// Writes this <see cref="Storyboard"/> to the specified path.
+        /// Saves this <see cref="Storyboard"/> to the specified path.
         /// </summary>
-        public void Write(string path)
+        public void Save(string path)
         {
-            File.WriteAllLines(path, Writers.StoryboardWriter.Write(this));
+            File.WriteAllLines(path, StoryboardEncoder.Encode(this));
         }
     }
 }

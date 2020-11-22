@@ -7,11 +7,11 @@ using OsuParsers.Serialization;
 using System.IO;
 using System.Text;
 
-namespace OsuParsers.Writers
+namespace OsuParsers.Encoders
 {
-    internal class ReplayWriter
+    internal class ReplayEncoder
     {
-        public static void Write(Replay replay, string path)
+        public static void Encode(Replay replay, string path)
         {
             using (SerializationWriter writer = new SerializationWriter(new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.Read)))
             {

@@ -7,11 +7,11 @@ namespace OsuParsers.Beatmaps.Sections
     {
         public string AudioFilename { get; set; }
         public int AudioLeadIn { get; set; }
-        public int PreviewTime { get; set; }
-        public bool Countdown { get; set; }
-        public SampleSet SampleSet { get; set; }
-        public double StackLeniency { get; set; }
-        public Ruleset Mode { get; set; }
+        public int PreviewTime { get; set; } = -1;
+        public bool Countdown { get; set; } = true;
+        public SampleSet SampleSet { get; set; } = SampleSet.Normal;
+        public double StackLeniency { get; set; } = 0.7f;
+        public Ruleset Mode { get; set; } = Ruleset.Standard;
         public int ModeId { get; set; }
         public bool LetterboxInBreaks { get; set; }
         public bool WidescreenStoryboard { get; set; }

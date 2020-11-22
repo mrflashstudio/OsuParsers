@@ -3,31 +3,24 @@ using OsuParsers.Beatmaps.Sections;
 using OsuParsers.Helpers;
 using System.Collections.Generic;
 using System.IO;
+using OsuParsers.Encoders;
 
 namespace OsuParsers.Beatmaps
 {
     public class Beatmap
     {
-        public int Version { get; set; }
-        public BeatmapGeneralSection GeneralSection { get; set; }
-        public BeatmapEditorSection EditorSection { get; set; }
-        public BeatmapMetadataSection MetadataSection { get; set; }
-        public BeatmapDifficultySection DifficultySection { get; set; }
-        public BeatmapEventsSection EventsSection { get; set; }
-        public BeatmapColoursSection ColoursSection { get; set; }
+        public const int LATEST_OSZ_VERSION = 14;
+        
+        public int Version { get; set; } = LATEST_OSZ_VERSION;
+        public BeatmapGeneralSection GeneralSection { get; set; } = new BeatmapGeneralSection();
+        public BeatmapEditorSection EditorSection { get; set; } = new BeatmapEditorSection();
+        public BeatmapMetadataSection MetadataSection { get; set; } = new BeatmapMetadataSection();
+        public BeatmapDifficultySection DifficultySection { get; set; } = new BeatmapDifficultySection();
+        public BeatmapEventsSection EventsSection { get; set; } = new BeatmapEventsSection();
+        public BeatmapColoursSection ColoursSection { get; set; } = new BeatmapColoursSection();
 
         public List<TimingPoint> TimingPoints { get; set; } = new List<TimingPoint>();
         public List<HitObject> HitObjects { get; set; } = new List<HitObject>();
-
-        public Beatmap()
-        {
-            GeneralSection = new BeatmapGeneralSection();
-            EditorSection = new BeatmapEditorSection();
-            MetadataSection = new BeatmapMetadataSection();
-            DifficultySection = new BeatmapDifficultySection();
-            EventsSection = new BeatmapEventsSection();
-            ColoursSection = new BeatmapColoursSection();
-        }
 
         /// <summary>
         /// Returns nearest beat length from the given offset.
@@ -62,11 +55,11 @@ namespace OsuParsers.Beatmaps
         }
 
         /// <summary>
-        /// Writes this <see cref="Beatmap"/> to the specified path.
+        /// Saves this <see cref="Beatmap"/> to the specified path.
         /// </summary>
-        public void Write(string path)
+        public void Save(string path)
         {
-            File.WriteAllLines(path, Writers.BeatmapWriter.Write(this));
+            File.WriteAllLines(path, BeatmapEncoder.Encode(this));
         }
     }
 }

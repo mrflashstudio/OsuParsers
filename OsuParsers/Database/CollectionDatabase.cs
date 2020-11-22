@@ -1,6 +1,6 @@
 ﻿using OsuParsers.Database.Objects;
-using OsuParsers.Writers;
 using System.Collections.Generic;
+using OsuParsers.Encoders;
 
 namespace OsuParsers.Database
 {
@@ -8,14 +8,14 @@ namespace OsuParsers.Database
     {
         public int OsuVersion { get; set; }
         public int CollectionCount { get; set; }
-        public List<Collection> Collections { get; private set; } = new List<Collection>();
+        public List<Collection> Collections { get; set; } = new List<Collection>();
 
         /// <summary>
-        /// Writes this <see cref="CollectionDatabase"/> to the specified path.
+        /// Saves this <see cref="CollectionDatabase"/> to the specified path.
         /// </summary>
-        public void Write(string path)
+        public void Save(string path)
         {
-            DatabaseWriter.WriteCollectionDatabase(path, this);
+            DatabaseEncoder.EncodeCollectionDatabase(path, this);
         }
     }
 }

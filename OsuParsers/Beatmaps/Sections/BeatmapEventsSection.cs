@@ -9,7 +9,7 @@ namespace OsuParsers.Beatmaps.Sections
         public string BackgroundImage { get; set; }
         public string Video { get; set; }
         public int VideoOffset { get; set; }
-        public List<BeatmapBreakEvent> Breaks { get; private set; } = new List<BeatmapBreakEvent>();
-        public Storyboard Storyboard { get; set; }
+        public List<BeatmapBreakEvent> Breaks { get; set; } = new List<BeatmapBreakEvent>();
+        public Storyboard Storyboard { get; set; } = new Storyboard();
     }
 }

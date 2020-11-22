@@ -1,8 +1,8 @@
 ﻿using OsuParsers.Enums;
 using OsuParsers.Replays.Objects;
-using OsuParsers.Writers;
 using System;
 using System.Collections.Generic;
+using OsuParsers.Encoders;
 
 namespace OsuParsers.Replays
 {
@@ -31,11 +31,11 @@ namespace OsuParsers.Replays
         public long OnlineId { get; set; }
 
         /// <summary>
-        /// Writes this <see cref="Replay"/> to the specified path.
+        /// Saves this <see cref="Replay"/> to the specified path.
         /// </summary>
-        public void Write(string path)
+        public void Save(string path)
         {
-            ReplayWriter.Write(this, path);
+            ReplayEncoder.Encode(this, path);
         }
     }
 }
