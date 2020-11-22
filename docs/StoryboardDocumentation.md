@@ -27,7 +27,7 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/Storyboard_Sc
 | SamplesLayer                    | List\<IStoryboardObject\>    | Storyboard layer that contains audio samples.                    |
 | Variables                       | Dictionary\<string, string\> | Contains pairs of variable names and values.                     |
 | GetLayer(StoryboardLayer layer) | List\<IStoryboardObject\>    | Returns one of the six lists specified above.                    |
-| Write(string path)              | void                         | Writes this Storyboard to the specified path.                    |
+| Save(string path)               | void                         | Writes this Storyboard to the specified path.                    |
 
 # Interfaces
 ### IStoryboardObject properties

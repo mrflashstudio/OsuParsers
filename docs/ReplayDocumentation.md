@@ -23,13 +23,13 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_For
 | Combo              | ushort              | Greatest combo displayed on the score report.                          |
 | PerfectCombo       | bool                | Perfect/full combo.                                                    |
 | Mods               | Mods                | Mods used.                                                             |
-| DateTime           | ReplayTimestamp     | Time stamp.                                                            |
+| ReplayTimestamp    | DateTime            | Time stamp.                                                            |
 | ReplayLength       | int                 | Length in bytes of compressed replay data.                             |
 | ReplayFrames       | List\<ReplayFrame\> | Replay data.                                                           |
 | LifeFrames         | List\<LifeFrame\>   | Life bar graph data.                                                   |
 | Seed               | int                 | RNG seed. (used in replays with osu!mania random mod)                  |
 | OnlineId           | long                | Online Score ID                                                        |
-| Write(string path) | void                | Writes this Replay to the specified path.                              |
+| Save(string path)  | void                | Writes this Replay to the specified path.                              |
 
 ### LifeFrame properties
 | Name       | Type  | Description                                               |

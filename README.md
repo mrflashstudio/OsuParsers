@@ -152,7 +152,7 @@ namespace SomeNamespace
             //changing song title
             beatmap.MetadataSection.Title = newTitle;
             //writing beatmap to file
-            beatmap.Write(@"pathToNewBeatmap.osu");
+            beatmap.Save(@"pathToNewBeatmap.osu");
         }
     }
 }
@@ -177,7 +177,7 @@ namespace SomeNamespace
             //changing filepath of the first storyboard object in background layer
             storyboard.BackgroundLayer[0].FilePath = newFilePath;
             //writing storyboard to file
-            beatmap.Write(@"pathToNewStoryboard.osb");
+            beatmap.Save(@"pathToNewStoryboard.osb");
         }
     }
 }
@@ -202,7 +202,7 @@ namespace SomeNamespace
             //changing player name
             replay.PlayerName = newPlayerName;
             //writing replay to file
-            replay.Write(@"pathToNewReplay.osr");
+            replay.Save(@"pathToNewReplay.osr");
         }
     }
 }
@@ -226,7 +226,7 @@ namespace SomeNamespace
             //changing permissions
             db.Permissions = Permissions.Supporter;
             //writing database to file
-            db.Write(@"pathToNewOsuDb.db");
+            db.Save(@"pathToNewOsuDb.db");
         }
     }
 }

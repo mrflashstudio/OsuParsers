@@ -22,7 +22,7 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_For
 | BeatmapCount       | int             | Number of beatmaps.                                         |
 | Beatmaps           | List<DbBeatmap> | Aforementioned beatmaps.                                    |
 | Permissions        | Permissions     | Represents all permissions you have. (e.g. Supporter)       |
-| Write(string path) | void            | Writes this OsuDatabase to the specified path.              |
+| Save(string path)  | void            | Writes this OsuDatabase to the specified path.              |
 
 ### DbBeatmap properties
 | Name                      | Type                       | Description                                                                                         |
@@ -94,7 +94,7 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_For
 | OsuVersion         | int                | osu! version                                          |
 | CollectionCount    | int                | Number of collections.                                |
 | Collections        | List\<Collection\> | Collections.                                          |
-| Write(string path) | void               | Writes this CollectionDatabase to the specified path. |
+| Save(string path)  | void               | Writes this CollectionDatabase to the specified path. |
 
 ### Collection properties
 | Name      | Type           | Description                           |
@@ -108,7 +108,7 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_For
 |--------------------|----------------------------------|--------------------------------------------------------------------|
 | OsuVersion         | int                              | osu! version                                                       |
 | Scores             | List<Tuple<string, List<Score>>> | List with pairs of Beatmap MD5 hash and scores of this beatmap.    |
-| Write(string path) | void                             | Writes this ScoresDatabase to the specified path.                  |
+| Save(string path)  | void                             | Writes this ScoresDatabase to the specified path.                  |
 
 ### Score properties
 | Name           | Type            | Description                                                            |
@@ -136,7 +136,7 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_For
 |--------------------|----------------|-----------------------------------------------------|
 | OsuVersion         | int            | osu! version                                        |
 | Players            | List\<Player\> | All players of this database.                       |
-| Write(string path) | void           | Writes this PresenceDatabase to the specified path. |
+| Save(string path)  | void           | Writes this PresenceDatabase to the specified path. |
 
 ### Player properties
 | Name           | Type        | Description                                        |
