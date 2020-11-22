@@ -20,19 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Skins\AngelsimSkin.ini" />
-    <EmbeddedResource Include="Resources\Skins\BeasttrollMCSkin.ini" />
-    <EmbeddedResource Include="Resources\Skins\CookieziSkin.ini" />
-    <EmbeddedResource Include="Resources\Skins\DokidokilolixxSkin.ini" />
-    <EmbeddedResource Include="Resources\Skins\InformousSkin.ini" />
-    <EmbeddedResource Include="Resources\Skins\MathiTunaSkin.ini" />
-    <EmbeddedResource Include="Resources\Skins\RafisSkin.ini" />
-    <EmbeddedResource Include="Resources\Skins\VarvalianSkin.ini" />
-    <EmbeddedResource Include="Resources\Skins\VaxeiSkin.ini" />
-    <EmbeddedResource Include="Resources\Skins\YugenSkin.ini" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.4.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.4.0" />
