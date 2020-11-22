@@ -7,8 +7,9 @@
     <Version>1.6.5</Version>
     <Description>Library for parsing/writing files associated with osu!</Description>
     <Copyright></Copyright>
-    <AssemblyVersion>1.6.5.0</AssemblyVersion>
-    <FileVersion>1.6.5.0</FileVersion>
+    <AssemblyVersion>1.7.0.0</AssemblyVersion>
+    <FileVersion>1.7.0.0</FileVersion>
+    <PackageVersion>1.7.0</PackageVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
