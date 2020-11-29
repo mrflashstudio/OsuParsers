@@ -63,7 +63,7 @@ namespace OsuParsers.Decoders
             Beatmap.GeneralSection.SlidersCount = Beatmap.HitObjects.Count(c => c is Slider || c is TaikoDrumroll || c is ManiaHoldNote || c is CatchJuiceStream);
             Beatmap.GeneralSection.SpinnersCount = Beatmap.HitObjects.Count(c => c is Spinner || c is TaikoSpinner || c is CatchBananaRain);
 
-            Beatmap.GeneralSection.Length = Beatmap.HitObjects.Any() ? Beatmap.HitObjects.Last().EndTime / 1000 : 0;
+            Beatmap.GeneralSection.Length = Beatmap.HitObjects.Any() ? Beatmap.HitObjects.Last().EndTime : 0;
 
             return Beatmap;
         }
