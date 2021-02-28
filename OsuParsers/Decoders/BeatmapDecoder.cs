@@ -316,7 +316,7 @@ namespace OsuParsers.Decoders
                 volume = Convert.ToInt32(tokens[5]);
 
             if (tokens.Length >= 7)
-                inherited = ParseHelper.ToBool(tokens[6]);
+                inherited = !ParseHelper.ToBool(tokens[6]);
 
             if (tokens.Length >= 8)
                 effects = (Effects)Convert.ToInt32(tokens[7]);
