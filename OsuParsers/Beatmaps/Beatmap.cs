@@ -40,9 +40,9 @@ namespace OsuParsers.Beatmaps
                 if (TimingPoints[i].Offset <= offset)
                 {
                     if (TimingPoints[i].Inherited)
-                        timingPoint = i;
-                    else
                         samplePoint = i;
+                    else
+                        timingPoint = i;
                 }
             }
 
