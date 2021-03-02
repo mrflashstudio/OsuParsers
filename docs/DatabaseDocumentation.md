@@ -82,11 +82,11 @@ Also, see an [official documentation](https://osu.ppy.sh/help/wiki/osu!_File_For
 | ManiaScrollSpeed          | byte                       | Mania scroll speed                                                                                  |
 
 ### DbTimingPoint properties
-| Name      | Type   | Description                                                                         |
-|-----------|--------|-------------------------------------------------------------------------------------|
-| BPM       | double | BPM of this timing point.                                                           |
-| Offset    | double | Offset into the song.                                                               |
-| Inherited | bool   | Is this timing point inherited. (if false, then this timing point is inherited) (?) |
+| Name      | Type   | Description                     |
+|-----------|--------|---------------------------------|
+| BPM       | double | BPM of this timing point.       |
+| Offset    | double | Offset into the song.           |
+| Inherited | bool   | Is this timing point inherited. |
 
 # CollectionDatabase properties
 | Name               | Type               | Description                                           |
