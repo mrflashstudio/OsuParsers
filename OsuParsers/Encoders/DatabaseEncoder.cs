@@ -56,7 +56,7 @@ namespace OsuParsers.Encoders
                     {
                         writer.Write(beatmap.TimingPoints[j].BPM);
                         writer.Write(beatmap.TimingPoints[j].Offset);
-                        writer.Write(beatmap.TimingPoints[j].Inherited);
+                        writer.Write(!beatmap.TimingPoints[j].Inherited);
                     }
                     writer.Write(beatmap.BeatmapId);
                     writer.Write(beatmap.BeatmapSetId);
