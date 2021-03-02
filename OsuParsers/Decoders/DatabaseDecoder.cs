@@ -88,7 +88,7 @@ namespace OsuParsers.Decoders
                         DbTimingPoint timingPoint = new DbTimingPoint();
                         timingPoint.BPM = r.ReadDouble();
                         timingPoint.Offset = r.ReadDouble();
-                        timingPoint.Inherited = r.ReadBoolean();
+                        timingPoint.Inherited = !r.ReadBoolean();
                         beatmap.TimingPoints.Add(timingPoint);
                     }
 
