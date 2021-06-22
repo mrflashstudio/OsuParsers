@@ -33,7 +33,11 @@ namespace OsuParsers.Serialization
 
         public DateTime ReadDateTime()
         {
-            return new DateTime(ReadInt64(), DateTimeKind.Utc);
+            var ticks = ReadInt64();
+            if (ticks < 0 || ticks > 3155378975999999999)
+                ticks = 0;
+
+            return new DateTime(ticks, DateTimeKind.Utc);
         }
 
         public List<T> ReadList<T>()
