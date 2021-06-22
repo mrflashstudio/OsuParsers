@@ -25,7 +25,7 @@ namespace OsuParsers.Helpers
             var uninherited = (!timingPoint.Inherited).ToInt32();
             var effects = (int)timingPoint.Effects;
 
-            return $"{offset},{msPerBeat},{meter},{sampleSet},{sampleIndex},{volume},{inherited},{effects}";
+            return $"{offset},{msPerBeat},{meter},{sampleSet},{sampleIndex},{volume},{uninherited},{effects}";
         }
 
         public static string Colour(Color colour)
