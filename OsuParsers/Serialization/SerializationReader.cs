@@ -54,7 +54,7 @@ namespace OsuParsers.Serialization
             int count = ReadInt32();
             if (count < 0) return null;
             Dictionary<T, U> d = new Dictionary<T, U>();
-            for (int i = 0; i < count; i++) d[(T)ReadObject()] = (U)ReadObject();
+            for (int i = 0; i < count; i++) d[(T)ReadObject()] = (U)Convert.ChangeType(ReadObject(), typeof(U));
             return d;
         }
 
