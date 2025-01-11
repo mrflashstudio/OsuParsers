@@ -41,7 +41,14 @@ namespace OsuParsers.Encoders
                     writer.Write(beatmap.HPDrain);
                     writer.Write(beatmap.OverallDifficulty);
                     writer.Write(beatmap.SliderVelocity);
-                    if (db.OsuVersion >= 20140609)
+                    if (db.OsuVersion >= 20250107)
+                    {
+                        writer.Write(beatmap.StandardStarRating.ToDictionary(d => (int)d.Key, d => (float)d.Value));
+                        writer.Write(beatmap.TaikoStarRating.ToDictionary(d => (int)d.Key, d => (float)d.Value));
+                        writer.Write(beatmap.CatchStarRating.ToDictionary(d => (int)d.Key, d => (float)d.Value));
+                        writer.Write(beatmap.ManiaStarRating.ToDictionary(d => (int)d.Key, d => (float)d.Value));
+                    }
+                    else if (db.OsuVersion >= 20140609)
                     {
                         writer.Write(beatmap.StandardStarRating.ToDictionary(d => (int)d.Key, d => d.Value));
                         writer.Write(beatmap.TaikoStarRating.ToDictionary(d => (int)d.Key, d => d.Value));
